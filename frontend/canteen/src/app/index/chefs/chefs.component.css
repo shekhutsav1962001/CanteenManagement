@@ -1,0 +1,15 @@
+.img-fluid{
+  transition: 0.4s ease;
+  /* margin-bottom: 20px; */
+}
+.img-fluid:hover{
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.7);
+}
+
+h4{
+  font-family: Poppins, sans-serif;
+  letter-spacing: 2px;
+  margin-top: 2px;
+  color: gray;
+  text-transform: uppercase;
+}
