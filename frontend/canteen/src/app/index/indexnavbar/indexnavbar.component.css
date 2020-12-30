@@ -36,7 +36,7 @@ ul li a{
   width: 100%;
   height: 2px;
 
-  background-color:tomato;
+  background-color:#F8C44C;
 
   -webkit-transition: transform 250ms;
   transition: transform 250ms;
