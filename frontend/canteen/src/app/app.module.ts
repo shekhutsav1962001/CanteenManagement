@@ -13,6 +13,9 @@ import { NotfoundComponent } from './error/notfound/notfound.component';
 import { FoodComponent } from './index/food/food.component';
 import { ChefsComponent } from './index/chefs/chefs.component';
 import { HeaderComponent } from './index/header/header.component';
+import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
+import { UserhomeComponent } from './user/userhome/userhome.component';
+import { LoginregisterComponent } from './auth/loginregister/loginregister.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { HeaderComponent } from './index/header/header.component';
     NotfoundComponent,
     FoodComponent,
     ChefsComponent,
-    HeaderComponent
+    HeaderComponent,
+    AdminhomeComponent,
+    UserhomeComponent,
+    LoginregisterComponent
   ],
   imports: [
     BrowserModule,

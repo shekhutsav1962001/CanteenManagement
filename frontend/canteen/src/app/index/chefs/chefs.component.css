@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
 .img-fluid{
   transition: 0.4s ease;
   /* margin-bottom: 20px; */
@@ -13,3 +14,22 @@ h4{
   color: gray;
   text-transform: uppercase;
 }
+
+h2{
+  /* text-decoration: none;
+  text-transform: capitalize;
+  font-family: 'Patrick Hand SC', cursive;
+  font-weight: bold;
+  font-size: 50px;
+  color:#2f2e41;
+  text-shadow:#F8C44C 2px 2px 2px; */
+
+  font-family: "Kaushan Script", cursive;
+  text-transform: capitalize;
+  text-align: center;
+  font-size: 60px;
+  letter-spacing: 2px;
+  color:#2f2e41;
+  text-shadow:#F8C44C 2px 2px 2px;
+}
+

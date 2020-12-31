@@ -4,7 +4,7 @@ body {
 }
 
 .lead{
-    color: #0A192F;
+    color: #2f2e41;
     font-weight: bold;
     letter-spacing: 2px;
 }
@@ -44,3 +44,20 @@ body {
   }
 }
 
+#mybtn{
+     display: none;
+      position:fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 99;
+      border: none;
+      color:#F8C44C;
+      background:white;
+      /* background: #F8C44C; */
+      padding: 10px;
+      border-radius: 10px;
+  }
+#mybtn:hover{
+      color: tomato;
+      /* color :#F8C44C */
+}
