@@ -4,6 +4,11 @@ var cors = require('cors')
 var bodyParser = require('body-parser')
 const PORT = process.env.PORT || 3000
 
+// all routes
+var authRoutes = require('./routes/authRoute')
+var adminRoutes = require('./routes/adminRoute')
+var userRoutes = require('./routes/userRoute')
+
 
 
 // some dependency
@@ -21,6 +26,10 @@ app.get('/', (req, res) => {
     res.send("Hello Utsav from Canteen Server")
 })
 
+// use all routes
+app.use('/', authRoutes)
+app.use('/admin', adminRoutes)
+app.use('/user', userRoutes)
 
 
 // for debugging

@@ -16,6 +16,10 @@ import { HeaderComponent } from './index/header/header.component';
 import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { UserhomeComponent } from './user/userhome/userhome.component';
 import { LoginregisterComponent } from './auth/loginregister/loginregister.component';
+import { AdminGuard } from './admin/admin.guard';
+import { UserGuard } from './user/user.guard';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { ServererrorComponent } from './error/servererror/servererror.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,8 @@ import { LoginregisterComponent } from './auth/loginregister/loginregister.compo
     HeaderComponent,
     AdminhomeComponent,
     UserhomeComponent,
-    LoginregisterComponent
+    LoginregisterComponent,
+    ServererrorComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,11 @@ import { LoginregisterComponent } from './auth/loginregister/loginregister.compo
     BrowserAnimationsModule, // required animations  module
     ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [AdminGuard,UserGuard,{
+    provide:HTTP_INTERCEPTORS,
+    useClass:TokenInterceptorService,
+    multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
