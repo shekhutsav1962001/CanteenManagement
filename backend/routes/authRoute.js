@@ -10,7 +10,8 @@ router.post('/login', authController.logIn)
 
 router.post('/reset', authController.Reset)
 router.post('/reset-password-done', authController.resestPasswordDone)
+router.post('/change-password', authController.verifyToken,authController.changePassword)
 
-
+// hello
 router.get('/check', authController.verifyToken, authController.getCheck)
 module.exports = router

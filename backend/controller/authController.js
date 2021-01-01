@@ -9,12 +9,12 @@ exports.getCheck = (req, res, next) => {
     res.json({ msg: "All ok" })
 }
 
-
+  
 exports.register = async (req, res) => {
     var user = new User({
         contact: req.body.phone,
         email: req.body.email,
-        name:req.body.name,
+        name: req.body.name,
         role: "user",
         password: User.hashPassword(req.body.p1),
     });
@@ -38,7 +38,7 @@ exports.register = async (req, res) => {
                     let payload = { subject: registeredUser._id }
                     let token = jwt.sign(payload, process.env.SECRETKEY)
                     console.log("successfully user registered!");
-                    res.status(200).json({ token: token, message:"successfully user registered!" })
+                    res.status(200).json({ token: token, message: "successfully user registered!" })
                 }
             })
         }
@@ -60,7 +60,7 @@ exports.logIn = (req, res) => {
                 bcrypt.compare(req.body.p1, user.password).then(match => {
                     if (match) {
                         console.log("login sucesssss");
-                        let payload = { subject: user._id,email:user.email }
+                        let payload = { subject: user._id, email: user.email }
                         let token = jwt.sign(payload, process.env.SECRETKEY)
                         res.status(200).json({ token: token, role: user.role, blocked: user.blocked })
                     }
@@ -179,6 +179,43 @@ exports.resestPasswordDone = (req, res) => {
 }
 
 
+exports.changePassword = (req, res) => {
+    User.findOne({ email: req.email }, (err, user) => {
+        if (err) {
+            res.json({ msg: "Somthing went wrong" });
+        }
+        else {
+            if (!user) {
+                res.json({ msg: "Somthing went wrong" });
+            }
+            else {
+                bcrypt.compare(req.body.op, user.password).then(match => {
+                    if (match) {
+                        console.log("correct old password");
+                        console.log(req.body.p1);
+                        var p = User.hashPassword(req.body.p1)
+                        User.updateOne({ email: req.email },
+                            { password: p }, function (err, user) {
+                                if (err) {
+                                    res.json({ msg: "Somthing went wrong" });
+                                }
+                                else {
+                                    console.log("password changed!");
+                                    res.status(200).json({ msg: "changed password" })
+                                }
+                            })
+                    }
+                    else {
+                        console.log("incoreect passss");
+                        res.json({ msg: 'Incorrect old password!!' })
+                    }
+                }).catch(err => {
+                    res.json({ msg: 'Somthing went wrong' })
+                })
+            }
+        }
+    })
+}
 
 
 exports.verifyToken = (req, res, next) => {
