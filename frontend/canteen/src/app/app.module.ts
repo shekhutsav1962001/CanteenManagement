@@ -23,6 +23,7 @@ import { ServererrorComponent } from './error/servererror/servererror.component'
 import { ResetComponent } from './auth/reset/reset.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { ResetPasswordDoneComponent } from './auth/reset-password-done/reset-password-done.component';
+import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ResetPasswordDoneComponent } from './auth/reset-password-done/reset-pas
     ServererrorComponent,
     ResetComponent,
     ResetPasswordComponent,
-    ResetPasswordDoneComponent
+    ResetPasswordDoneComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

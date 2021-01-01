@@ -62,4 +62,12 @@ export class AuthService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
+
+  changepassword(body: any) {
+    return this.http.post('http://127.0.0.1:3000/change-password', body, {
+      observe: 'body',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
+
 }

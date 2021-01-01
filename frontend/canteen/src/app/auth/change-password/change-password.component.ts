@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-reset-password-done',
-  templateUrl: './reset-password-done.component.html',
-  styleUrls: ['./reset-password-done.component.css']
+  selector: 'app-change-password',
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.css']
 })
-export class ResetPasswordDoneComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit {
 
   msg: any = [];
   avail: boolean;
@@ -17,7 +17,7 @@ export class ResetPasswordDoneComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmitResetpasswordDone(f: NgForm) {
+  onSubmitChangePassword(f: NgForm) {
 
 
     if (!f.valid) {
@@ -32,15 +32,16 @@ export class ResetPasswordDoneComponent implements OnInit {
       return;
     }
 
-    this.authService.resetpassworddone(JSON.stringify(f.value))
+    this.authService.changepassword(JSON.stringify(f.value))
       .subscribe(
         data => {
-          if (data['msg']) {
+          if (data['msg'] != "changed password") {
             this.msg = data['msg'];
             this.avail = true;
             return;
           }
           else {
+            this.authService.logoutUser();
             this.router.navigate(['/']);
           }
         },
@@ -50,5 +51,4 @@ export class ResetPasswordDoneComponent implements OnInit {
         }
       )
   }
-
 }
