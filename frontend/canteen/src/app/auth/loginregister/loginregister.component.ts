@@ -61,7 +61,7 @@ export class LoginregisterComponent implements OnInit {
         error =>
         {
           console.error(error);
-          this.router.navigate(['error']);
+          this.router.navigate(['/error']);
         }
 
       )
@@ -118,7 +118,7 @@ export class LoginregisterComponent implements OnInit {
         error =>
         {
           console.error(error);
-          this.router.navigate(['error']);
+          this.router.navigate(['/error']);
         }
       )
   }

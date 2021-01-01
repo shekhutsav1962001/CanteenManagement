@@ -17,7 +17,7 @@ function sendEmail(to,otp) {
         from: 'bidmafia007@gmail.com',
         to: to,
         // cc:cc,
-        subject: 'Reset Password Quizy!!',
+        subject: 'Reset Password FoodZone!!',
         text: str
     };
 

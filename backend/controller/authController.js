@@ -76,6 +76,109 @@ exports.logIn = (req, res) => {
         }
     })
 }
+function getEmail(email) {
+    Otp.find({ email: email }, (err, otps) => {
+
+        if (err) {
+            console.log("err in finding email ");
+        }
+        if (otps.length != 0) {
+            console.log("yes in delete");
+            Otp.deleteOne({ email: email }, (err) => {
+                if (err)
+                    console.log("err in delete");
+            }
+            )
+        }
+    })
+}
+
+exports.Reset = (req, res) => {
+    User.find({ email: req.body.email }, async (err, users) => {
+
+        if (err) {
+            console.log("err in finding email ");
+            res.json({ msg: "some error!" });
+        }
+        if (users.length == 0) {
+            console.log("user does not exist with this email at forgot password!!");
+            res.json({ msg: "user does not exist with this email" });
+        }
+        else {
+            var email = req.body.email
+            var x = await getEmail(req.body.email)
+            setTimeout(async function () {
+                console.log("timeout (2min)");
+                var y = await getEmail(email)
+            }, 2 * 60000);
+            var a = Math.floor(1000 + Math.random() * 9000);
+            var otp = new Otp({
+                otp: a,
+                email: req.body.email
+            });
+            console.log("otp =", otp);
+            try {
+                doc = otp.save();
+                sendMail(otp.email, otp.otp);
+                res.status(201).json({ message: "all ok otp has been send" });
+            }
+            catch (err) {
+                res.json({ msg: "some error!" });
+            }
+        }
+    })
+}
+
+
+exports.resestPasswordDone = (req, res) => {
+    User.findOne({ email: req.body.email }, async (err, user) => {
+        if (err) {
+            console.log(err)
+            res.json({ msg: "Somthing went wrong" });
+        }
+        else {
+            if (!user) {
+                res.json({ msg: 'User does not exist with this email!!' })
+            }
+            else {
+                Otp.findOne({ email: req.body.email }, async (err, otps) => {
+
+                    if (err) {
+                        res.json({ msg: "Somthing went wrong" });
+                    }
+                    if (!otps) {
+                        res.json({ msg: "Somthing went wrong" });
+                    }
+                    else {
+                        var otp = otps.otp;
+                        if (otp != req.body.otp) {
+                            res.json({ msg: "Invalid Otp!!!" });
+                        }
+                        else {
+                            var p = User.hashPassword(req.body.p1)
+                            var x = await getEmail(req.body.email)
+                            User.updateOne({ email: req.body.email },
+                                { password: p }, function (err, user) {
+                                    console.log(1);
+                                    if (err) {
+                                        console.log(err)
+                                        res.json({ msg: "Somthing went wrong" });
+                                    }
+                                    else {
+                                        res.json({ message: "password updated!!" });
+                                    }
+                                });
+                        }
+                    }
+                })
+
+
+            }
+        }
+    })
+}
+
+
 
 
 exports.verifyToken = (req, res, next) => {
@@ -87,14 +190,14 @@ exports.verifyToken = (req, res, next) => {
     if (token == 'null') {
         return res.status(401).send("unauthorized req")
     }
-    let payload = jwt.verify(token, 'secretkey')
+    let payload = jwt.verify(token, process.env.SECRETKEY)
     if (!payload) {
         return res.status(401).send("unauthorized req")
     }
     // console.log("in middleware");
     // console.log(payload.subject);
     // console.log(payload.email);
-    req.userId = payload.subject
+    req.userId = payload.subject;
     req.email = payload.email;
     // console.log(req.userId);
     // console.log(req.email);

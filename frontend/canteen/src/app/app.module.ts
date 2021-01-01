@@ -20,6 +20,9 @@ import { AdminGuard } from './admin/admin.guard';
 import { UserGuard } from './user/user.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ServererrorComponent } from './error/servererror/servererror.component';
+import { ResetComponent } from './auth/reset/reset.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { ResetPasswordDoneComponent } from './auth/reset-password-done/reset-password-done.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { ServererrorComponent } from './error/servererror/servererror.component'
     AdminhomeComponent,
     UserhomeComponent,
     LoginregisterComponent,
-    ServererrorComponent
+    ServererrorComponent,
+    ResetComponent,
+    ResetPasswordComponent,
+    ResetPasswordDoneComponent
   ],
   imports: [
     BrowserModule,

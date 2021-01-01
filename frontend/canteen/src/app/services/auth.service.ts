@@ -47,4 +47,19 @@ export class AuthService {
   check() {
     return this.http.get(this.baseUri + "/check", { headers: this.headers });
   }
+
+  reset(body: any) {
+    return this.http.post('http://127.0.0.1:3000/reset', body, {
+      observe: 'body',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
+
+  resetpassworddone(body: any) {
+
+    return this.http.post('http://127.0.0.1:3000/reset-password-done', body, {
+      observe: 'body',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
 }
