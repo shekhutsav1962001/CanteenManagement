@@ -18,9 +18,9 @@ function sendEmail(to,otp) {
         to: to,
         // cc:cc,
         subject: 'Reset Password FoodZone!!',
-        text: str
+        text: str,
+        html:require('./otpEmailView')({otp:otp})
     };
-
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
