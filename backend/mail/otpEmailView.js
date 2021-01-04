@@ -110,7 +110,7 @@ module.exports = ({otp}) => {
                                 <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
                                     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; color:#0a192f;">Hi there,</p>
                                     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;color:#0a192f;"><b>Reset Password At FoodZone!</b></p>
-                                    <h1 style="color:#0a192f;">Otp = ${otp}</h1>
+                                    <h1 style="color:#0a192f;">OTP is ${otp}</h1>
                                     <p style="font-weight:bold;color:#0a192f;"> Otp will expire after 2 minutes </p>
                                     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;color:#0a192f;">Thank you for using FoodZone service.</p>
                                     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;color:#0a192f;">Good luck! Hope it works.</p>
