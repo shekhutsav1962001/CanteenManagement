@@ -61,7 +61,9 @@ exports.logIn = (req, res) => {
                     if (match) {
                         console.log("login sucesssss");
                         let payload = { subject: user._id, email: user.email }
-                        let token = jwt.sign(payload, process.env.SECRETKEY)
+                        let token = jwt.sign(payload, process.env.SECRETKEY,{
+                            expiresIn: "24h"
+                          })
                         res.status(200).json({ token: token, role: user.role, blocked: user.blocked })
                     }
                     else {
