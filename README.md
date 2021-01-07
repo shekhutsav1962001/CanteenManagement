@@ -11,11 +11,7 @@
 
 # How_To_Run
 
-- Install Node.js and mongoDB
-
 - ## How To run backend 
-
-- Follow below [.env](#.envStructure) structure
 
 ```
 $ git clone https://github.com/shekhutsav1962001/CanteenManagement
