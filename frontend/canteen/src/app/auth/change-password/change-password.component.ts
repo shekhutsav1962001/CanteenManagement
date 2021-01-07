@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,7 +15,24 @@ export class ChangePasswordComponent implements OnInit {
   avail: boolean;
   constructor(private router: Router, private authService: AuthService) { }
 
+
   ngOnInit(): void {
+    this.check()
+  }
+
+  check() {
+    this.authService.check().subscribe(
+      data => {
+        console.log(data);
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
+      }
+    )
   }
 
   onSubmitChangePassword(f: NgForm) {
