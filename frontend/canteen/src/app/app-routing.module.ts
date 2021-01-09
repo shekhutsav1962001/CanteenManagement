@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AddfoodComponent } from './admin/addfood/addfood.component';
 import { AdminGuard } from './admin/admin.guard';
 import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
 
   // admin
   { path: 'admin/adminhome', component: AdminhomeComponent, canActivate: [AdminGuard] },
+  { path: 'admin/addfood', component: AddfoodComponent, canActivate: [AdminGuard] },
 
   // user
   { path: 'userhome', component: UserhomeComponent, canActivate: [UserGuard] },

@@ -24,6 +24,9 @@ import { ResetComponent } from './auth/reset/reset.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { ResetPasswordDoneComponent } from './auth/reset-password-done/reset-password-done.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
+import { AdminNavComponent } from './admin/admin-nav/admin-nav.component';
+import { UserNavComponent } from './user/user-nav/user-nav.component';
+import { AddfoodComponent } from './admin/addfood/addfood.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { ChangePasswordComponent } from './auth/change-password/change-password.
     ResetComponent,
     ResetPasswordComponent,
     ResetPasswordDoneComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AdminNavComponent,
+    UserNavComponent,
+    AddfoodComponent
   ],
   imports: [
     BrowserModule,
