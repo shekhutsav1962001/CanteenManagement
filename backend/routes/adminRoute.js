@@ -12,5 +12,6 @@ router.get('/abc', (req, res) => {
 })
 
 router.post('/addfood', verifyTokenmiddleware.verifyToken, fileUploadmiddleware.upload.single('file'), adminController.addFood )
+router.get('/getallfooditem',verifyTokenmiddleware.verifyToken,adminController.getallFoodItem)
 
 module.exports = router

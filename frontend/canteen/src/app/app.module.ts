@@ -27,6 +27,7 @@ import { ChangePasswordComponent } from './auth/change-password/change-password.
 import { AdminNavComponent } from './admin/admin-nav/admin-nav.component';
 import { UserNavComponent } from './user/user-nav/user-nav.component';
 import { AddfoodComponent } from './admin/addfood/addfood.component';
+import { SeefoodComponent } from './admin/seefood/seefood.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AddfoodComponent } from './admin/addfood/addfood.component';
     ChangePasswordComponent,
     AdminNavComponent,
     UserNavComponent,
-    AddfoodComponent
+    AddfoodComponent,
+    SeefoodComponent
   ],
   imports: [
     BrowserModule,

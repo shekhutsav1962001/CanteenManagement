@@ -14,7 +14,10 @@ export class AdminService {
   constructor(private http: HttpClient, private router: Router) { }
 
   addfood(body: any) {
-    return this.http.post(this.baseUri+"addfood", body);
+    return this.http.post(this.baseUri + "addfood", body);
   }
 
+  getAllFood() {
+    return this.http.get(this.baseUri + "getallfooditem", { headers: this.headers });
+  }
 }

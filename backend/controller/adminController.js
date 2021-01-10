@@ -14,9 +14,20 @@ exports.addFood = (req, res) => {
         return  res.json({ msg: 'Food added' });
     }
     catch (err) {
-        return  res.json({ msg: 'Somthing went wrong' });
+        return  res.json({ errormsg: 'Somthing went wrong' });
     }
    
+}
+
+
+exports.getallFoodItem = (req, res) => {
+
+    Food.find({}, (err, items) => {
+        if (err) {
+            res.status(500).json({ errormsg: err })
+        }
+        res.json({ msg: items })
+    })
 }
 
 

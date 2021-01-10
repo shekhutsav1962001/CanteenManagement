@@ -164,6 +164,7 @@ input {
   color: #666;
   font-size: 15px;
   padding: 0 20px;
+  transition: 0.2s all ease-in-out;
 }
 
 .input--style-6:focus{

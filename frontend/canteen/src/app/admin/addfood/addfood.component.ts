@@ -47,7 +47,13 @@ export class AddfoodComponent implements OnInit {
     formData.append('foodprice', f.controls.foodprice.value);
     this.adminService.addfood(formData).subscribe(
       data => {
-        console.log(data);  
+        if (data['msg']) {
+          console.log(data['msg']);
+        }
+        else {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {

@@ -12,15 +12,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     $(document).ready(function () {
 
-        // $('html, body').animate({
-        //   scrollTop: $("#famousfood").offset().top
-        // }, 2000);
-
-
 
       $(window).scroll(function () {
         var scrPos = $(this).scrollTop();
-        // console.log(scrPos);
         if (scrPos > 425) {
           $("#mybtn").css({ "display": "block" });
         }
