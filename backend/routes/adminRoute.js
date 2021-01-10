@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 const adminController = require('../controller/adminController')
 const verifyTokenmiddleware = require('../middleware/verifyToken') 
+const fileUploadmiddleware = require('../middleware/fileUpload') 
 require('dotenv').config()
 
 router.get('/abc', (req, res) => {
@@ -10,6 +11,6 @@ router.get('/abc', (req, res) => {
     res.send("hello get abc");
 })
 
-router.post('/addfood', verifyTokenmiddleware.verifyToken, adminController.upload.single('file'), adminController.addFood )
+router.post('/addfood', verifyTokenmiddleware.verifyToken, fileUploadmiddleware.upload.single('file'), adminController.addFood )
 
 module.exports = router

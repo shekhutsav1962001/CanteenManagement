@@ -1,40 +1,4 @@
-var multer = require('multer')
 var Food = require('../models/food')
-// var User = require('../models/user')
-// var Otp = require('../models/otp')
-
-// var sendMail = require('../mail/mail')
-// var bcrypt = require('bcrypt')
-require('dotenv').config()
-
-
-// addfood image
-function getTime() {
-    var today = new Date().toLocaleDateString()
-    today = today.toString().replace('/', '-')
-    today = today.replace('/', '-')
-
-    const date = new Date();
-    let h = date.getHours();
-    let m = date.getMinutes();
-    let s = date.getSeconds();
-
-    today += '-' + h + '-' + m + '-' + s
-
-    return today;
-}
-var storage = multer.diskStorage({
-
-    destination: (req, file, callBack) => {
-        callBack(null, 'G:\\MYWORK\\CanteenManagement\\frontend\\canteen\\src\\assets\\food')
-    },
-    filename: (req, file, callBack) => {
-        callBack(null, `${getTime()}-${file.originalname}`)
-    }
-})
-exports.upload = multer({ storage: storage })
-
-
 
 
 exports.addFood = (req, res) => {
