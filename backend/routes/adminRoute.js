@@ -9,6 +9,6 @@ router.get('/abc', (req, res) => {
     res.send("hello get abc");
 })
 
-
+router.post('/addfood', adminController.verifyToken, adminController.upload.single('file'), adminController.addFood )
 
 module.exports = router

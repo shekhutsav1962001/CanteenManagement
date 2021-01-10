@@ -23,19 +23,20 @@
                 <div class="card-heading">
                     <h2 class="title">Add Food</h2>
                 </div>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
                 <div class="card-body">
-                    <!-- <form method="POST"> -->
+
                         <div class="form-row">
                             <div class="name">Food name</div>
                             <div class="value">
-                                <input class="input--style-6" type="text" name="full_name">
+                                <input class="input--style-6" type="text" name="foodname"  ngModel required #foodname="ngModel">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="name">Food price</div>
                             <div class="value">
 
-                                    <input class="input--style-6" type="number" name="price" min="1">
+                                    <input class="input--style-6" type="number"  min="1" name="foodprice"  ngModel required #foodprice="ngModel">
 
                             </div>
                         </div>
@@ -53,7 +54,7 @@
                                     <h5><b>Choose Your Image to Upload</b></h5>
                                     <h5><b>Or Drop Your Image Here</b></h5>
                                     <!--upload-content-->
-                                    <input type="file" name="image_name" class="image-input" >
+                                    <input type="file" name="foodpic" class="image-input"  (change)="selectImage($event)" ngModel required #foodpic="ngModel">
 
                                     <h5 id="filename"></h5>
 
@@ -65,13 +66,14 @@
                             </div>
                         </div>
 
-                    <!-- </form> -->
+
                 </div>
 
 
                 <div class="card-footer">
-                    <button class="btn btn--radius-2 btn--blue-2" type="submit">Add</button>
+                    <button class="btn btn--radius-2 btn--blue-2" type="submit" [disabled]="f.invalid">Add</button>
                 </div>
+              </form>
             </div>
         </div>
     </div>
