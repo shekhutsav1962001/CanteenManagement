@@ -33,3 +33,31 @@ img{
   img:hover {
     transform: scale(1.04);
   }
+#edit{
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+#edit:hover{
+  color: #285aa5;
+  transform: scale(1.3);
+}
+
+#delete{
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+
+#delete:hover{
+  color: tomato;
+  transform: scale(1.3);
+}
+
+#plus{
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+
+#plus:hover{
+  color: #285aa5;
+  transform: scale(1.3);
+}

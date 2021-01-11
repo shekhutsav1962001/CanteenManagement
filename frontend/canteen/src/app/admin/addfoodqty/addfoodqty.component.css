@@ -56,7 +56,6 @@ html {
    #PAGE WRAPPER
    ========================================================================== */
 .page-wrapper {
-  /* min-height: 80vh; */
   min-height: 100vh;
 }
 
@@ -128,7 +127,7 @@ h2{
 
 
 .btn--radius-2 {
-
+  width: 200px;
   border-radius: 5px;
 }
 

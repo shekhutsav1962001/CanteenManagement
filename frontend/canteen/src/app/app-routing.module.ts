@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddfoodComponent } from './admin/addfood/addfood.component';
+import { AddfoodqtyComponent } from './admin/addfoodqty/addfoodqty.component';
 import { AdminGuard } from './admin/admin.guard';
 import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
+import { EditfoodComponent } from './admin/editfood/editfood.component';
 import { SeefoodComponent } from './admin/seefood/seefood.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { LoginregisterComponent } from './auth/loginregister/loginregister.component';
@@ -32,6 +34,8 @@ const routes: Routes = [
   { path: 'admin/adminhome', component: AdminhomeComponent, canActivate: [AdminGuard] },
   { path: 'admin/addfood', component: AddfoodComponent, canActivate: [AdminGuard] },
   { path: 'admin/seefood', component: SeefoodComponent, canActivate: [AdminGuard] },
+  { path: 'admin/editfood', component: EditfoodComponent, canActivate: [AdminGuard] },
+  { path: 'admin/addfoodqty', component: AddfoodqtyComponent, canActivate: [AdminGuard] },
 
   // user
   { path: 'userhome', component: UserhomeComponent, canActivate: [UserGuard] },

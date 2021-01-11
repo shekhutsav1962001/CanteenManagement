@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <!-- Font special for pages-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+
+</head>
+
+<body>
+  <app-admin-nav></app-admin-nav>
+  <div class="page-wrapper bg-dark p-t-10 p-b-50">
+    <div class="wrapper wrapper--w900">
+      <div class="card card-6">
+        <div class="card-heading">
+          <h2 class="title">Edit Food</h2>
+        </div>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <div class="card-body">
+
+          <div class="form-row">
+            <div class="name">Food name</div>
+            <div class="value">
+              <input class="input--style-6" autocomplete="off" spellcheck="false" type="text" name="foodname" [(ngModel)]="food.foodname">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Food price</div>
+            <div class="value">
+
+              <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="1"
+                name="foodprice" [(ngModel)]="food.foodprice">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="name">Food Quantity</div>
+            <div class="value">
+
+              <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="0"
+                name="foodqty" [(ngModel)]="food.foodqty">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="name">Food image</div>
+            <div class="value">
+              <div class="image-upload">
+
+
+
+                <i class="fa fa-upload" aria-hidden="true"></i>
+
+                <h5><b>Choose Your Image to Upload</b></h5>
+                <h5><b>Or Drop Your Image Here</b></h5>
+                <!--upload-content-->
+                <input type="file" name="foodpic" class="image-input" (change)="selectImage($event)" ngModel required #foodpic="ngModel">
+
+                <h5 id="filename"></h5>
+
+
+
+              </div>
+              <!-- <input class="input--style-6" type="email" name="email" placeholder="example@email.com"> -->
+
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="card-footer">
+          <button class="btn btn--radius-2 btn--blue-2" type="submit">Edit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+
+
+  <!-- <script src="e.js"></script> -->
+
+
+</body>
+
+</html>

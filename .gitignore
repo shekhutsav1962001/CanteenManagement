@@ -1,4 +1,4 @@
 frontend/canteen/node_modules
-
+frontend/canteen/src/assets/food
 backend/node_modules
 backend/.env

@@ -13,5 +13,8 @@ router.get('/abc', (req, res) => {
 
 router.post('/addfood', verifyTokenmiddleware.verifyToken, fileUploadmiddleware.upload.single('file'), adminController.addFood )
 router.get('/getallfooditem',verifyTokenmiddleware.verifyToken,adminController.getallFoodItem)
+router.post('/editfood',verifyTokenmiddleware.verifyToken,adminController.editFood)
+router.post('/editfoodwithimage', verifyTokenmiddleware.verifyToken, fileUploadmiddleware.upload.single('file'), adminController.editFoodWithImage )
+router.delete('/deletefood/:id',verifyTokenmiddleware.verifyToken,adminController.deleteFood)
 
 module.exports = router

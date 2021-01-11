@@ -15,7 +15,7 @@
 
 <body>
   <app-admin-nav></app-admin-nav>
-    <div class="container" [@listAnimation]="fooditems.length">
+    <div class="container" >
         <div class="row">
             <div class="col-12">
                 <table class="table table-image">
@@ -37,9 +37,9 @@
                                     class="img-fluid img-thumbnail" alt="Sheep">
                             </td>
                             <td>{{item.foodname}}</td>
-                            <td>Cristina</td>
-                            <td>913</td>
-                            <td>2.846</td>
+                            <td><i class="fa fa-plus" id="plus" (click)="addfooditem(item)" aria-hidden="true"></i></td>
+                            <td ><i class="fa fa-edit" id="edit" (click)="editfood(item)"  aria-hidden="true"></i></td>
+                            <td ><i class="fa fa-trash" id="delete" (click)="deletefood(item)" aria-hidden="true"></i></td>
                         </tr>
                     </tbody>
                 </table>

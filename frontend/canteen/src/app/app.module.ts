@@ -28,7 +28,8 @@ import { AdminNavComponent } from './admin/admin-nav/admin-nav.component';
 import { UserNavComponent } from './user/user-nav/user-nav.component';
 import { AddfoodComponent } from './admin/addfood/addfood.component';
 import { SeefoodComponent } from './admin/seefood/seefood.component';
-
+import { EditfoodComponent } from './admin/editfood/editfood.component';
+import { AddfoodqtyComponent } from './admin/addfoodqty/addfoodqty.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,9 @@ import { SeefoodComponent } from './admin/seefood/seefood.component';
     AdminNavComponent,
     UserNavComponent,
     AddfoodComponent,
-    SeefoodComponent
+    SeefoodComponent,
+    EditfoodComponent,
+    AddfoodqtyComponent,
   ],
   imports: [
     BrowserModule,

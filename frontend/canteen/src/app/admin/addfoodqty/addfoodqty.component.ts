@@ -3,77 +3,33 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
-@Component({
-  selector: 'app-seefood',
-  templateUrl: './seefood.component.html',
-  styleUrls: ['./seefood.component.css']
-})
-export class SeefoodComponent implements OnInit {
 
-  public fooditems: any[];
+@Component({
+  selector: 'app-addfoodqty',
+  templateUrl: './addfoodqty.component.html',
+  styleUrls: ['./addfoodqty.component.css']
+})
+export class AddfoodqtyComponent implements OnInit {
+  public food: any;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.check();
-    this.getFood();
+    if (this.adminService.getFood()) {
+      this.food = this.adminService.getFood();
+    }
+    else {
+      this.router.navigate(['/admin/seefood'])
+    }
   }
 
-  getFood() {
-    this.adminService.getAllFood().subscribe(
-      data => {
-        if (data['msg']) {
-          this.fooditems = data['msg'];
-          // console.log(data['msg']);
-        }
-        else {
-          this.authService.logoutUser();
-          this.router.navigate(['/error'])
-        }
-      },
-      (error) => {
-
-        if (error instanceof HttpErrorResponse) {
-          this.authService.logoutUser();
-          this.router.navigate(['/error'])
-        }
-        console.log(error);
-      }
-    )
-    // console.log();
-  }
 
   check() {
     this.authService.check().subscribe(
       data => {
         console.log(data);
-      },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.authService.logoutUser();
-          this.router.navigate(['/error'])
-        }
-        console.log(error);
-      }
-    )
-  }
-
-  addfooditem(item) {
-    console.log("add");
-    // console.log(item);
-    this.adminService.setFood(item);
-    this.router.navigate(['/admin/addfoodqty'])
-  }
-
-
-  deletefood(item) {
-    // console.log("delete");
-
-    console.log(item);
-    this.adminService.deleteFood(item._id).subscribe(
-      data => {
         if (data['msg']) {
-          this.getFood();
+          console.log(data['msg']);
         }
         else {
           this.authService.logoutUser();
@@ -90,9 +46,27 @@ export class SeefoodComponent implements OnInit {
     )
   }
 
-  editfood(item) {
-    // console.log("edit");
-    this.adminService.setFood(item);
-    this.router.navigate(['/admin/editfood'])
+  onSubmit(f) {
+    console.log(this.food);
+    this.adminService.editfood(this.food).subscribe(
+      data => {
+        console.log(data);
+        if (data['msg']) {
+          // console.log(data['msg']);
+          this.router.navigate(['/admin/seefood'])
+        }
+        else {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
+      }
+    )
   }
 }

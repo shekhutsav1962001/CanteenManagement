@@ -14,7 +14,7 @@ var foodSchema = mongoose.Schema({
     },
     foodqty: {
         type: Number,
-        default: -1
+        default: 0
     },
     foodavail: {
         type: Boolean, default: false

@@ -45,10 +45,12 @@ export class AddfoodComponent implements OnInit {
     formData.append('file', this.image);
     formData.append('foodname', f.controls.foodname.value);
     formData.append('foodprice', f.controls.foodprice.value);
+    formData.append('foodqty', f.controls.foodqty.value);
     this.adminService.addfood(formData).subscribe(
       data => {
         if (data['msg']) {
           console.log(data['msg']);
+          this.router.navigate(['/admin/seefood'])
         }
         else {
           this.authService.logoutUser();
