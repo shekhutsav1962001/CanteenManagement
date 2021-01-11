@@ -60,8 +60,11 @@ ul li a{
    /* background: #F8C44C; */
    padding: 10px;
    border-radius: 10px;
+   background-color:whitesmoke;
+ 
 }
 #mybtn:hover{
    color: tomato;
+   background-color: #f1f1f1;
    /* color :#F8C44C */
 }

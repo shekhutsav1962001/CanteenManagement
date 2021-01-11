@@ -57,11 +57,13 @@ ul li a{
    border: none;
    color:#F8C44C;
    background:white;
+   background-color:whitesmoke;
    /* background: #F8C44C; */
    padding: 10px;
    border-radius: 10px;
 }
 #mybtn:hover{
    color: tomato;
+   background-color: #f1f1f1;
    /* color :#F8C44C */
 }
