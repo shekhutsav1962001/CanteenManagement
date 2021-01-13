@@ -35,10 +35,8 @@ exports.register = async (req, res) => {
                     res.json({ msg: "some error!" });
                 }
                 else {
-                    let payload = { subject: registeredUser._id }
-                    let token = jwt.sign(payload, process.env.SECRETKEY)
                     console.log("successfully user registered!");
-                    res.status(200).json({ token: token, message: "successfully user registered!" })
+                    res.status(200).json({message: "successfully user registered!" })
                 }
             })
         }
