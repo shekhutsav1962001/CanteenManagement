@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 var cors = require('cors')
+const helmet = require("helmet");
 var bodyParser = require('body-parser')
 const PORT = process.env.PORT || 3000
 
@@ -15,7 +16,8 @@ var userRoutes = require('./routes/userRoute')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
-
+//secure http
+app.use(helmet());
 
 //database connection
 const db = require('./database/db')();
