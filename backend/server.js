@@ -16,6 +16,7 @@ var userRoutes = require('./routes/userRoute')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
+
 //secure http
 app.use(helmet());
 
