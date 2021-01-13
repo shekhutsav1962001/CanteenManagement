@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
 
-//Secure http
+//secure http
 app.use(helmet());
 
 //database connection
