@@ -23,6 +23,26 @@ app.use(helmet());
 //database connection
 const db = require('./database/db')();
 
+// socket connection
+var server = require('http').Server(app);
+var io = require('socket.io')(server,
+    
+    
+    {
+    cors: {
+      origin:'*',
+      methods: ["GET", "POST"],
+      allowedHeaders: ["my-custom-header"],
+      credentials: true
+    }
+  }
+  
+  ); 
+app.set('io',io);
+io.on('connection', socket => {
+    console.log("new  sockeet connection...");
+    socket.emit("test event","hey utsav");
+});
 
 // for testing purpose
 app.get('/', (req, res) => {
@@ -36,7 +56,7 @@ app.use('/user', userRoutes)
 
 
 // for debugging
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 })
 

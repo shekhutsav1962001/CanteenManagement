@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'app-adminhome',
@@ -10,10 +11,16 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AdminhomeComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router,private webSocketService: WebsocketService) { }
 
   ngOnInit(): void {
     this.check()
+    this.webSocketService.listen('test event').subscribe(
+      (data) => {
+        console.log("this is socket");
+        console.log(data);
+      }
+    )
   }
 
   check() {
