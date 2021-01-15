@@ -1,4 +1,5 @@
 # CanteenManagement
+![alt text](/logo.png)
 
 # Technology-Used
 
