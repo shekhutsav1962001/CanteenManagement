@@ -6,6 +6,7 @@ import { AdminGuard } from './admin/admin.guard';
 import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { EditfoodComponent } from './admin/editfood/editfood.component';
 import { SeefoodComponent } from './admin/seefood/seefood.component';
+import { AuthGuard } from './auth/auth.guard';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { LoginregisterComponent } from './auth/loginregister/loginregister.component';
 import { ResetPasswordDoneComponent } from './auth/reset-password-done/reset-password-done.component';
@@ -28,7 +29,7 @@ const routes: Routes = [
   { path: 'reset', component: ResetComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'reset-password-done', component: ResetPasswordDoneComponent },
-  { path: 'change-password', component: ChangePasswordComponent,canActivate: [UserGuard] },
+  { path: 'change-password', component: ChangePasswordComponent,canActivate: [AuthGuard] },
 
   // admin
   { path: 'admin/adminhome', component: AdminhomeComponent, canActivate: [AdminGuard] },

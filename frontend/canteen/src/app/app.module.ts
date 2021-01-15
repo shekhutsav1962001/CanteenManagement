@@ -30,6 +30,7 @@ import { AddfoodComponent } from './admin/addfood/addfood.component';
 import { SeefoodComponent } from './admin/seefood/seefood.component';
 import { EditfoodComponent } from './admin/editfood/editfood.component';
 import { AddfoodqtyComponent } from './admin/addfoodqty/addfoodqty.component';
+import { AuthGuard } from './auth/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,7 @@ import { AddfoodqtyComponent } from './admin/addfoodqty/addfoodqty.component';
     BrowserAnimationsModule, // required animations  module
     ToastrModule.forRoot(),
   ],
-  providers: [AdminGuard,UserGuard,{
+  providers: [AdminGuard,UserGuard,AuthGuard,{
     provide:HTTP_INTERCEPTORS,
     useClass:TokenInterceptorService,
     multi:true
