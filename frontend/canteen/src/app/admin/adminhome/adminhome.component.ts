@@ -15,12 +15,12 @@ export class AdminhomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.check()
-    this.webSocketService.listen('test event').subscribe(
-      (data) => {
-        console.log("this is socket");
-        console.log(data);
-      }
-    )
+    // this.webSocketService.listen('test event').subscribe(
+    //   (data) => {
+    //     console.log("this is socket");
+    //     console.log(data);
+    //   }
+    // )
   }
 
   check() {
