@@ -7,11 +7,29 @@ import { trigger, style, transition, animate, keyframes, query, stagger } from '
 @Component({
   selector: 'app-seefood',
   templateUrl: './seefood.component.html',
-  styleUrls: ['./seefood.component.css']
+  styleUrls: ['./seefood.component.css'],
+  animations: [
+
+    trigger('listAnimation', [
+      transition('* => *', [
+
+        query(':enter', style({ opacity: 0 }), {optional: true}),
+
+        query(':enter', stagger('300ms', [
+          animate('800ms ease-in', keyframes([
+            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
+            style({opacity: .3, transform: 'translateY(35px)',  offset: 0.3}),
+            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
+          ]))]), {optional: true})
+      ])
+    ])
+
+  ]
 })
 export class SeefoodComponent implements OnInit {
 
   public fooditems: any[];
+  public len :any;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
@@ -24,6 +42,7 @@ export class SeefoodComponent implements OnInit {
       data => {
         if (data['msg']) {
           this.fooditems = data['msg'];
+            this.len=this.fooditems.length;
           // console.log(data['msg']);
         }
         else {

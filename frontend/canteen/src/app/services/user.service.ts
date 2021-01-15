@@ -18,9 +18,13 @@ export class UserService {
   }
 
   editprofile(body: any) {
-    return this.http.post(this.baseUri+"editprofile", body, {
+    return this.http.post(this.baseUri + "editprofile", body, {
       observe: 'body',
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
+  }
+
+  getAllFood() {
+    return this.http.get(this.baseUri + "getallfooditem", { headers: this.headers });
   }
 }

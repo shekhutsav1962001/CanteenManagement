@@ -1,7 +1,8 @@
 var User = require('../models/user')
+var Food = require('../models/food')
+
 
 exports.myProfile = (req, res) => {
-    // User.findOne
     User.findOne({ _id: req.userId }, (error, user) => {
         if (error) {
             console.log("something went wrong!!")
@@ -13,7 +14,7 @@ exports.myProfile = (req, res) => {
     }).select("-password").select("-blocked").select("-role")
 }
 
-// 
+
 exports.editProfile = (req, res) => {
     let emailchange;
     if (req.email == req.body.email) {
@@ -35,5 +36,16 @@ exports.editProfile = (req, res) => {
             console.log("edited profile");
             res.status(201).json({ msg: "edited profile", emailchange: emailchange });
         }
+    })
+}
+
+
+exports.getallFoodItem = (req, res) => {
+    Food.find({}, (err, items) => {
+        if (err) {
+            console.log("some error while fethcing food userhome")
+            res.status(500).json({ errormsg: 'Somthing went wrong' })
+        }
+        res.json({ msg: items })
     })
 }
