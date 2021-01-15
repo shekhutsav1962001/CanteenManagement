@@ -31,6 +31,8 @@ import { SeefoodComponent } from './admin/seefood/seefood.component';
 import { EditfoodComponent } from './admin/editfood/editfood.component';
 import { AddfoodqtyComponent } from './admin/addfoodqty/addfoodqty.component';
 import { AuthGuard } from './auth/auth.guard';
+import { MyprofileComponent } from './user/myprofile/myprofile.component';
+import { EditprofileComponent } from './user/editprofile/editprofile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +56,8 @@ import { AuthGuard } from './auth/auth.guard';
     SeefoodComponent,
     EditfoodComponent,
     AddfoodqtyComponent,
+    MyprofileComponent,
+    EditprofileComponent,
   ],
   imports: [
     BrowserModule,

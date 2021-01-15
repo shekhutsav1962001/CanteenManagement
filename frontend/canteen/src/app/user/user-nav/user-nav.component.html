@@ -14,7 +14,7 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
 
 
   <nav class="navbar  navbar-expand-lg" >
-    <a [routerLink]="['/']" class="navbar-brand">
+    <a [routerLink]="['/userhome']" class="navbar-brand">
       <img src="../../../assets/img/logo.png" height="30" alt="CoolBrand" style="margin-left: 10px;">
   </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" style="color: white;"
@@ -23,9 +23,9 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <li class="nav-item" ><a [routerLink]="['/']"   class="nav-link">Home</a></li>
-        <li class="nav-item"><a   href="#food"  class="nav-link" >User</a></li>
-        <li class="nav-item"><a   [routerLink]="['/login-register']"  class="nav-link" >Register/Login</a></li>
+        <li class="nav-item" ><a [routerLink]="['/userhome']"   class="nav-link">Home</a></li>
+        <li class="nav-item"><a   [routerLink]="['/myprofile']"  class="nav-link" >myprofile</a></li>
+        <li class="nav-item"><a   [routerLink]="['/myorders']"  class="nav-link" >Myorders</a></li>
         <li class="nav-item"><a [routerLink]="['/']" class="nav-link" (click)="logoutuser()">logout</a></li>
       </ul>
     </div>
