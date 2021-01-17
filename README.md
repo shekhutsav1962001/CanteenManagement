@@ -1,7 +1,8 @@
 # CanteenManagement
 ![alt text](/logo.png)
 
-<a href=https://github.com/shekhutsav1962001/canteenApp>##Fultter App Link</a>
+<h2> Fultter App Github Link : https://github.com/shekhutsav1962001/canteenApp </h2> 
+
 
 
 # Technology-Used
