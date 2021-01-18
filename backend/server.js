@@ -20,6 +20,10 @@ app.use(cors())
 //secure http
 app.use(helmet());
 
+// for images
+app.use('./uploads',express.static('uploads'))
+
+
 //database connection
 const db = require('./database/db')();
 
