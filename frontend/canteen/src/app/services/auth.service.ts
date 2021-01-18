@@ -10,19 +10,20 @@ export class AuthService {
 
   public avail: boolean = false;
   public msg: string = "";
+  // private baseUri: string = "https://appcanteen.herokuapp.com";
   private baseUri: string = "http://localhost:3000";
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private router: Router) { }
 
   register(body: any) {
-    return this.http.post('http://127.0.0.1:3000/register', body, {
+    return this.http.post(this.baseUri+'/register', body, {
       observe: 'body',
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
 
   login(body: any) {
-    return this.http.post('http://127.0.0.1:3000/login', body, {
+    return this.http.post(this.baseUri+'/login', body, {
       observe: 'body',
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
@@ -49,7 +50,7 @@ export class AuthService {
   }
 
   reset(body: any) {
-    return this.http.post('http://127.0.0.1:3000/reset', body, {
+    return this.http.post(this.baseUri+'/reset', body, {
       observe: 'body',
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
@@ -57,14 +58,14 @@ export class AuthService {
 
   resetpassworddone(body: any) {
 
-    return this.http.post('http://127.0.0.1:3000/reset-password-done', body, {
+    return this.http.post(this.baseUri+'/reset-password-done', body, {
       observe: 'body',
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
 
   changepassword(body: any) {
-    return this.http.post('http://127.0.0.1:3000/change-password', body, {
+    return this.http.post( this.baseUri+'/change-password', body, {
       observe: 'body',
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });

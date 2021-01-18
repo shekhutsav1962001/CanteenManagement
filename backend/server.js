@@ -13,9 +13,9 @@ var userRoutes = require('./routes/userRoute')
 
 
 // some dependency
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-app.use(cors())
+app.use(bodyParser.urlencoded({ limit: "10000kb",extended: true }))
+app.use(bodyParser.json({limit: "10000kb",extended: true}))
+app.use(cors({origin: '*'}))
 
 //secure http
 app.use(helmet());

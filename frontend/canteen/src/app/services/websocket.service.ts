@@ -7,6 +7,8 @@ import { io } from 'socket.io-client';
 export class WebsocketService {
 
   socket: any;
+
+  // private baseUri: string = "http://localhost:3000/user/";
   readonly url: string = "http://localhost:3000";
   constructor() {
     this.socket = io(this.url);
