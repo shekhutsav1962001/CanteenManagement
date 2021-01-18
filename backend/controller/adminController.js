@@ -138,11 +138,11 @@ exports.deleteFood = (req, res) => {
     Food.deleteOne({ _id: req.params.id }, (err) => {
         if (err) {
             console.log("error in delete food by admin");
-            const io = req.app.get('io');
-            io.emit("foodcrudbyadmin", " food crud operation done by admin!");
             return res.json({ errormsg: 'Somthing went wrong' });
         }
     })
+    const io = req.app.get('io');
+    io.emit("foodcrudbyadmin", " food crud operation done by admin!");
     return res.json({ msg: 'food deleted by admin' });
 }
 

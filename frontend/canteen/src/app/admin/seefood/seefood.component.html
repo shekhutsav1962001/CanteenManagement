@@ -33,8 +33,8 @@
                         <tr *ngFor="let item of fooditems;index as i">
                             <th scope="row">{{i+1}}</th>
                             <td class="w-25">
-                                <img src="../../../assets/food/{{item.foodimage}}"
-                                    class="img-fluid img-thumbnail" alt="Sheep">
+                                <img src="https://appcanteen.herokuapp.com/backend/uploads/{{item.foodimage}}"
+                                    class="img-fluid img-thumbnail" alt="No image found">
                             </td>
                             <td>{{item.foodname}}</td>
                             <td><i class="fa fa-plus" id="plus" (click)="addfooditem(item)" aria-hidden="true"></i></td>

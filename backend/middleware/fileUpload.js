@@ -18,7 +18,7 @@ function getTime() {
 var storage = multer.diskStorage({
 
     destination: (req, file, callBack) => {
-        callBack(null, '../uploads')
+        callBack(null, './uploads')
     },
     filename: (req, file, callBack) => {
         callBack(null, `${getTime()}-${file.originalname}`)

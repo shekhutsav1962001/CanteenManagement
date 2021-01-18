@@ -12,16 +12,19 @@ var userRoutes = require('./routes/userRoute')
 
 
 
+// image
+app.use('/backend/uploads',express.static('uploads'))
+ 
 // some dependency
-app.use(bodyParser.urlencoded({ limit: "10000kb",extended: true }))
-app.use(bodyParser.json({limit: "10000kb",extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(cors({origin: '*'}))
+
+// http://localhost:4200
 
 //secure http
 app.use(helmet());
 
-// for images
-app.use('./uploads',express.static('uploads'))
 
 
 //database connection

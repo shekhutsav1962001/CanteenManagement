@@ -8,8 +8,9 @@ export class WebsocketService {
 
   socket: any;
 
-  // private baseUri: string = "http://localhost:3000/user/";
-  readonly url: string = "http://localhost:3000";
+
+  // readonly url: string = "http://localhost:3000";
+  readonly url: string = "https://appcanteen.herokuapp.com";
   constructor() {
     this.socket = io(this.url);
   }

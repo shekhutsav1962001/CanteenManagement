@@ -10,8 +10,8 @@ export class AuthService {
 
   public avail: boolean = false;
   public msg: string = "";
-  // private baseUri: string = "https://appcanteen.herokuapp.com";
-  private baseUri: string = "http://localhost:3000";
+  private baseUri: string = "https://appcanteen.herokuapp.com";
+  // private baseUri: string = "http://localhost:3000";
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private router: Router) { }
 

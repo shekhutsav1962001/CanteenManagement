@@ -9,8 +9,8 @@ export class UserService {
 
   public avail: boolean = false;
   public msg: string = "";
-  // private baseUri: string = "https://appcanteen.herokuapp.com/user/";
-  private baseUri: string = "http://localhost:3000/user/";
+  private baseUri: string = "https://appcanteen.herokuapp.com/user/";
+  // private baseUri: string = "http://localhost:3000/user/";
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private router: Router) { }
 

@@ -10,13 +10,13 @@ export class AdminService {
   public avail: boolean = false;
   public msg: string = "";
   private food: any;
-  // private baseUri: string = "https://appcanteen.herokuapp.com/admin/";
-  private baseUri: string = "http://localhost:3000/admin/";
+  private baseUri: string = "https://appcanteen.herokuapp.com/admin/";
+  // private baseUri: string = "http://localhost:3000/admin/";
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private router: Router) { }
 
   addfood(body: any) {
-    return this.http.post(this.baseUri + "addfood", body,{ headers: this.headers });
+    return this.http.post(this.baseUri + "addfood", body);
   }
 
   getAllFood() {
