@@ -47,7 +47,7 @@
             <div class="value">
 
               <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="0"
-                name="foodqty" [(ngModel)]="food.foodqty">
+                name="foodqty" [(ngModel)]="food.foodqty" (keyup)="qtychnage($event)" pattern="^[-+]?\d*$" required>
             </div>
           </div>
 

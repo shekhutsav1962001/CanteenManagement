@@ -69,4 +69,10 @@ export class AddfoodqtyComponent implements OnInit {
       }
     )
   }
+  qtychnage(event) {
+    if (event.target.value < 0) {
+      event.target.value= "";
+    }
+  }
+
 }

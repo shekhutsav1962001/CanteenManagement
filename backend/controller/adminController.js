@@ -74,6 +74,10 @@ exports.editFood = (req, res) => {
             avail = true;
             qty = req.body.foodqty
         }
+        if (req.body.foodqty == -1) {
+            avail = true;
+            qty = -1;
+        }
         Food.updateOne({ _id: req.body._id }, {
             foodname: req.body.foodname,
             foodprice: req.body.foodprice,
@@ -112,6 +116,10 @@ exports.editFoodWithImage = (req, res) => {
         else {
             avail = true;
             qty = req.body.foodqty;
+        }
+        if (req.body.foodqty == -1) {
+            avail = true;
+            qty = -1;
         }
         var file = req.file
         console.log(req.body.foodqty);

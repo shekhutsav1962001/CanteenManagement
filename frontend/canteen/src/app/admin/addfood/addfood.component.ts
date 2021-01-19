@@ -75,4 +75,20 @@ export class AddfoodComponent implements OnInit {
       this.image = file;
     }
   }
+
+  qtychnage(event) {
+    if (event.target.value < -1) {
+      event.target.value= 0;
+    }
+  }
+
+  pricechnage(event) {
+    if(event.target.value == "")
+    {
+      event.target.value= "";
+    }
+    if (event.target.value <= 0 && event.target.value!="") {
+      event.target.value= 1;
+    }
+  }
 }

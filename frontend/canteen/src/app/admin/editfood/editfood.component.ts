@@ -32,6 +32,22 @@ export class EditfoodComponent implements OnInit {
   edit() {
 
   }
+  qtychnage(event) {
+
+    if (event.target.value < 0) {
+      this.food.foodqty = 0;
+    }
+  }
+
+  pricechnage(event) {
+    if(event.target.value == "")
+    {
+      event.target.value= "";
+    }
+    if (event.target.value <= 0 && event.target.value!="") {
+      event.target.value= 1;
+    }
+  }
 
   onSubmit(f) {
     console.log("submit");

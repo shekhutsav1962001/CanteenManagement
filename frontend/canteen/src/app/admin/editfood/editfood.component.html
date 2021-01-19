@@ -30,7 +30,7 @@
           <div class="form-row">
             <div class="name">Food name</div>
             <div class="value">
-              <input class="input--style-6" autocomplete="off" spellcheck="false" type="text" name="foodname" [(ngModel)]="food.foodname">
+              <input class="input--style-6" autocomplete="off" spellcheck="false" type="text" name="foodname" [(ngModel)]="food.foodname" required>
             </div>
           </div>
           <div class="form-row">
@@ -38,7 +38,7 @@
             <div class="value">
 
               <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="1"
-                name="foodprice" [(ngModel)]="food.foodprice">
+                name="foodprice" [(ngModel)]="food.foodprice" pattern="^[-+]?\d*$" (keyup)="pricechnage($event)" required>
             </div>
           </div>
 
@@ -46,8 +46,8 @@
             <div class="name">Food Quantity </div>
             <div class="value">
 
-              <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="0"
-                name="foodqty" [(ngModel)]="food.foodqty">
+              <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="0" (keyup)="qtychnage($event)"
+                name="foodqty" [(ngModel)]="food.foodqty" pattern="^[-+]?\d*$" required>
             </div>
           </div>
 
@@ -63,14 +63,13 @@
                 <h5><b>Choose Your Image to Upload</b></h5>
                 <h5><b>Or Drop Your Image Here</b></h5>
                 <!--upload-content-->
-                <input type="file" name="foodpic" class="image-input" (change)="selectImage($event)" ngModel required #foodpic="ngModel">
+                <input type="file" name="foodpic" class="image-input" (change)="selectImage($event)" ngModel  #foodpic="ngModel">
 
                 <h5 id="filename"></h5>
 
 
 
               </div>
-              <!-- <input class="input--style-6" type="email" name="email" placeholder="example@email.com"> -->
 
             </div>
           </div>
@@ -80,7 +79,7 @@
 
 
         <div class="card-footer">
-          <button class="btn btn--radius-2 btn--blue-2" type="submit">Edit</button>
+          <button class="btn btn--radius-2 btn--blue-2" [disabled]="f.invalid" type="submit">Edit</button>
         </div>
         </form>
       </div>
