@@ -39,7 +39,7 @@ export class AuthService {
 
   logoutUser() {
     localStorage.removeItem('token');
-    localStorage.removeItem('userid');
+    // localStorage.removeItem('userid');
     localStorage.removeItem('admin');
     localStorage.removeItem('user');
     this.router.navigate(['/'])

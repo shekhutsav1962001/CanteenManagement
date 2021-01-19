@@ -54,7 +54,6 @@ export class MyprofileComponent implements OnInit {
     )
   }
   gotoChangepassword() {
-    localStorage.removeItem('userid');
     localStorage.removeItem('admin');
     localStorage.removeItem('user');
     this.router.navigate(['/change-password'])

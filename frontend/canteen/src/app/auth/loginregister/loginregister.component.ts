@@ -90,7 +90,7 @@ export class LoginregisterComponent implements OnInit {
             console.log("admin");
             localStorage.setItem('token', data['token']);
 
-            localStorage.setItem('userid', f.controls.email.value);
+            // localStorage.setItem('userid', f.controls.email.value);
             localStorage.setItem('admin', 'yes');
             localStorage.setItem('user', 'no');
             this.router.navigate(['/admin/adminhome']);

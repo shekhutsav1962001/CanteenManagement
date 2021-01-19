@@ -42,8 +42,8 @@
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="name">Food Quantity</div>
+          <div class="form-row" *ngIf="!food.unlimited">
+            <div class="name">Food Quantity </div>
             <div class="value">
 
               <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="0"

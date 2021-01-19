@@ -5,22 +5,31 @@ exports.addFood = (req, res) => {
     var file = req.file
     let avail;
     let qty;
+    let limit;
     if (!isNaN(req.body.foodqty)) {
 
         if (req.body.foodqty <= 0) {
             avail = false;
             qty = 0;
+            limit = false;
         }
         else {
             avail = true;
             qty = req.body.foodqty;
+            limit = false;
+        }
+        if (req.body.foodqty == -1) {
+            avail = true;
+            qty = -1;
+            limit = true;
         }
         var food = new Food({
             foodname: req.body.foodname,
             foodqty: qty,
             foodprice: req.body.foodprice,
             foodimage: file.filename,
-            foodavail: avail
+            foodavail: avail,
+            unlimited:limit
         })
         try {
             doc = food.save();

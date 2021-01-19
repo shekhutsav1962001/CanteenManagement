@@ -37,7 +37,13 @@
                                     class="img-fluid img-thumbnail" alt="No image found">
                             </td>
                             <td>{{item.foodname}}</td>
-                            <td><i class="fa fa-plus" id="plus" (click)="addfooditem(item)" aria-hidden="true"></i></td>
+                            <td>
+
+                              <i class="fa fa-plus" id="plus" *ngIf="!item.unlimited; else elseBlock" (click)="addfooditem(item)" aria-hidden="true"></i>
+                              <ng-template #elseBlock>
+                                unlimited
+                              </ng-template>
+                            </td>
                             <td ><i class="fa fa-edit" id="edit" (click)="editfood(item)"  aria-hidden="true"></i></td>
                             <td ><i class="fa fa-trash" id="delete" (click)="deletefood(item)" aria-hidden="true"></i></td>
                         </tr>
