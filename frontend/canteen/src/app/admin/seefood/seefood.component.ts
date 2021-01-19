@@ -88,7 +88,7 @@ export class SeefoodComponent implements OnInit {
   deletefood(item) {
     // console.log("delete");
 
-    console.log(item);
+    // console.log(item);
     this.adminService.deleteFood(item._id).subscribe(
       data => {
         if (data['msg']) {

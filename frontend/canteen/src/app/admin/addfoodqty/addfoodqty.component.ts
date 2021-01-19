@@ -47,7 +47,10 @@ export class AddfoodqtyComponent implements OnInit {
   }
 
   onSubmit(f) {
-    console.log(this.food);
+    if(this.food.foodqty<0)
+    {
+      this.food.foodqty=0;
+    }
     this.adminService.editfood(this.food).subscribe(
       data => {
         console.log(data);
@@ -71,7 +74,8 @@ export class AddfoodqtyComponent implements OnInit {
   }
   qtychnage(event) {
     if (event.target.value < 0) {
-      event.target.value= "";
+      event.target.value= 0;
+      this.food.foodqty = 0;
     }
   }
 

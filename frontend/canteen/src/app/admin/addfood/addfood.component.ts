@@ -12,6 +12,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AddfoodComponent implements OnInit {
   image;
+  foodname:any;
+  foodprice:any;
+  foodqty:any;
   constructor(private authService: AuthService, private router: Router,private adminService: AdminService) { }
 
 
@@ -41,11 +44,23 @@ export class AddfoodComponent implements OnInit {
 
   onSubmit(f: NgForm) {
 
+    this.foodname =f.controls.foodname.value;
+    this.foodprice =f.controls.foodprice.value;
+    this.foodqty = f.controls.foodqty.value;
+    if(this.foodprice==0)
+    {
+      this.foodprice=1;
+    }
+    if(this.foodqty<-1)
+    {
+      this.foodqty=0;
+    }
     const formData = new FormData();
     formData.append('file', this.image);
-    formData.append('foodname', f.controls.foodname.value);
-    formData.append('foodprice', f.controls.foodprice.value);
-    formData.append('foodqty', f.controls.foodqty.value);
+    formData.append('foodname', this.foodname);
+    formData.append('foodprice', this.foodprice);
+    formData.append('foodqty', this.foodqty);
+    console.log(formData);
     this.adminService.addfood(formData).subscribe(
       data => {
         if (data['msg']) {
@@ -79,16 +94,19 @@ export class AddfoodComponent implements OnInit {
   qtychnage(event) {
     if (event.target.value < -1) {
       event.target.value= 0;
+      this.foodqty=0;
     }
   }
 
   pricechnage(event) {
     if(event.target.value == "")
     {
-      event.target.value= "";
+      event.target.value= 1;
+      this.foodprice=1;
     }
     if (event.target.value <= 0 && event.target.value!="") {
       event.target.value= 1;
+      this.foodprice=1;
     }
   }
 }
