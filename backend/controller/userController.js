@@ -46,6 +46,6 @@ exports.getallFoodItem = (req, res) => {
             console.log("some error while fethcing food userhome")
             res.status(500).json({ errormsg: 'Somthing went wrong' })
         }
-        res.json({ msg: items })
+        res.status(200).json({ msg: items })
     })
 }
