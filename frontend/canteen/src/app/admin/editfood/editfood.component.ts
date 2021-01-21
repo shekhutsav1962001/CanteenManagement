@@ -29,9 +29,9 @@ export class EditfoodComponent implements OnInit {
     }
   }
 
-  edit() {
+  // edit() {
 
-  }
+  // }
   qtychnage(event) {
 
     if (event.target.value < 0) {
