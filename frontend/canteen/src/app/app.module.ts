@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CommonModule } from "@angular/common";
 import { IndexnavbarComponent } from './index/indexnavbar/indexnavbar.component';
 import { MainComponent } from './index/main/main.component';
 import { FormsModule } from '@angular/forms';
@@ -33,6 +34,9 @@ import { AddfoodqtyComponent } from './admin/addfoodqty/addfoodqty.component';
 import { AuthGuard } from './auth/auth.guard';
 import { MyprofileComponent } from './user/myprofile/myprofile.component';
 import { EditprofileComponent } from './user/editprofile/editprofile.component';
+import { MessageBoxComponent } from './message-box/message-box.component';
+import { CartComponent } from './user/cart/cart.component';
+import { EmptycartComponent } from './user/emptycart/emptycart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,8 +62,12 @@ import { EditprofileComponent } from './user/editprofile/editprofile.component';
     AddfoodqtyComponent,
     MyprofileComponent,
     EditprofileComponent,
+    MessageBoxComponent,
+    CartComponent,
+    EmptycartComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

@@ -3,6 +3,7 @@
 .navbar{
   background-color: #FFF;
   color: #000000;
+  min-height: 75px;
   box-shadow: 0 0px 18px 4px rgba(0,0 , 0, 0.719);
 }
 
@@ -66,4 +67,39 @@ ul li a{
    color: tomato;
    background-color: #f1f1f1;
    /* color :#F8C44C */
+}
+
+/* cart iconnnn */
+#ct{
+  /* position: absolute; */
+  /* right: 0; */
+  font-size:35px;
+  color:black;
+  padding-left: 7px;
+  transition: 0.3s all ease-in;
+}
+#ct:hover{
+  /* color: tomato; */
+  color: #F8C44C;
+}
+
+.notification {
+  /* background-color: #555; */
+  color:black;
+  text-decoration: none;
+  padding: 10px 10px;
+  flex-direction: row-reverse;
+  position: relative;
+  display: inline-block;
+}
+
+
+.notification .badge {
+  position: absolute;
+  top: 0px;
+  right: -10px;
+  padding: 5px 10px;
+  border-radius: 100%;
+  background-color:#F8C44C;
+  color: white;
 }

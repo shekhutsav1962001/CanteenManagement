@@ -28,6 +28,10 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
         <li class="nav-item"><a   [routerLink]="['/myorders']"  class="nav-link" >Myorders</a></li>
         <li class="nav-item"><a [routerLink]="['/']" class="nav-link" (click)="logoutuser()">logout</a></li>
       </ul>
+      <a [routerLink]="['/cart']" class="notification" (click)="cnt()">
+        <i class="fa fa-shopping-cart" id="ct"></i>
+        <span class="badge" id="notycount">{{count}}</span>
+      </a>
     </div>
   </nav>
   <div class="float-right">

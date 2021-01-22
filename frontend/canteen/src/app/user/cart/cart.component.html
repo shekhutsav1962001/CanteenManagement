@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <app-user-nav></app-user-nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-image">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Item Image</th>
+              <th scope="col">Item Name</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Item Price</th>
+              <th scope="col">Delete Item</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items;index as i">
+              <th scope="row">{{i+1}}</th>
+              <td class="w-25">
+                <img src="http://localhost:3000/backend/uploads/{{item.foodimage}}" class="img-fluid img-thumbnail"
+                  alt="No image found">
+              </td>
+              <td>{{item.foodname}}</td>
+              <td>
+                <!-- <i class="fa fa-minus" aria-hidden="true"></i> -->
+                <span>{{item.foodqty}}</span>
+                <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
+              </td>
+              <td>{{item.foodprice}}</td>
+              <td><i class="fa fa-trash" id="delete" (click)="delete(item)" aria-hidden="true"></i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+
+      <!------------------------------------------------total section------------------------------------------------------------------  -->
+
+      <div class="parent" style="background-color:rgb(235, 243, 251);margin-top: 15px;margin-bottom: 150px;"
+        id="lastcol">
+
+        <div class="info">
+
+          <p style="margin-top: 5px;margin-bottom: 5px;">total = <b><span>{{total}}</span>Rs</b></p>
+          <p style="margin-top: 5px;margin-bottom: 5px;">tax = <b><span>2</span>Rs</b></p>
+          <p style="margin-top: 5px;margin-bottom: 5px;">grand total =<b><span class="gt">{{total+2}}</span>Rs</b></p>
+          <button class="btn btn-success" id="last" style="margin-top: 5px;margin-bottom: 5px;">Check out</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { environment } from '../../../src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,8 @@ export class AuthService {
 
   public avail: boolean = false;
   public msg: string = "";
-  private baseUri: string = "https://appcanteen.herokuapp.com";
+  public count :any;
+  private baseUri: string =environment.heroku ? "https://appcanteen.herokuapp.com":"http://localhost:3000";
   // private baseUri: string = "http://localhost:3000";
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private router: Router) { }
@@ -69,6 +70,17 @@ export class AuthService {
       observe: 'body',
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
+  }
+
+
+  setCount(c)
+  {
+    this.count=c;
+  }
+
+  getCount()
+  {
+    return this.count;
   }
 
 }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { environment } from '../../../src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +9,7 @@ export class UserService {
 
   public avail: boolean = false;
   public msg: string = "";
-  private baseUri: string = "https://appcanteen.herokuapp.com/user/";
+  private baseUri: string = environment.heroku ? "https://appcanteen.herokuapp.com/user/" : "http://localhost:3000/user/";
   // private baseUri: string = "http://localhost:3000/user/";
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private router: Router) { }
@@ -27,5 +27,30 @@ export class UserService {
 
   getAllFood() {
     return this.http.get(this.baseUri + "getallfooditem", { headers: this.headers });
+  }
+
+  addtocart(body: any) {
+    return this.http.post(this.baseUri + "addtocart", body, {
+      observe: 'body',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
+
+  getCount()
+  {
+    return this.http.get(this.baseUri + "getcount", { headers: this.headers });
+  }
+
+  getcart()
+  {
+    return this.http.get(this.baseUri + "getcart", { headers: this.headers });
+  }
+
+  deleteFromCart(body: any)
+  {
+    return this.http.post(this.baseUri + "deletefromcart", body, {
+      observe: 'body',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
   }
 }
