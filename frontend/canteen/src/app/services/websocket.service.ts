@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { io } from 'socket.io-client';
+import { environment } from '../../../src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,7 @@ export class WebsocketService {
 
 
   // readonly url: string = "http://localhost:3000";
-  readonly url: string = "https://appcanteen.herokuapp.com";
+  readonly url: string = environment.heroku ? "https://appcanteen.herokuapp.com":"http://localhost:3000";
   constructor() {
     this.socket = io(this.url);
   }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { environment } from '../../../src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,7 @@ export class AdminService {
   public avail: boolean = false;
   public msg: string = "";
   private food: any;
-  private baseUri: string = "https://appcanteen.herokuapp.com/admin/";
+  private baseUri: string =environment.heroku ? "https://appcanteen.herokuapp.com/admin/" :"http://localhost:3000/admin/";
   // private baseUri: string = "http://localhost:3000/admin/";
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private router: Router) { }

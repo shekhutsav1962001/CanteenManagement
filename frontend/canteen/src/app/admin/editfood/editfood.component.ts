@@ -53,15 +53,23 @@ export class EditfoodComponent implements OnInit {
 
   onSubmit(f) {
     console.log("submit");
-    // console.log(f.controls.foodname.value);
+
     if (f.controls.foodpic.value) {
       console.log("yes image");
       console.log(this.food);
+    
       const formData = new FormData();
       formData.append('file', this.image);
       formData.append('foodname', f.controls.foodname.value);
       formData.append('foodprice', f.controls.foodprice.value);
-      formData.append('foodqty', f.controls.foodqty.value);
+      if(this.food.unlimited)
+      {
+        formData.append('foodqty',this.food.foodqty);
+      }
+      else
+      {
+        formData.append('foodqty', f.controls.foodqty.value);
+      }
       formData.append('_id', this.food._id);
       this.adminService.editfoodwithimage(formData).subscribe(
         data => {

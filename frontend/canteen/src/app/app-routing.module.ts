@@ -15,7 +15,9 @@ import { ResetComponent } from './auth/reset/reset.component';
 import { NotfoundComponent } from './error/notfound/notfound.component';
 import { ServererrorComponent } from './error/servererror/servererror.component';
 import { MainComponent } from './index/main/main.component';
+import { CartComponent } from './user/cart/cart.component';
 import { EditprofileComponent } from './user/editprofile/editprofile.component';
+import { EmptycartComponent } from './user/emptycart/emptycart.component';
 import { MyprofileComponent } from './user/myprofile/myprofile.component';
 import { UserGuard } from './user/user.guard';
 import { UserhomeComponent } from './user/userhome/userhome.component';
@@ -44,7 +46,8 @@ const routes: Routes = [
   { path: 'userhome', component: UserhomeComponent, canActivate: [UserGuard] },
   { path: 'myprofile', component: MyprofileComponent, canActivate: [UserGuard] },
   { path: 'editprofile', component: EditprofileComponent, canActivate: [UserGuard] },
-
+  { path: 'empty-cart', component:  EmptycartComponent, canActivate: [AuthGuard] },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
 
 
   // error

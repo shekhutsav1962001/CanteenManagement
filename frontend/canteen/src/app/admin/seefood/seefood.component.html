@@ -22,18 +22,18 @@
                     <thead>
                         <tr>
                           <th scope="col">#</th>
-                          <th scope="col">Food Image</th>
-                          <th scope="col">Food Name</th>
+                          <th scope="col">Item Image</th>
+                          <th scope="col">Item Name</th>
                           <th scope="col">Add Quantity</th>
-                          <th scope="col">Edit Food</th>
-                          <th scope="col">Delete Food</th>
+                          <th scope="col">Edit Item</th>
+                          <th scope="col">Delete Item</th>
                         </tr>
                     </thead>
                     <tbody >
                         <tr *ngFor="let item of fooditems;index as i">
                             <th scope="row">{{i+1}}</th>
                             <td class="w-25">
-                                <img src="https://appcanteen.herokuapp.com/backend/uploads/{{item.foodimage}}"
+                                <img src="http://localhost:3000/backend/uploads/{{item.foodimage}}"
                                     class="img-fluid img-thumbnail" alt="No image found">
                             </td>
                             <td>{{item.foodname}}</td>
