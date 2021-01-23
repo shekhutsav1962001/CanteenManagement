@@ -37,6 +37,7 @@ import { EditprofileComponent } from './user/editprofile/editprofile.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { CartComponent } from './user/cart/cart.component';
 import { EmptycartComponent } from './user/emptycart/emptycart.component';
+
 @NgModule({
   declarations: [
     AppComponent,

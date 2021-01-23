@@ -12,13 +12,12 @@ import { WebsocketService } from 'src/app/services/websocket.service';
 })
 export class CartComponent implements OnInit {
   items: any[];
-  total:any;
+  total: any;
   arr: any[];
-  constructor(private router: Router, private authService: AuthService,private userService: UserService,private webSocketService: WebsocketService) { }
+  constructor(private router: Router, private authService: AuthService, private userService: UserService, private webSocketService: WebsocketService) { }
 
   ngOnInit(): void {
-    if(this.authService.getCount()==0)
-    {
+    if (this.authService.getCount() == 0) {
       this.authService.setCount(0);
       this.router.navigate(['/empty-cart']);
     }
@@ -33,16 +32,29 @@ export class CartComponent implements OnInit {
   }
 
 
-  getdata()
-  {
+  getdata() {
     this.userService.getcart().subscribe(
       data => {
         // console.log(data);
-        this.arr = data[0];
-        // console.log(this.arr);
-        this.total=this.arr['total'];
-        // console.log(this.total);
-        this.items=this.arr['items']
+        if (data['empty'] == true) {
+          this.authService.setCount(0);
+          this.router.navigate(['/empty-cart']);
+        }
+        else {
+          console.log(data);
+          this.arr = data[0];
+          console.log(this.arr);
+          if (this.arr == undefined) {
+            this.authService.setCount(0);
+            this.router.navigate(['/empty-cart']);
+          }
+          else
+          {
+          this.items = this.arr['items'];
+          this.total = this.arr['total'];
+          }
+        }
+
         // console.log(this.items);
       },
       (error) => {
@@ -58,6 +70,10 @@ export class CartComponent implements OnInit {
     this.authService.check().subscribe(
       data => {
         console.log(data);
+        if(data)
+        {
+          this.getdata();
+        }
         // console.log(data.total);
       },
       (error) => {
@@ -70,8 +86,7 @@ export class CartComponent implements OnInit {
     )
   }
 
-  delete(item)
-  {
+  delete(item) {
     console.log("delte");
     console.log(item);
     this.userService.deleteFromCart(item).subscribe(
@@ -85,6 +100,29 @@ export class CartComponent implements OnInit {
           this.router.navigate(['/error'])
         }
         console.log(error);
+      }
+    )
+  }
+
+
+  pay() {
+    console.log("payyyy");
+    this.userService.paytm({}).subscribe(
+      data => {
+        console.log("data");
+        console.log(data);
+        console.log("data");
+        // this.router.navigate(['/paytm'])
+      },
+      (error) => {
+        // console.log(error.s);
+        // if (error instanceof HttpErrorResponse) {
+        //   this.authService.logoutUser();
+          // this.router.navigate(['/error'])
+        // }
+        console.log('error');
+        console.log(error);
+        console.log('error');
       }
     )
   }

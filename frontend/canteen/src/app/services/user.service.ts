@@ -53,4 +53,12 @@ export class UserService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
+
+
+  paytm(body: any) {
+    return this.http.post(this.baseUri+"paytm", body, {
+      observe: 'body',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
 }

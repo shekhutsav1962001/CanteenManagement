@@ -12,5 +12,7 @@ router.post('/addtocart', verifyTokenmiddleware.verifyToken,useController.addtoC
 router.get('/getcount',verifyTokenmiddleware.verifyToken,useController.getCount)
 router.get('/getcart',verifyTokenmiddleware.verifyToken,useController.getCart)
 router.post('/deletefromcart', verifyTokenmiddleware.verifyToken,useController.deleteFromCart)
+router.post('/paytm', verifyTokenmiddleware.verifyToken,useController.paytm)
+
 
 module.exports = router

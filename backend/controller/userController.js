@@ -1,7 +1,7 @@
 var User = require('../models/user')
 var Food = require('../models/food')
 var Cart = require('../models/cart')
-
+const checksum_lib = require('../checksum/checksum');
 exports.myProfile = (req, res) => {
     User.findOne({ _id: req.userId }, (error, user) => {
         if (error) {
@@ -71,8 +71,10 @@ function decrementQuantity(req, res, id) {
                     res.json({ errormsg: "something went wrong!!" });
                 }
                 else {
-                    const io = req.app.get('io');
-                    io.emit("cart", "item added or removed from cart by user");
+                    // **************************************************
+                    // const io = req.app.get('io');
+                    // io.emit("cart", "item added or removed from cart by user");
+                    // **************************************************
                     console.log("edited(decrement) quantity");
                 }
             })
@@ -88,18 +90,20 @@ function intcrementQuantity(req, res, id) {
         }
         else {
             let qty = item.foodqty;
-            qty+= req.body.foodqty;
+            qty += req.body.foodqty;
             Food.updateOne({ _id: id }, {
                 foodqty: qty,
-                foodavail:true
+                foodavail: true
             }, function (err, data) {
                 if (err) {
                     console.log("something went wrong!!")
                     res.json({ errormsg: "something went wrong!!" });
                 }
                 else {
-                    const io = req.app.get('io');
-                    io.emit("cart", "item added or removed from cart by user");
+                    // **************************************************
+                    // const io = req.app.get('io');
+                    // io.emit("cart", "item added or removed from cart by user");
+                    // **************************************************
                     console.log("edited(increment) quantity");
                 }
             })
@@ -144,7 +148,11 @@ function secondtimecart(req, res, oldcart, newitem) {
                     io.emit("cart", "item added or removed from cart by user");
                 }
                 else {
-                    var x = await decrementQuantity(req, res, newitem._id);
+                    // **************************************************
+                    // var x = await decrementQuantity(req, res, newitem._id);
+                    // **************************************************
+                    const io = req.app.get('io');
+                    io.emit("cart", "item added or removed from cart by user");
                     console.log("limited");
                     console.log("item already so incremented done!");
                 }
@@ -170,7 +178,11 @@ function secondtimecart(req, res, oldcart, newitem) {
                     io.emit("cart", "item added or removed from cart by user");
                 }
                 else {
-                    var x = await decrementQuantity(req, res, newitem._id);
+                    // **************************************************
+                    // var x = await decrementQuantity(req, res, newitem._id);
+                    // **************************************************
+                    const io = req.app.get('io');
+                    io.emit("cart", "item added or removed from cart by user");
                     console.log("limited");
                     console.log("new item  so no increment!");
                 }
@@ -202,11 +214,17 @@ exports.addtoCart = (req, res) => {
                     else {
                         console.log(req.body.unlimited);
                         if (req.body.unlimited) {
+                            const io = req.app.get('io');
+                            io.emit("cart", "item added or removed from cart by user");
                             console.log("successfully added your first item");
                             res.json({ msg: "successfully added your first item" })
                         }
                         else {
-                            var x = await decrementQuantity(req, res, req.body._id);
+                            // **************************************************
+                            // var x = await decrementQuantity(req, res, req.body._id);
+                            // **************************************************
+                            const io = req.app.get('io');
+                            io.emit("cart", "item added or removed from cart by user");
                             console.log("successfully added your first item");
                             res.json({ msg: "successfully added your first item" })
                         }
@@ -294,9 +312,17 @@ exports.deleteFromCart = (req, res) => {
                             res.json({ errormsg: "something went wrong!!" });
                         }
                     })
+                    if (req.body.unlimited) {
+                        console.log("delete in unlimited");
+                    }
+                    else {
+                        // **************************************************
+                        // intcrementQuantity(req,res,req.body._id)
+                        // **************************************************
+                    }
                     const io = req.app.get('io');
                     io.emit("cart", "item added or removed from cart by user");
-                    res.json({ msg: "item deleted from the cart" })
+                    res.json({ msg: "item deleted from the cart", empty: true })
 
                 }
                 else {
@@ -309,13 +335,13 @@ exports.deleteFromCart = (req, res) => {
                             res.json({ errormsg: "something went wrong!!" });
                         }
                         else {
-                            if(req.body.unlimited)
-                            {
+                            if (req.body.unlimited) {
                                 console.log("delete in unlimited");
                             }
-                            else
-                            {
-                                intcrementQuantity(req,res,req.body._id)
+                            else {
+                                // **************************************************
+                                // intcrementQuantity(req,res,req.body._id)
+                                // **************************************************
                             }
                             const io = req.app.get('io');
                             io.emit("cart", "item added or removed from cart by user");
@@ -327,5 +353,46 @@ exports.deleteFromCart = (req, res) => {
             }
         }
     })
+
+}
+
+var PaytmConfig = {
+    mid: "VrUGmx97200583132245",
+    key: "sPaB9mM%rr9f7GUF",
+    website: "WEBSTAGING"
+}
+
+
+
+exports.paytm = (req, res) => {
+
+    var params = {};
+    params['MID'] = PaytmConfig.mid;
+    params['WEBSITE'] = PaytmConfig.website;
+    params['CHANNEL_ID'] = 'WEB';
+    params['INDUSTRY_TYPE_ID'] = 'Retail';
+    params['ORDER_ID'] = 'TEST_' + new Date().getTime();
+    params['CUST_ID'] = 'Customer001';
+    params['TXN_AMOUNT'] = '11.00';
+    params['CALLBACK_URL'] = 'http://localhost:' + 3000 + '/';
+    params['EMAIL'] = 'deepdonda007@gmail.com';
+    params['MOBILE_NO'] = '6353694040';
+
+    checksum_lib.genchecksum(params, PaytmConfig.key, function (err, checksum) {
+
+        var txn_url = "https://securegw-stage.paytm.in/order/process"; // for staging
+        var form_fields = "";
+        for (var x in params) {
+            form_fields += "<input type='hidden' name='" + x + "' value='" + params[x] + "' >";
+        }
+        form_fields += "<input type='hidden' name='CHECKSUMHASH' value='" + checksum + "' >";
+        // console.log(form_fields);
+        // res.writeHead(200, { 'Content-Type': 'text/html' });
+        var x = '<html><head><title>Merchant Checkout Page</title></head><body><center><h1>Please do not refresh this page...</h1></center><form method="post" action="' + txn_url + '" name="f1">' + form_fields + '</form><script type="text/javascript">document.f1.submit();</script></body></html>'
+        console.log(x);
+        res.write(x);
+        res.end();
+        // res.json({msg:"all ok"})
+    });
 
 }
