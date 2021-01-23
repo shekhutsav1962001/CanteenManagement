@@ -73,7 +73,34 @@ function decrementQuantity(req, res, id) {
                 else {
                     const io = req.app.get('io');
                     io.emit("cart", "item added or removed from cart by user");
-                    console.log("edited quantity");
+                    console.log("edited(decrement) quantity");
+                }
+            })
+        }
+    })
+}
+
+function intcrementQuantity(req, res, id) {
+    Food.findOne({ _id: id }, (error, item) => {
+        if (error) {
+            console.log("something went wrong!!")
+            res.json({ errormsg: "something went wrong!!" });
+        }
+        else {
+            let qty = item.foodqty;
+            qty+= req.body.foodqty;
+            Food.updateOne({ _id: id }, {
+                foodqty: qty,
+                foodavail:true
+            }, function (err, data) {
+                if (err) {
+                    console.log("something went wrong!!")
+                    res.json({ errormsg: "something went wrong!!" });
+                }
+                else {
+                    const io = req.app.get('io');
+                    io.emit("cart", "item added or removed from cart by user");
+                    console.log("edited(increment) quantity");
                 }
             })
         }
@@ -282,6 +309,14 @@ exports.deleteFromCart = (req, res) => {
                             res.json({ errormsg: "something went wrong!!" });
                         }
                         else {
+                            if(req.body.unlimited)
+                            {
+                                console.log("delete in unlimited");
+                            }
+                            else
+                            {
+                                intcrementQuantity(req,res,req.body._id)
+                            }
                             const io = req.app.get('io');
                             io.emit("cart", "item added or removed from cart by user");
                             console.log("item deleted from  cart");
