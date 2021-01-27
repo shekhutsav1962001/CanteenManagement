@@ -15,6 +15,8 @@ export class AddfoodComponent implements OnInit {
   foodname:any;
   foodprice:any;
   foodqty:any;
+  public errorMessage: any;
+  public styl :any; 
   constructor(private authService: AuthService, private router: Router,private adminService: AdminService) { }
 
 
@@ -37,6 +39,7 @@ export class AddfoodComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
+        console.log("object");
         console.log(error);
       }
     )
@@ -60,17 +63,18 @@ export class AddfoodComponent implements OnInit {
     formData.append('foodname', this.foodname);
     formData.append('foodprice', this.foodprice);
     formData.append('foodqty', this.foodqty);
-    console.log(formData);
+    // console.log(formData);
     this.adminService.addfood(formData).subscribe(
       data => {
         if (data['msg']) {
-          console.log(data['msg']);
+          // console.log(data['msg']);
+          this.authService.setMessage("successfully item added", "#43b581");
           this.router.navigate(['/admin/seefood'])
         }
-        else {
-          this.authService.logoutUser();
-          this.router.navigate(['/error'])
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
         }
+        console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -101,12 +105,23 @@ export class AddfoodComponent implements OnInit {
   pricechnage(event) {
     if(event.target.value == "")
     {
-      event.target.value= 1;
-      this.foodprice=1;
+      event.target.value= "";
+      this.foodprice="";
     }
     if (event.target.value <= 0 && event.target.value!="") {
       event.target.value= 1;
       this.foodprice=1;
     }
+  }
+
+  setMessage(msg:any,color:any)
+  {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
   }
 }

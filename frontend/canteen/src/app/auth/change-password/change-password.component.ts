@@ -59,6 +59,7 @@ export class ChangePasswordComponent implements OnInit {
             return;
           }
           else {
+            this.authService.setMessage("successfully password changed!!", "#43b581");
             this.authService.logoutUser();
             this.router.navigate(['/']);
           }

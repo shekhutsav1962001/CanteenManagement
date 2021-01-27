@@ -1,8 +1,10 @@
+require('dotenv').config()
 var Food = require('../models/food')
+var User = require('../models/user')
+const fileUploadmiddleware = require('../middleware/fileUpload')
 
-
-exports.addFood = (req, res) => {
-    var file = req.file
+exports.addFood = async (req, res) => {
+    // var file = req.file
     let avail;
     let qty;
     let limit;
@@ -23,25 +25,37 @@ exports.addFood = (req, res) => {
             qty = -1;
             limit = true;
         }
-        var food = new Food({
-            foodname: req.body.foodname,
-            foodqty: qty,
-            foodprice: req.body.foodprice,
-            foodimage: file.filename,
-            foodavail: avail,
-            unlimited:limit
-        })
+        // **********************
         try {
-            doc = food.save();
-            console.log("food added by admin");
-            const io = req.app.get('io');
-            io.emit("foodcrudbyadmin", " food crud operation done by admin!");
-            return res.json({ msg: 'Food added' });
+            const image = req.file
+            const imageUrl = await fileUploadmiddleware.uploadImage(image)
+            var food = new Food({
+                foodname: req.body.foodname,
+                foodqty: qty,
+                foodprice: req.body.foodprice,
+                // foodimage: file.filename,
+                foodimage: imageUrl,
+                foodavail: avail,
+                unlimited: limit
+            })
+            try {
+                doc = food.save();
+                console.log("food added by admin");
+                const io = req.app.get('io');
+                io.emit("foodcrudbyadmin", " food crud operation done by admin!");
+                return res.json({ msg: 'Food added' });
+            }
+            catch (err) {
+                console.log("some error while adding food by admin")
+                return res.json({ errormsg: 'Somthing went wrong' });
+            }
         }
         catch (err) {
             console.log("some error while adding food by admin")
             return res.json({ errormsg: 'Somthing went wrong' });
         }
+        // **********************
+
     }
     else {
         console.log("Invalid Quantity!");
@@ -75,8 +89,17 @@ exports.editFood = (req, res) => {
             qty = req.body.foodqty
         }
         if (req.body.foodqty == -1) {
-            avail = true;
+            // avail = true;
+            
             qty = -1;
+            if(req.body.isitavail=="yes")
+            {
+                avail = true;
+            }
+            else
+            {
+                avail = false;
+            }
         }
         Food.updateOne({ _id: req.body._id }, {
             foodname: req.body.foodname,
@@ -105,7 +128,7 @@ exports.editFood = (req, res) => {
 
 }
 
-exports.editFoodWithImage = (req, res) => {
+exports.editFoodWithImage = async (req, res) => {
     let avail;
     let qty;
     if (!isNaN(req.body.foodqty)) {
@@ -118,29 +141,68 @@ exports.editFoodWithImage = (req, res) => {
             qty = req.body.foodqty;
         }
         if (req.body.foodqty == -1) {
-            avail = true;
+            // avail = true;
             qty = -1;
+            if(req.body.isitavail=="yes")
+            {
+                avail = true;
+            }
+            else
+            {
+                avail = false;
+            }
         }
-        var file = req.file
-        console.log(req.body.foodqty);
-        Food.updateOne({ _id: req.body._id }, {
-            foodname: req.body.foodname,
-            foodprice: req.body.foodprice,
-            foodqty: qty,
-            foodimage: file.filename,
-            foodavail: avail
-        }, function (err, item) {
-            if (err) {
-                console.log("some error in edit food with image")
-                return res.json({ errormsg: 'Somthing went wrong' });
-            }
-            else {
-                console.log("Edited food with image");
-                const io = req.app.get('io');
-                io.emit("foodcrudbyadmin", " food crud operation done by admin!");
-                return res.json({ msg: 'Edited food with image' });
-            }
-        })
+        try {
+            Food.findOne({ _id: req.body._id }, async (err, data) => {
+                if (err) {
+                    console.log("error in delete food by admin");
+                    return res.json({ errormsg: 'Somthing went wrong' });
+                }
+                else {
+                    if (!data) {
+                        console.log("error in delete food by admin");
+                        return res.json({ errormsg: 'Somthing went wrong' });
+                    }
+                    else {
+                        try {
+                            var x = await fileUploadmiddleware.deleteImage(data.foodimage);
+                            const image = req.file
+                            const imageUrl = await fileUploadmiddleware.uploadImage(image)
+                            Food.updateOne({ _id: req.body._id }, {
+                                foodname: req.body.foodname,
+                                foodprice: req.body.foodprice,
+                                foodqty: qty,
+                                // foodimage: file.filename,
+                                foodimage: imageUrl,
+                                foodavail: avail
+                            }, function (err, item) {
+                                if (err) {
+                                    console.log("some error in edit food with image")
+                                    return res.json({ errormsg: 'Somthing went wrong' });
+                                }
+                                else {
+                                    console.log("Edited food with image");
+                                    const io = req.app.get('io');
+                                    io.emit("foodcrudbyadmin", " food crud operation done by admin!");
+                                    return res.json({ msg: 'Edited food with image' });
+                                }
+                            })
+                        } catch (error) {
+                            console.log("error in delete food by admin");
+                            return res.json({ errormsg: 'Somthing went wrong' });
+                        }
+
+                    }
+
+                }
+
+            })
+        }
+        catch (err) {
+            console.log("some error while editing  food with image by admin")
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+
     }
     else {
         console.log("Invalid Quantity!");
@@ -148,20 +210,81 @@ exports.editFoodWithImage = (req, res) => {
     }
 
 
-
 }
 
 exports.deleteFood = (req, res) => {
-    Food.deleteOne({ _id: req.params.id }, (err) => {
+
+    Food.findOne({ _id: req.params.id }, async (err, data) => {
         if (err) {
             console.log("error in delete food by admin");
             return res.json({ errormsg: 'Somthing went wrong' });
         }
+        else {
+            if (!data) {
+                console.log("error in delete food by admin");
+                return res.json({ errormsg: 'Somthing went wrong' });
+            }
+            else {
+                try {
+                    var x = await fileUploadmiddleware.deleteImage(data.foodimage);
+                    Food.deleteOne({ _id: req.params.id }, (error) => {
+                        if (error) {
+                            console.log("error in delete food by admin");
+                            return res.json({ errormsg: 'Somthing went wrong' });
+                        }
+                    })
+                    const io = req.app.get('io');
+                    io.emit("foodcrudbyadmin", " food crud operation done by admin!");
+                    return res.json({ msg: 'food deleted by admin' });
+                } catch (error) {
+                    console.log("error in delete food by admin");
+                    return res.json({ errormsg: 'Somthing went wrong' });
+                }
+
+            }
+
+        }
+
     })
-    const io = req.app.get('io');
-    io.emit("foodcrudbyadmin", " food crud operation done by admin!");
-    return res.json({ msg: 'food deleted by admin' });
+}
+
+exports.getallUser = (req, res) => {
+    User.find({ role: "user" }, (err, usr) => {
+        if (err) {
+            console.log("error in get all user by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        else {
+            res.json({ user: usr });
+        }
+    }).select("-password").select("-role")
 }
 
 
+exports.block = (req, res) => {
+    var id = req.params.id
+    User.updateOne({ _id: id }, { blocked: true }, (err, user) => {
+        if (err) {
+            console.log("error in block user by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        else {
+            console.log("blocked user");
+            res.status(201).json({ msg: "blocked user!" });
+        }
+    })
 
+}
+exports.unblock = (req, res) => {
+    var id = req.params.id
+    User.updateOne({ _id: id }, { blocked: false }, (err, user) => {
+        if (err) {
+            console.log("error in unblock user by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        else {
+            console.log("unblocked user");
+            res.status(201).json({ msg: "unblocked user!" });
+        }
+    })
+}

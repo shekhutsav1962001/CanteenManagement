@@ -16,6 +16,8 @@ export class EditprofileComponent implements OnInit {
   public contact: any;
   public email: any;
   public user: any;
+  public errorMessage: any;
+  public styl: any;
   constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
@@ -27,10 +29,16 @@ export class EditprofileComponent implements OnInit {
     this.userService.myprofile().subscribe(
       data => {
         // console.log(data);
-        this.user = data['user'];
-        this.name = this.user.name;
-        this.email = this.user.email;
-        this.contact = this.user.contact;
+        if (data['user']) {
+          this.user = data['user'];
+          this.name = this.user.name;
+          this.email = this.user.email;
+          this.contact = this.user.contact;
+        }
+
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -61,6 +69,7 @@ export class EditprofileComponent implements OnInit {
       .subscribe(
         data => {
           if (data['msg']) {
+            this.authService.setMessage("successfully edited profile", "#43b581");
             if (data['emailchange'] == "yes") {
               this.authService.logoutUser();
               this.router.navigate(['/'])
@@ -69,9 +78,8 @@ export class EditprofileComponent implements OnInit {
               this.router.navigate(['/myprofile'])
             }
           }
-          else {
-            this.authService.logoutUser();
-            this.router.navigate(['/error'])
+          if (data['errormsg']) {
+            this.setMessage(data['errormsg'], "#f04747");
           }
         },
         error => {
@@ -83,5 +91,15 @@ export class EditprofileComponent implements OnInit {
         }
 
       )
+  }
+
+  setMessage(msg: any, color: any) {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
   }
 }

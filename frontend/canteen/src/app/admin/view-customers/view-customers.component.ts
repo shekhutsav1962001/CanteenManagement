@@ -5,38 +5,48 @@ import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-addfoodqty',
-  templateUrl: './addfoodqty.component.html',
-  styleUrls: ['./addfoodqty.component.css']
+  selector: 'app-view-customers',
+  templateUrl: './view-customers.component.html',
+  styleUrls: ['./view-customers.component.css']
 })
-export class AddfoodqtyComponent implements OnInit {
-  public food: any;
+export class ViewCustomersComponent implements OnInit {
+
+  public users: any[];
   public errorMessage: any;
-  public styl :any;
+  public styl: any;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.check();
-    if (this.adminService.getFood()) {
-      this.food = this.adminService.getFood();
-    }
-    else {
-      this.router.navigate(['/admin/seefood'])
-    }
+    this.getData();
   }
 
+  getData() {
+    this.adminService.getAlluser().subscribe(
+      data => {
+        if (data['user']) {
+          this.users = data['user'];
+          console.log(data);
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
+      }
+    )
+  }
 
   check() {
     this.authService.check().subscribe(
       data => {
         console.log(data);
-        if (data['msg']) {
-          console.log(data['msg']);
-        }
-        else {
-          this.authService.logoutUser();
-          this.router.navigate(['/error'])
-        }
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -48,22 +58,18 @@ export class AddfoodqtyComponent implements OnInit {
     )
   }
 
-  onSubmit(f) {
-    if(this.food.foodqty<0)
-    {
-      this.food.foodqty=0;
-    }
-    this.adminService.editfood(this.food).subscribe(
+
+  block(user) {
+    var userid = user._id;
+    this.adminService.blockuser(userid).subscribe(
       data => {
-        console.log(data);
         if (data['msg']) {
-          // console.log(data['msg']);
-          this.authService.setMessage("successfully quantity updated", "#43b581");
-          this.router.navigate(['/admin/seefood'])
+          this.setMessage("successfully blocked user", "#f04747");
         }
         if (data['errormsg']) {
           this.setMessage(data['errormsg'], "#f04747");
         }
+        this.getData();
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -74,12 +80,29 @@ export class AddfoodqtyComponent implements OnInit {
       }
     )
   }
-  qtychnage(event) {
-    if (event.target.value < 0) {
-      event.target.value= 0;
-      this.food.foodqty = 0;
-    }
+
+  unblock(user) {
+    var userid = user._id;
+    this.adminService.unblockuser(userid).subscribe(
+      data => {
+        if (data['msg']) {
+          this.setMessage("successfully unblocked user", "#43b581");
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+        this.getData();
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
+      }
+    )
   }
+
 
   setMessage(msg: any, color: any) {
     this.errorMessage = msg;
@@ -90,5 +113,4 @@ export class AddfoodqtyComponent implements OnInit {
       this.errorMessage = null;
     }, 4000);
   }
-
 }

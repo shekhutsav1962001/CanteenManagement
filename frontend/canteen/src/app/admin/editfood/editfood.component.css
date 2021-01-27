@@ -144,7 +144,7 @@ h2{
 /* ==========================================================================
    #FORM
    ========================================================================== */
-input {
+input,select {
   outline: none;
   margin: 0;
   border: none;
@@ -282,4 +282,11 @@ input[type=number]::-webkit-outer-spin-button {
 
 .input--style-6.ng-invalid.ng-touched {
   border-bottom: 2px solid red;
+}
+
+select:focus
+{
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }

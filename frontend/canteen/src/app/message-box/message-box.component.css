@@ -1,0 +1,36 @@
+.box {
+  position:fixed;
+   bottom: 20px;
+   right: 20px;
+  color: #f1f1f1;
+}
+.error {
+  width: min(400px, 70vw);
+  opacity: 0;
+  transform: translateY(50px);
+  animation: animate 400ms forwards var(--animation-function);
+}
+.box .error {
+  margin: 1rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-radius: 5px;
+  padding: 1rem 1rem;
+}
+
+
+@keyframes animate {
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@media (max-width: 650px) {
+  .error {
+    background: rgb(240, 71, 71);
+    transform: translateY(-50px);
+    white-space: normal;
+  }
+}

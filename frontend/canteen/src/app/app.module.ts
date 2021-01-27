@@ -37,6 +37,7 @@ import { EditprofileComponent } from './user/editprofile/editprofile.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { CartComponent } from './user/cart/cart.component';
 import { EmptycartComponent } from './user/emptycart/emptycart.component';
+import { ViewCustomersComponent } from './admin/view-customers/view-customers.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { EmptycartComponent } from './user/emptycart/emptycart.component';
     MessageBoxComponent,
     CartComponent,
     EmptycartComponent,
+    ViewCustomersComponent,
   ],
   imports: [
     CommonModule,

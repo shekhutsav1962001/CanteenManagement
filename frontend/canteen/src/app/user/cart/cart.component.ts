@@ -14,6 +14,8 @@ export class CartComponent implements OnInit {
   items: any[];
   total: any;
   arr: any[];
+  public errorMessage: any;
+  public styl :any;
   constructor(private router: Router, private authService: AuthService, private userService: UserService, private webSocketService: WebsocketService) { }
 
   ngOnInit(): void {
@@ -36,6 +38,9 @@ export class CartComponent implements OnInit {
     this.userService.getcart().subscribe(
       data => {
         // console.log(data);
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
         if (data['empty'] == true) {
           this.authService.setCount(0);
           this.router.navigate(['/empty-cart']);
@@ -92,6 +97,7 @@ export class CartComponent implements OnInit {
     this.userService.deleteFromCart(item).subscribe(
       data => {
         console.log(data);
+        this.setMessage("successfully deleted item", "#f04747");
         // console.log(data.total);
       },
       (error) => {
@@ -126,4 +132,15 @@ export class CartComponent implements OnInit {
       }
     )
   }
+
+  setMessage(msg: any, color: any) {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
+  }
+
 }

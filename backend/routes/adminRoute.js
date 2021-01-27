@@ -11,10 +11,17 @@ router.get('/abc', (req, res) => {
     res.send("hello get abc");
 })
 
-router.post('/addfood', verifyTokenmiddleware.verifyToken, fileUploadmiddleware.upload.single('file'), adminController.addFood )
+// router.post('/addfood', verifyTokenmiddleware.verifyToken, fileUploadmiddleware.upload.single('file'), adminController.addFood )
+// router.post('/editfoodwithimage', verifyTokenmiddleware.verifyToken, fileUploadmiddleware.upload.single('file'), adminController.editFoodWithImage )
+
+
+router.post('/addfood', verifyTokenmiddleware.verifyToken, adminController.addFood )
 router.get('/getallfooditem',verifyTokenmiddleware.verifyToken,adminController.getallFoodItem)
 router.post('/editfood',verifyTokenmiddleware.verifyToken,adminController.editFood)
-router.post('/editfoodwithimage', verifyTokenmiddleware.verifyToken, fileUploadmiddleware.upload.single('file'), adminController.editFoodWithImage )
+router.post('/editfoodwithimage', verifyTokenmiddleware.verifyToken, adminController.editFoodWithImage )
 router.delete('/deletefood/:id',verifyTokenmiddleware.verifyToken,adminController.deleteFood)
+router.get('/getalluser',verifyTokenmiddleware.verifyToken,adminController.getallUser)
+router.delete('/blockuser/:id',verifyTokenmiddleware.verifyToken,adminController.block)
+router.delete('/unblockuser/:id',verifyTokenmiddleware.verifyToken,adminController.unblock)
 
 module.exports = router
