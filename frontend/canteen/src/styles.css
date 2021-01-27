@@ -2,3 +2,10 @@
 *{
     scroll-behavior: smooth;
 }
+
+
+:root {
+
+  /* --animation-function: cubic-bezier(.15,.3,.14,1.36); */
+  --animation-function: cubic-bezier(0.15, 0.3, 0.04, 1.09);
+}

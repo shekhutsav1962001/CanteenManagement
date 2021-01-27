@@ -43,7 +43,7 @@
       <div class="wrapper">
         <div class="containerr">
           <!-- http://localhost:3000/backend/uploads/1-10-2021-12-31-1-4.jpg -->
-          <div class="top"><img src="http://localhost:3000/backend/uploads/{{item.foodimage}}" alt="No image found"></div>
+          <div class="top"><img src="{{item.foodimage}}" alt="No image found"></div>
           <div class="bottom">
             <div class="left">
               <div class="details">
@@ -76,6 +76,11 @@
     <!-- </div> -->
 
   </section>
+
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
+
 </body>
 
 </html>

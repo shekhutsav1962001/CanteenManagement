@@ -14,21 +14,33 @@ export class MyprofileComponent implements OnInit {
   public name: any;
   public contact: any;
   public email: any;
-  public user :any;
-  constructor(private authService: AuthService, private router: Router,private userService: UserService) { }
-
+  public user: any;
+  public errorMessage: any;
+  public styl: any;
+  constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
+ 
   ngOnInit(): void {
     this.check();
     this.getData();
+    if (this.authService.getMessage()) {
+      var x = this.authService.getMessage();
+      this.setMessage(x.msg, x.color)
+    }
   }
   getData() {
     this.userService.myprofile().subscribe(
       data => {
         // console.log(data);
-        this.user = data['user'];
-        this.name = this.user.name;
-        this.email = this.user.email;
-        this.contact = this.user.contact;
+        if (data['user']) {
+          this.user = data['user'];
+          this.name = this.user.name;
+          this.email = this.user.email;
+          this.contact = this.user.contact;
+        }
+
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -60,5 +72,15 @@ export class MyprofileComponent implements OnInit {
   }
   gotoEditprofile() {
     this.router.navigate(['/editprofile'])
+  }
+
+  setMessage(msg: any, color: any) {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
   }
 }

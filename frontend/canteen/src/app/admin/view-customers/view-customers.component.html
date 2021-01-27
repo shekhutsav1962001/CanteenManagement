@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <app-admin-nav></app-admin-nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-image">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">contact</th>
+                          <!-- <th scope="col">Add Quantity</th> -->
+                          <th scope="col">Block User</th>
+                          <th scope="col">Unblock User</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let user of users;index as i">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{user.name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.contact}}</td>
+                            <td >
+                              <button class="btn btn-link" [disabled]="user.blocked" (click)="block(user)"><i class="fa fa-ban" id="delete"  aria-hidden="true"></i></button></td>
+                            <td >
+                              <button class="btn btn-link" [disabled]="!user.blocked" (click)="unblock(user)"><i class="fa fa-unlock" id="edit" aria-hidden="true"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    
+      <div class="errors" *ngIf="errorMessage">
+        <app-message-box
+          [message]="errorMessage"  [styl]="styl"
+        ></app-message-box>
+      </div>
+
+</body>
+
+</html>

@@ -7,7 +7,7 @@ import { environment } from '../../../src/environments/environment';
 })
 export class AuthService {
 
-
+  public toster:any = {};
   public avail: boolean = false;
   public msg: string = "";
   public count :any;
@@ -40,7 +40,7 @@ export class AuthService {
 
   logoutUser() {
     localStorage.removeItem('token');
-    // localStorage.removeItem('userid');
+    localStorage.removeItem('userid');
     localStorage.removeItem('admin');
     localStorage.removeItem('user');
     this.router.navigate(['/'])
@@ -83,4 +83,18 @@ export class AuthService {
     return this.count;
   }
 
+
+  setMessage(msg:any,color:any)
+  {
+    this.toster.msg = msg;
+    this.toster.color =color;
+    setTimeout(() => {
+      this.toster = {};
+    }, 4000);
+  }
+
+  getMessage()
+  {
+    return this.toster;
+  }
 }

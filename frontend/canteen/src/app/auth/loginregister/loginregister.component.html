@@ -45,8 +45,8 @@
 
           <div class="input-field">
             <i class="fa fa-user"></i>
-            <input type="text" placeholder="Name" name="name"
-              autocomplete="off" spellcheck="false" ngModel required #name="ngModel" />
+            <input type="text" placeholder="Name" name="name" autocomplete="off" spellcheck="false" ngModel required
+              #name="ngModel" />
 
           </div>
 
@@ -110,6 +110,11 @@
         <img src="../../../assets/img/r.svg" class="image" alt="" />
       </div>
     </div>
+  </div>
+
+
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
   </div>
 </body>
 

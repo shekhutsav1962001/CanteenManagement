@@ -43,4 +43,19 @@ export class AdminService {
   {
     return this.http.delete(this.baseUri + "deletefood/"+id,{ headers: this.headers });
   }
+
+
+  getAlluser()
+  {
+    return this.http.get(this.baseUri + "getalluser", { headers: this.headers });
+  }
+
+  blockuser(id)
+  {
+    return this.http.delete(this.baseUri + "blockuser/"+id, { headers: this.headers });
+  }
+  unblockuser(id)
+  {
+    return this.http.delete(this.baseUri + "unblockuser/"+id, { headers: this.headers });
+  }
 }

@@ -3,6 +3,7 @@ const app = express()
 var cors = require('cors')
 const helmet = require("helmet");
 var bodyParser = require('body-parser')
+const multer = require('multer')
 const PORT = process.env.PORT || 3000
 
 // all routes
@@ -24,6 +25,15 @@ app.use(cors({origin: '*'}))
 
 //secure http
 app.use(helmet());
+
+//image google cloud cloud
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+})
+app.use(multerMid.single('file'))
 
 
 

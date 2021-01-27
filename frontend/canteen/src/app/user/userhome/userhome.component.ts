@@ -14,7 +14,9 @@ export class UserhomeComponent implements OnInit {
 
   public fooditems: any[];
   public len: any;
-  public myitem: any = {}; 
+  public myitem: any = {};
+  public errorMessage: any;
+  public styl: any;
   constructor(private authService: AuthService, private router: Router, private userService: UserService, private webSocketService: WebsocketService) { }
 
   ngOnInit(): void {
@@ -40,10 +42,10 @@ export class UserhomeComponent implements OnInit {
         if (data['msg']) {
           this.fooditems = data['msg'];
         }
-        else {
-          this.authService.logoutUser();
-          this.router.navigate(['/error'])
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
         }
+
       },
       (error) => {
 
@@ -86,10 +88,12 @@ export class UserhomeComponent implements OnInit {
       data => {
 
         console.log(data);
-        // this.toastr.success('Pizza Added to the cart', '', {
-        //   timeOut: 2000,
-        //   closeButton: true
-        // });
+        if (data['msg']) {
+          this.setMessage("successfully item added to cart", "green");
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
       },
       error => {
         if (error instanceof HttpErrorResponse) {
@@ -99,5 +103,16 @@ export class UserhomeComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+
+  setMessage(msg: any, color: any) {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
   }
 }

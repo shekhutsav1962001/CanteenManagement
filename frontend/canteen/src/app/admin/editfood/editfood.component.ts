@@ -12,6 +12,9 @@ import * as $ from 'jquery';
 export class EditfoodComponent implements OnInit {
   public food: any;
   image;
+  public isitavail:any;
+  public errorMessage: any;
+  public styl :any;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
@@ -23,6 +26,16 @@ export class EditfoodComponent implements OnInit {
     this.check();
     if (this.adminService.getFood()) {
       this.food = this.adminService.getFood();
+      console.log(this.food);
+      if(this.food.foodavail)
+      {
+        this.isitavail = "yes";
+      }
+      else
+      {
+        this.isitavail = "no";
+      }
+      this.food.isitavail = this.isitavail;
     }
     else {
       this.router.navigate(['/admin/seefood'])
@@ -56,8 +69,8 @@ export class EditfoodComponent implements OnInit {
 
     if (f.controls.foodpic.value) {
       console.log("yes image");
-      console.log(this.food);
-    
+      // console.log(this.food);
+
       const formData = new FormData();
       formData.append('file', this.image);
       formData.append('foodname', f.controls.foodname.value);
@@ -71,15 +84,16 @@ export class EditfoodComponent implements OnInit {
         formData.append('foodqty', f.controls.foodqty.value);
       }
       formData.append('_id', this.food._id);
+      formData.append('isitavail', this.isitavail);
       this.adminService.editfoodwithimage(formData).subscribe(
         data => {
           if (data['msg']) {
             // console.log(data['msg']);
+            this.authService.setMessage("successfully item updated", "#43b581");
             this.router.navigate(['/admin/seefood'])
           }
-          else {
-            this.authService.logoutUser();
-            this.router.navigate(['/error'])
+          if (data['errormsg']) {
+            this.setMessage(data['errormsg'], "#f04747");
           }
         },
         (error) => {
@@ -95,17 +109,17 @@ export class EditfoodComponent implements OnInit {
     }
     else {
       console.log("no image");
-      console.log(this.food);
+      // console.log(this.food);
       this.adminService.editfood(this.food).subscribe(
         data => {
           console.log(data);
           if (data['msg']) {
             // console.log(data['msg']);
+            this.authService.setMessage("successfully item updated", "#43b581");
             this.router.navigate(['/admin/seefood'])
           }
-          else {
-            this.authService.logoutUser();
-            this.router.navigate(['/error'])
+          if (data['errormsg']) {
+            this.setMessage(data['errormsg'], "#f04747");
           }
         },
         (error) => {
@@ -147,5 +161,29 @@ export class EditfoodComponent implements OnInit {
       const file = event.target.files[0];
       this.image = file;
     }
+  }
+
+  changeisitAvail()
+  {
+    if(this.isitavail=="yes")
+    {
+      this.isitavail="no";
+    }
+    else
+    {
+      this.isitavail="yes";
+    }
+    // console.log(this.isitavail);
+    this.food.isitavail = this.isitavail;
+  }
+
+  setMessage(msg: any, color: any) {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
   }
 }

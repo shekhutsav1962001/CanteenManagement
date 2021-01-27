@@ -316,7 +316,7 @@ exports.deleteFromCart = (req, res) => {
                         console.log("delete in unlimited");
                     }
                     else {
-                        // **************************************************
+                        // *************************************************
                         // intcrementQuantity(req,res,req.body._id)
                         // **************************************************
                     }
@@ -355,6 +355,27 @@ exports.deleteFromCart = (req, res) => {
     })
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var PaytmConfig = {
     mid: "VrUGmx97200583132245",

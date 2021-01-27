@@ -116,7 +116,7 @@ exports.Reset = (req, res) => {
                 otp: a,
                 email: req.body.email
             });
-            console.log("otp =", otp);
+            // console.log("otp =", otp);
             try {
                 doc = otp.save();
                 sendMail(otp.email, otp.otp);

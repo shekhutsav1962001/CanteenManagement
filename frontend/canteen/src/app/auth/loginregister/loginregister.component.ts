@@ -12,9 +12,16 @@ export class LoginregisterComponent implements OnInit {
 
   msg: any = [];
   avail: boolean;
+  public errorMessage: any;
+  public styl :any;
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
+    if(this.authService.getMessage())
+    {
+      var x = this.authService.getMessage();
+      this.setMessage(x.msg,x.color)
+    }
     $(document).ready(function () {
 
       $("#sign-in-btn").click(function () {
@@ -55,6 +62,7 @@ export class LoginregisterComponent implements OnInit {
             return;
           }
           if (data['message']) {
+            this.authService.setMessage("successful Registration!!", "#43b581");
             this.router.navigate(['/']);
           }
         },
@@ -90,7 +98,7 @@ export class LoginregisterComponent implements OnInit {
             console.log("admin");
             localStorage.setItem('token', data['token']);
 
-            // localStorage.setItem('userid', f.controls.email.value);
+            localStorage.setItem('userid', f.controls.email.value);
             localStorage.setItem('admin', 'yes');
             localStorage.setItem('user', 'no');
             this.router.navigate(['/admin/adminhome']);
@@ -128,5 +136,15 @@ export class LoginregisterComponent implements OnInit {
     this.avail = false;
   }
 
+  setMessage(msg:any,color:any)
+  {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
+  }
 
 }

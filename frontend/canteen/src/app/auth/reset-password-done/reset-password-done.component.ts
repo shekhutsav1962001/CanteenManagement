@@ -41,6 +41,7 @@ export class ResetPasswordDoneComponent implements OnInit {
             return;
           }
           else {
+            this.authService.setMessage("Successfully Reset Password done!!", "#43b581");
             this.router.navigate(['/']);
           }
         },

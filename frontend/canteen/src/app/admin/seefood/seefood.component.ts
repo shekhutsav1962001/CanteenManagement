@@ -13,14 +13,14 @@ import { trigger, style, transition, animate, keyframes, query, stagger } from '
     trigger('listAnimation', [
       transition('* => *', [
 
-        query(':enter', style({ opacity: 0 }), {optional: true}),
+        query(':enter', style({ opacity: 0 }), { optional: true }),
 
         query(':enter', stagger('300ms', [
           animate('800ms ease-in', keyframes([
-            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
-            style({opacity: .3, transform: 'translateY(35px)',  offset: 0.3}),
-            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
-          ]))]), {optional: true})
+            style({ opacity: 0, transform: 'translateY(-75%)', offset: 0 }),
+            style({ opacity: .3, transform: 'translateY(35px)', offset: 0.3 }),
+            style({ opacity: 1, transform: 'translateY(0)', offset: 1.0 }),
+          ]))]), { optional: true })
       ])
     ])
 
@@ -29,12 +29,20 @@ import { trigger, style, transition, animate, keyframes, query, stagger } from '
 export class SeefoodComponent implements OnInit {
 
   public fooditems: any[];
-  public len :any;
+  public len: any;
+  public errorMessage: any;
+  public styl: any;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.check();
     this.getFood();
+    if(this.authService.getMessage())
+    {
+      var x = this.authService.getMessage();
+      this.setMessage(x.msg,x.color)
+      // console.log(this.authService.getMessage());
+    }
   }
 
   getFood() {
@@ -42,12 +50,11 @@ export class SeefoodComponent implements OnInit {
       data => {
         if (data['msg']) {
           this.fooditems = data['msg'];
-            this.len=this.fooditems.length;
+          this.len = this.fooditems.length;
           // console.log(data['msg']);
         }
-        else {
-          this.authService.logoutUser();
-          this.router.navigate(['/error'])
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
         }
       },
       (error) => {
@@ -60,6 +67,16 @@ export class SeefoodComponent implements OnInit {
       }
     )
     // console.log();
+  }
+
+  setMessage(msg: any, color: any) {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
   }
 
   check() {
@@ -92,11 +109,11 @@ export class SeefoodComponent implements OnInit {
     this.adminService.deleteFood(item._id).subscribe(
       data => {
         if (data['msg']) {
+          this.setMessage("successfully item deleted", "#f04747");
           this.getFood();
         }
-        else {
-          this.authService.logoutUser();
-          this.router.navigate(['/error'])
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
         }
       },
       (error) => {
