@@ -13,6 +13,7 @@ router.get('/getcount',verifyTokenmiddleware.verifyToken,useController.getCount)
 router.get('/getcart',verifyTokenmiddleware.verifyToken,useController.getCart)
 router.post('/deletefromcart', verifyTokenmiddleware.verifyToken,useController.deleteFromCart)
 router.post('/paytm', verifyTokenmiddleware.verifyToken,useController.paytm)
-
+router.post('/placeorder', verifyTokenmiddleware.verifyToken,useController.placeOrder)
+router.post('/getalluserorders', verifyTokenmiddleware.verifyToken,useController.getAllUserOrders)
 
 module.exports = router

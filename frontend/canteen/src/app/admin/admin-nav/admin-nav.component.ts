@@ -24,7 +24,7 @@ export class AdminNavComponent implements OnInit {
           $("#mybtn").css({ "display": "none" });
         }
 
-
+        
       });
 
 

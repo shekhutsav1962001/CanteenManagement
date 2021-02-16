@@ -63,5 +63,10 @@ export class UserService {
   }
 
 
-  
+  placeOrder(body: any) {
+    return this.http.post(this.baseUri+"placeorder", body, {
+      observe: 'body',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
 }

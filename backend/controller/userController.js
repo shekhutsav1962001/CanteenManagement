@@ -1,6 +1,7 @@
 var User = require('../models/user')
 var Food = require('../models/food')
 var Cart = require('../models/cart')
+var Order = require('../models/order')
 const checksum_lib = require('../checksum/checksum');
 exports.myProfile = (req, res) => {
     User.findOne({ _id: req.userId }, (error, user) => {
@@ -358,18 +359,67 @@ exports.deleteFromCart = (req, res) => {
 
 
 
+function SaveinOrder(req, res, cart) {
+    var today = new Date();
+    var date = today.toJSON().slice(0, 10);
+    console.log(cart);
+    console.log(cart.items);
+    console.log(cart.total);
+    var order = new Order({
+        userid: cart.userid,
+        useremail: cart.useremail,
+        items: cart.items,
+        total: cart.total,
+        orderdate: date
+    })
+    order.save(async (error, a) => {
+        if (error) {
+            console.log("something went wrong!!")
+            res.json({ errormsg: "something went wrong!!" });
+        }
+        else {
+            console.log("order saved in order table");
+            var y = await Place(req, res)
+        }
+    })
+}
+
+function Place(req, res) {
+    Cart.deleteOne({ userid: req.userId }, (err) => {
+        if (err) {
+            console.log("something went wrong!!")
+            res.json({ errormsg: "something went wrong!!" });
+        }
+    })
+    console.log("order placed so deleted from cart");
+}
 
 
 
+exports.placeOrder = (req, res) => {
+    Cart.findOne({ userid: req.userId }, async (err, cart) => {
+        if (err) {
+            console.log("something went wrong!!")
+            res.json({ errormsg: "something went wrong!!" });
+        }
+        console.log(
+            cart
+        );
+        var x = await SaveinOrder(req, res, cart)
+        res.json({ msg: "successfully order placed" });
+    })
+}
 
 
-
-
-
-
-
-
-
+exports.getAllUserOrders = (req, res) => {
+    Order.find({ userid: req.userId }, async (err, orders) => {
+        if (err) {
+            console.log("something went wrong!!")
+            res.json({ errormsg: "something went wrong!!" });
+        }
+        res.json({ msg: orders });
+    })
+}
 
 
 

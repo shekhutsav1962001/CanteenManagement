@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -15,7 +15,7 @@ export class CartComponent implements OnInit {
   total: any;
   arr: any[];
   public errorMessage: any;
-  public styl :any;
+  public styl: any;
   constructor(private router: Router, private authService: AuthService, private userService: UserService, private webSocketService: WebsocketService) { }
 
   ngOnInit(): void {
@@ -53,10 +53,9 @@ export class CartComponent implements OnInit {
             this.authService.setCount(0);
             this.router.navigate(['/empty-cart']);
           }
-          else
-          {
-          this.items = this.arr['items'];
-          this.total = this.arr['total'];
+          else {
+            this.items = this.arr['items'];
+            this.total = this.arr['total'];
           }
         }
 
@@ -75,8 +74,7 @@ export class CartComponent implements OnInit {
     this.authService.check().subscribe(
       data => {
         console.log(data);
-        if(data)
-        {
+        if (data) {
           this.getdata();
         }
         // console.log(data.total);
@@ -113,6 +111,9 @@ export class CartComponent implements OnInit {
 
   pay() {
     console.log("payyyy");
+    // this.document.location.href = 'http://localhost:3000/user/paytm';
+    // window.
+
     this.userService.paytm({}).subscribe(
       data => {
         console.log("data");
@@ -124,7 +125,7 @@ export class CartComponent implements OnInit {
         // console.log(error.s);
         // if (error instanceof HttpErrorResponse) {
         //   this.authService.logoutUser();
-          // this.router.navigate(['/error'])
+        // this.router.navigate(['/error'])
         // }
         console.log('error');
         console.log(error);
@@ -143,4 +144,25 @@ export class CartComponent implements OnInit {
     }, 4000);
   }
 
+  placeorder() {
+    console.log("place order");
+    this.userService.placeOrder({}).subscribe(
+      data => {
+        console.log("data");
+        console.log(data);
+        console.log("data");
+
+      },
+      (error) => {
+        // console.log(error.s);
+        // if (error instanceof HttpErrorResponse) {
+        //   this.authService.logoutUser();
+        // this.router.navigate(['/error'])
+        // }
+        console.log('error');
+        console.log(error);
+        console.log('error');
+      }
+    )
+  }
 }

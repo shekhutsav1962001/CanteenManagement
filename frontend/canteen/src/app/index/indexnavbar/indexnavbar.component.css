@@ -3,6 +3,7 @@
 .navbar{
   background-color: #FFF;
   color: #000000;
+  min-height: 75px;
   box-shadow: 0 0px 18px 4px rgba(0,0 , 0, 0.719);
 }
 
