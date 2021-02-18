@@ -1,2 +1,68 @@
-<app-admin-nav></app-admin-nav>
-<h1 style="margin-top: 100px; margin-left: 230px;">Coming Soon😜 here we will list down all current orders!!</h1>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <app-admin-nav></app-admin-nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-image">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <!-- <th scope="col">Qr Code</th> -->
+              <th scope="col">User Email</th>
+              <th scope="col">Order Status</th>
+              <th scope="col">View Order</th>
+              <th scope="col">Total</th>
+              <th scope="col">Delete Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orders;index as i">
+              <th scope="row">{{i+1}}</th>
+              <!-- <td class="w-25">
+                <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
+              </td> -->
+              <td style="cursor: pointer;" (click)="viewuser(item)">{{item.useremail}}</td>
+              <td>
+               <select  value="{{item.status}}" class="form-select  my-2" (change)="changeStatus($event.target.value , item)">
+                <option value="placed" >placed</option>
+                <option value="preparing">preparing</option>
+                <option value="completed">Completed</option>
+              </select>
+              </td>
+              <td>
+
+                <i class="fa fa-eye" (click)="vieworder(item)" id="view" aria-hidden="true"></i>
+
+              </td>
+              <td>{{item.total}} ₹</td>
+
+              <td><i class="fa fa-trash" id="delete" (click)="deleteorder(item)" aria-hidden="true"></i></td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
+</body>
+</html>

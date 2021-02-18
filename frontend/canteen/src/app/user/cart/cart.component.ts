@@ -109,30 +109,7 @@ export class CartComponent implements OnInit {
   }
 
 
-  pay() {
-    console.log("payyyy");
-    // this.document.location.href = 'http://localhost:3000/user/paytm';
-    // window.
 
-    this.userService.paytm({}).subscribe(
-      data => {
-        console.log("data");
-        console.log(data);
-        console.log("data");
-        // this.router.navigate(['/paytm'])
-      },
-      (error) => {
-        // console.log(error.s);
-        // if (error instanceof HttpErrorResponse) {
-        //   this.authService.logoutUser();
-        // this.router.navigate(['/error'])
-        // }
-        console.log('error');
-        console.log(error);
-        console.log('error');
-      }
-    )
-  }
 
   setMessage(msg: any, color: any) {
     this.errorMessage = msg;
@@ -148,20 +125,20 @@ export class CartComponent implements OnInit {
     console.log("place order");
     this.userService.placeOrder({}).subscribe(
       data => {
-        console.log("data");
-        console.log(data);
-        console.log("data");
-
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+        if (data['msg']) {
+          // this.setMessage(data['msg'], "#43b581");
+          this.authService.setMessage("successfully order placed", "#43b581");
+          this.router.navigate(['/userhome'])
+        }
       },
       (error) => {
-        // console.log(error.s);
-        // if (error instanceof HttpErrorResponse) {
-        //   this.authService.logoutUser();
-        // this.router.navigate(['/error'])
-        // }
-        console.log('error');
-        console.log(error);
-        console.log('error');
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
       }
     )
   }

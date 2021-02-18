@@ -37,6 +37,10 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
   <div class="float-right">
     <i class="fa fa-arrow-up " onclick="topFunction()" id="mybtn" style="cursor: pointer;"></i>
   </div>
+
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
 </body>
 
 </html>

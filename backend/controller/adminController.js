@@ -1,6 +1,7 @@
 require('dotenv').config()
 var Food = require('../models/food')
 var User = require('../models/user')
+var Order = require('../models/order')
 const fileUploadmiddleware = require('../middleware/fileUpload')
 
 exports.addFood = async (req, res) => {
@@ -90,14 +91,12 @@ exports.editFood = (req, res) => {
         }
         if (req.body.foodqty == -1) {
             // avail = true;
-            
+
             qty = -1;
-            if(req.body.isitavail=="yes")
-            {
+            if (req.body.isitavail == "yes") {
                 avail = true;
             }
-            else
-            {
+            else {
                 avail = false;
             }
         }
@@ -143,12 +142,10 @@ exports.editFoodWithImage = async (req, res) => {
         if (req.body.foodqty == -1) {
             // avail = true;
             qty = -1;
-            if(req.body.isitavail=="yes")
-            {
+            if (req.body.isitavail == "yes") {
                 avail = true;
             }
-            else
-            {
+            else {
                 avail = false;
             }
         }
@@ -287,4 +284,76 @@ exports.unblock = (req, res) => {
             res.status(201).json({ msg: "unblocked user!" });
         }
     })
+}
+
+
+
+exports.getallOrders = (req, res) => {
+    var today = new Date();
+    var date = today.toJSON().slice(0, 10);
+    Order.find({ status: { $ne: "completed" }, orderdate: date }, (err, orders) => {
+        if (err) {
+            console.log("error in get all order by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        else {
+            // console.log(orders);
+            res.json({ msg: orders });
+        }
+    }).select("-items").select("-orderdate")
+}
+
+
+
+exports.updateorderstatus = (req, res) => {
+    // console.log(req.body);
+    Order.updateOne({ _id: req.body.id }, { status: req.body.status }, (err, done) => {
+        if (err) {
+            console.log("error in update status of order by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        else {
+            console.log("order status updated");
+            res.json({ msg: "successfully updated order status!" });
+        }
+    })
+}
+
+
+
+exports.deleteOrder = (req, res) => {
+    Order.deleteOne({ _id: req.params.id }, (error) => {
+        if (error) {
+            console.log("error in delete order by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+    })
+    return res.json({ msg: 'food deleted by admin' });
+}
+
+
+
+
+exports.getoneOrder = (req, res) => {
+    var id = req.params.id
+    Order.find({ _id: id }, (err, order) => {
+        if (err) {
+            console.log("error in get one order by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        return res.send(order);
+    })
+}
+
+
+exports.getOneuser = (req, res) => {
+    var id = req.params.id
+    console.log(id);
+    User.findOne({ _id: id }, (err, user) => {
+        if (err) {
+            console.log("error in get one user by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        res.status(200).json({ msg: user })
+    }).select("-password").select("-role").select("-blocked").select("-_id")
 }

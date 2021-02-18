@@ -4,6 +4,7 @@
   background-color: #FFF;
   color: #000000;
   box-shadow: 0 0px 18px 4px rgba(0,0 , 0, 0.719);
+  min-height: 75px;
 }
 
 
@@ -61,7 +62,7 @@ ul li a{
    padding: 10px;
    border-radius: 10px;
    background-color:whitesmoke;
- 
+
 }
 #mybtn:hover{
    color: tomato;

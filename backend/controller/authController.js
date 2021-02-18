@@ -147,7 +147,7 @@ exports.resestPasswordDone = (req, res) => {
                         res.json({ msg: "Somthing went wrong" });
                     }
                     if (!otps) {
-                        res.json({ msg: "Somthing went wrong" });
+                        res.json({ msg: "Otp has been expired!" });
                     }
                     else {
                         var otp = otps.otp;

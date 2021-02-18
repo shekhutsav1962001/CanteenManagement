@@ -38,6 +38,8 @@ import { MessageBoxComponent } from './message-box/message-box.component';
 import { CartComponent } from './user/cart/cart.component';
 import { EmptycartComponent } from './user/emptycart/emptycart.component';
 import { ViewCustomersComponent } from './admin/view-customers/view-customers.component';
+import { OneorderviewComponent } from './admin/oneorderview/oneorderview.component';
+import { OneuserviewComponent } from './admin/oneuserview/oneuserview.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { ViewCustomersComponent } from './admin/view-customers/view-customers.co
     CartComponent,
     EmptycartComponent,
     ViewCustomersComponent,
+    OneorderviewComponent,
+    OneuserviewComponent,
   ],
   imports: [
     CommonModule,

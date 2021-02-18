@@ -5,6 +5,8 @@ import { AddfoodqtyComponent } from './admin/addfoodqty/addfoodqty.component';
 import { AdminGuard } from './admin/admin.guard';
 import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { EditfoodComponent } from './admin/editfood/editfood.component';
+import { OneorderviewComponent } from './admin/oneorderview/oneorderview.component';
+import { OneuserviewComponent } from './admin/oneuserview/oneuserview.component';
 import { SeefoodComponent } from './admin/seefood/seefood.component';
 import { ViewCustomersComponent } from './admin/view-customers/view-customers.component';
 import { AuthGuard } from './auth/auth.guard';
@@ -43,6 +45,8 @@ const routes: Routes = [
   { path: 'admin/editfood', component: EditfoodComponent, canActivate: [AdminGuard] },
   { path: 'admin/addfoodqty', component: AddfoodqtyComponent, canActivate: [AdminGuard] },
   { path: 'admin/viewusers', component: ViewCustomersComponent, canActivate: [AdminGuard] },
+  { path: 'admin/vieworder', component: OneorderviewComponent, canActivate: [AdminGuard] },
+  { path: 'admin/viewuser', component: OneuserviewComponent, canActivate: [AdminGuard] },
 
 
   // user

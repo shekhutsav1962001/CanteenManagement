@@ -67,3 +67,8 @@ button:disabled{
   color: #285aa5;
   transform: scale(1.3);
 }
+
+a,a:hover{
+  text-decoration: none;
+  color: #0a192f;
+}

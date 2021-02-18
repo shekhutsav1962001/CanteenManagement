@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <app-admin-nav></app-admin-nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <p class="text-center h3 pt-5" style="color: #0a192f;">User Details</p>
+      </div>
+      <div class="col-12">
+        <table class="table table-image">
+
+          <tbody>
+            <tr>
+              <th scope="row">Name</th>
+
+              <td>{{name}}</td>
+
+            </tr>
+            <tr>
+
+              <th scope="row">Email</th>
+              <td>{{email}}</td>
+
+            </tr>
+            <tr>
+              <th scope="row">Contact no</th>
+              <td> <a href="tel: {{user.contact}}">{{user.contact}}</a></td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
+</body>
+
+</html>

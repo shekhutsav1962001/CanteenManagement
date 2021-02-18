@@ -9,8 +9,10 @@ export class AdminService {
 
   public avail: boolean = false;
   public msg: string = "";
+  public orderid:any;
+  public userid:any;
   private food: any;
-  private baseUri: string =environment.heroku ? "https://appcanteen.herokuapp.com/admin/" :"http://localhost:3000/admin/";
+  private baseUri: string = environment.heroku ? "https://appcanteen.herokuapp.com/admin/" : "http://localhost:3000/admin/";
   // private baseUri: string = "http://localhost:3000/admin/";
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private router: Router) { }
@@ -39,23 +41,62 @@ export class AdminService {
     return this.http.post(this.baseUri + "editfoodwithimage", body);
   }
 
-  deleteFood(id)
-  {
-    return this.http.delete(this.baseUri + "deletefood/"+id,{ headers: this.headers });
+  deleteFood(id) {
+    return this.http.delete(this.baseUri + "deletefood/" + id, { headers: this.headers });
   }
 
 
-  getAlluser()
-  {
+  getAlluser() {
     return this.http.get(this.baseUri + "getalluser", { headers: this.headers });
   }
 
-  blockuser(id)
-  {
-    return this.http.delete(this.baseUri + "blockuser/"+id, { headers: this.headers });
+  blockuser(id) {
+    return this.http.delete(this.baseUri + "blockuser/" + id, { headers: this.headers });
   }
-  unblockuser(id)
+  unblockuser(id) {
+    return this.http.delete(this.baseUri + "unblockuser/" + id, { headers: this.headers });
+  }
+
+  getAllOrder() {
+    return this.http.get(this.baseUri + "getallorders", { headers: this.headers });
+  }
+
+  updateOrderstatus(body:any) {
+    return this.http.post(this.baseUri + "updateorderstatus", body);
+  }
+
+  deleteOrder(id)
   {
-    return this.http.delete(this.baseUri + "unblockuser/"+id, { headers: this.headers });
+    return this.http.delete(this.baseUri + "deleteorder/" + id, { headers: this.headers });
+  }
+
+  setOrderid(id)
+  {
+    this.orderid = id;
+  }
+
+  getOrderid()
+  {
+    return this.orderid;
+  }
+
+  getOneOrder(id)
+  {
+    return this.http.get(this.baseUri + "getoneorder/" + id, { headers: this.headers });
+  }
+
+  setUserid(id)
+  {
+    this.userid = id;
+  }
+
+  getUserid()
+  {
+    return this.userid;
+  }
+
+  getOneUser(id)
+  {
+    return this.http.get(this.baseUri + "getoneuser/" + id, { headers: this.headers });
   }
 }

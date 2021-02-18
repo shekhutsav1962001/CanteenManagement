@@ -12,13 +12,21 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserNavComponent implements OnInit {
   public count = 0;
+  public errorMessage: any;
+  public styl: any;
   constructor(private authService: AuthService, private router: Router, private webSocketService: WebsocketService,private userService: UserService) { }
 
   ngOnInit(): void {
     this.getData();
+
     this.webSocketService.listen('cart').subscribe(
       (data) => {
         console.log(data);
+        this.getData();
+      }
+    )
+    this.webSocketService.listen('neworderplaced').subscribe(
+      (data) => {
         this.getData();
       }
     )
@@ -68,4 +76,13 @@ export class UserNavComponent implements OnInit {
     this.authService.setCount(this.count);
   }
 
+  setMessage(msg: any, color: any) {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
+  }
 }

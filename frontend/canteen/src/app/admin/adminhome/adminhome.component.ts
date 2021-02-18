@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { WebsocketService } from 'src/app/services/websocket.service';
 
@@ -10,17 +11,41 @@ import { WebsocketService } from 'src/app/services/websocket.service';
   styleUrls: ['./adminhome.component.css']
 })
 export class AdminhomeComponent implements OnInit {
-
-  constructor(private authService: AuthService, private router: Router,private webSocketService: WebsocketService) { }
+  public orders: any[];
+  public errorMessage: any;
+  public styl: any;
+  constructor(private authService: AuthService, private router: Router, private webSocketService: WebsocketService, private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.check()
-    // this.webSocketService.listen('test event').subscribe(
-    //   (data) => {
-    //     console.log("this is socket");
-    //     console.log(data);
-    //   }
-    // )
+    this.getOrder();
+    this.webSocketService.listen('neworderplaced').subscribe(
+      (data) => {
+        this.getOrder();
+      }
+    )
+  }
+
+  getOrder() {
+    this.adminService.getAllOrder().subscribe(
+      data => {
+        if (data['msg']) {
+          this.orders = data['msg'];
+          // console.log(this.orders);
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+      },
+      (error) => {
+
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
+      }
+    )
   }
 
   check() {
@@ -36,5 +61,73 @@ export class AdminhomeComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+  setMessage(msg: any, color: any) {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
+  }
+
+  changeStatus(newstatus, item) {
+
+    this.adminService.updateOrderstatus({id:item._id,status:newstatus}).subscribe(
+      data => {
+        if (data['msg']) {
+          this.setMessage(data['msg'], "#43b581");
+          this.getOrder();
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+      },
+      (error) => {
+
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
+      }
+    )
+  }
+
+  deleteorder(item){
+    this.adminService.deleteOrder(item._id).subscribe(
+      data => {
+        if (data['msg']) {
+          this.setMessage(data['msg'], "#f04747");
+          this.getOrder();
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+      },
+      (error) => {
+
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
+      }
+    )
+  }
+
+  vieworder(item)
+  {
+
+    this.adminService.setOrderid(item._id);
+    this.router.navigate(['/admin/vieworder'])
+
+  }
+
+  viewuser(item)
+  {
+    this.adminService.setUserid(item.userid);
+    this.router.navigate(['/admin/viewuser'])
   }
 }

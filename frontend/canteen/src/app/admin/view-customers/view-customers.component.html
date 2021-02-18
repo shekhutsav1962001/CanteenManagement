@@ -35,7 +35,11 @@
                             <th scope="row">{{i+1}}</th>
                             <td>{{user.name}}</td>
                             <td>{{user.email}}</td>
-                            <td>{{user.contact}}</td>
+                            <td>
+
+                              <a href="tel: {{user.contact}}">{{user.contact}}</a>
+
+                            </td>
                             <td >
                               <button class="btn btn-link" [disabled]="user.blocked" (click)="block(user)"><i class="fa fa-ban" id="delete"  aria-hidden="true"></i></button></td>
                             <td >
@@ -47,7 +51,7 @@
         </div>
     </div>
 
-    
+
       <div class="errors" *ngIf="errorMessage">
         <app-message-box
           [message]="errorMessage"  [styl]="styl"

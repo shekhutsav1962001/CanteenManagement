@@ -23,5 +23,10 @@ router.delete('/deletefood/:id',verifyTokenmiddleware.verifyToken,adminControlle
 router.get('/getalluser',verifyTokenmiddleware.verifyToken,adminController.getallUser)
 router.delete('/blockuser/:id',verifyTokenmiddleware.verifyToken,adminController.block)
 router.delete('/unblockuser/:id',verifyTokenmiddleware.verifyToken,adminController.unblock)
+router.get('/getallorders',verifyTokenmiddleware.verifyToken,adminController.getallOrders)
+router.post('/updateorderstatus',verifyTokenmiddleware.verifyToken,adminController.updateorderstatus)
+router.delete('/deleteorder/:id',verifyTokenmiddleware.verifyToken,adminController.deleteOrder)
+router.get('/getoneorder/:id',verifyTokenmiddleware.verifyToken,adminController.getoneOrder)
+router.get('/getoneuser/:id',verifyTokenmiddleware.verifyToken,adminController.getOneuser)
 
 module.exports = router

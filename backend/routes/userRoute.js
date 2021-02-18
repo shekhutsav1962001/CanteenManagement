@@ -12,8 +12,8 @@ router.post('/addtocart', verifyTokenmiddleware.verifyToken,useController.addtoC
 router.get('/getcount',verifyTokenmiddleware.verifyToken,useController.getCount)
 router.get('/getcart',verifyTokenmiddleware.verifyToken,useController.getCart)
 router.post('/deletefromcart', verifyTokenmiddleware.verifyToken,useController.deleteFromCart)
-router.post('/paytm', verifyTokenmiddleware.verifyToken,useController.paytm)
 router.post('/placeorder', verifyTokenmiddleware.verifyToken,useController.placeOrder)
 router.get('/getalluserorders', verifyTokenmiddleware.verifyToken,useController.getAllUserOrders)
+router.get('/getalluserorders2', verifyTokenmiddleware.verifyToken,useController.getAllUserOrders2)
 // aa
 module.exports = router

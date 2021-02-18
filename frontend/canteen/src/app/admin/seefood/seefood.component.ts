@@ -31,7 +31,7 @@ export class SeefoodComponent implements OnInit {
   public fooditems: any[];
   public len: any;
   public errorMessage: any;
-  public styl: any;
+  public styl: any; 
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {

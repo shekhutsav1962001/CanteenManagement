@@ -20,6 +20,11 @@ export class UserhomeComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private userService: UserService, private webSocketService: WebsocketService) { }
 
   ngOnInit(): void {
+    if(this.authService.getMessage())
+    {
+      var x = this.authService.getMessage();
+      this.setMessage(x.msg,x.color)
+    }
     this.check()
     this.getData()
     this.webSocketService.listen('foodcrudbyadmin').subscribe(

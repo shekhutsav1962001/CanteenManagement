@@ -2,7 +2,6 @@ var User = require('../models/user')
 var Food = require('../models/food')
 var Cart = require('../models/cart')
 var Order = require('../models/order')
-const checksum_lib = require('../checksum/checksum');
 exports.myProfile = (req, res) => {
     User.findOne({ _id: req.userId }, (error, user) => {
         if (error) {
@@ -42,7 +41,7 @@ exports.editProfile = (req, res) => {
 
 
 exports.getallFoodItem = (req, res) => {
-    Food.find({}, (err, items) => {
+    Food.find({foodavail:true}, (err, items) => {
         if (err) {
             console.log("some error while fethcing food userhome")
             res.status(500).json({ errormsg: 'Somthing went wrong' })
@@ -402,10 +401,9 @@ exports.placeOrder = (req, res) => {
             console.log("something went wrong!!")
             res.json({ errormsg: "something went wrong!!" });
         }
-        console.log(
-            cart
-        );
         var x = await SaveinOrder(req, res, cart)
+        const io = req.app.get('io');
+        io.emit("neworderplaced", "New order placed by some user!");
         res.json({ msg: "successfully order placed" });
     })
 }
@@ -421,49 +419,14 @@ exports.getAllUserOrders = (req, res) => {
     })
 }
 
-
-
-
-
-
-
-var PaytmConfig = {
-    mid: "VrUGmx97200583132245",
-    key: "sPaB9mM%rr9f7GUF",
-    website: "WEBSTAGING"
-}
-
-
-
-exports.paytm = (req, res) => {
-
-    var params = {};
-    params['MID'] = PaytmConfig.mid;
-    params['WEBSITE'] = PaytmConfig.website;
-    params['CHANNEL_ID'] = 'WEB';
-    params['INDUSTRY_TYPE_ID'] = 'Retail';
-    params['ORDER_ID'] = 'TEST_' + new Date().getTime();
-    params['CUST_ID'] = 'Customer001';
-    params['TXN_AMOUNT'] = '11.00';
-    params['CALLBACK_URL'] = 'http://localhost:' + 3000 + '/';
-    params['EMAIL'] = 'deepdonda007@gmail.com';
-    params['MOBILE_NO'] = '6353694040';
-
-    checksum_lib.genchecksum(params, PaytmConfig.key, function (err, checksum) {
-
-        var txn_url = "https://securegw-stage.paytm.in/order/process"; // for staging
-        var form_fields = "";
-        for (var x in params) {
-            form_fields += "<input type='hidden' name='" + x + "' value='" + params[x] + "' >";
+exports.getAllUserOrders2 = (req, res) => {
+    Order.find({ userid: req.userId }, async (err, orders) => {
+        if (err) {
+            console.log("something went wrong!!")
+            res.json({ errormsg: "something went wrong!!" });
         }
-        form_fields += "<input type='hidden' name='CHECKSUMHASH' value='" + checksum + "' >";
-        // console.log(form_fields);
-        // res.writeHead(200, { 'Content-Type': 'text/html' });
-        var x = '<html><head><title>Merchant Checkout Page</title></head><body><center><h1>Please do not refresh this page...</h1></center><form method="post" action="' + txn_url + '" name="f1">' + form_fields + '</form><script type="text/javascript">document.f1.submit();</script></body></html>'
-        console.log(x);
-        res.write(x);
-        res.end();
-        // res.json({msg:"all ok"})
-    });
-
+        res.send(orders);
+    })
 }
+
+
