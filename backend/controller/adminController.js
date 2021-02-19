@@ -306,7 +306,7 @@ exports.getallOrders = (req, res) => {
 
 
 exports.updateorderstatus = (req, res) => {
-    // console.log(req.body);
+    // console.log(req.body.email);
     Order.updateOne({ _id: req.body.id }, { status: req.body.status }, (err, done) => {
         if (err) {
             console.log("error in update status of order by admin");
@@ -314,6 +314,8 @@ exports.updateorderstatus = (req, res) => {
         }
         else {
             console.log("order status updated");
+            const io = req.app.get('io');
+            io.emit(req.body.email, "order status updated");
             res.json({ msg: "successfully updated order status!" });
         }
     })
@@ -328,6 +330,8 @@ exports.deleteOrder = (req, res) => {
             return res.json({ errormsg: 'Somthing went wrong' });
         }
     })
+    const io = req.app.get('io');
+    io.emit("orderdelete", "order deleted by admin!");
     return res.json({ msg: 'food deleted by admin' });
 }
 
@@ -348,7 +352,6 @@ exports.getoneOrder = (req, res) => {
 
 exports.getOneuser = (req, res) => {
     var id = req.params.id
-    console.log(id);
     User.findOne({ _id: id }, (err, user) => {
         if (err) {
             console.log("error in get one user by admin");

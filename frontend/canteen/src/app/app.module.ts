@@ -40,6 +40,8 @@ import { EmptycartComponent } from './user/emptycart/emptycart.component';
 import { ViewCustomersComponent } from './admin/view-customers/view-customers.component';
 import { OneorderviewComponent } from './admin/oneorderview/oneorderview.component';
 import { OneuserviewComponent } from './admin/oneuserview/oneuserview.component';
+import { MyordersComponent } from './user/myorders/myorders.component';
+import { VieworderComponent } from './user/vieworder/vieworder.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { OneuserviewComponent } from './admin/oneuserview/oneuserview.component'
     ViewCustomersComponent,
     OneorderviewComponent,
     OneuserviewComponent,
+    MyordersComponent,
+    VieworderComponent,
   ],
   imports: [
     CommonModule,

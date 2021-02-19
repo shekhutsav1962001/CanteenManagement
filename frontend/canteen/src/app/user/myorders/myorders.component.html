@@ -14,14 +14,14 @@
 </head>
 
 <body>
-  <app-admin-nav></app-admin-nav>
+  <app-user-nav></app-user-nav>
 
   <div *ngIf="empty; else elseBlock">
     <div style="margin-top: 50px;" class="d-flex justify-content-center">
       <div class="row">
         <div class="col-6">
           <h5 class="text-capitalize m-lg-5">Seems Like Empty Orderlist!!!!</h5>
-          <h5 class="text-capitalize m-lg-5">Not found any today's order!!</h5>
+          <h5 class="text-capitalize m-lg-5">Not found any today's your order!!</h5>
         </div>
         <div class="col-6">
           <img src="../../../assets/img/empty.svg" alt="" class="img-fluid ">
@@ -42,38 +42,24 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <!-- <th scope="col">Qr Code</th> -->
-                <th scope="col">User Email</th>
+                <th scope="col">Order Id</th>
                 <th scope="col">Order Status</th>
                 <th scope="col">View Order</th>
                 <th scope="col">Total</th>
-                <th scope="col">Delete Order</th>
+
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of orders;index as i">
                 <th scope="row">{{i+1}}</th>
-                <!-- <td class="w-25">
-                <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
-              </td> -->
-                <td style="cursor: pointer;" (click)="viewuser(item)">{{item.useremail}}</td>
+                <td>{{item._id}}</td>
                 <td>
-                  <select value="{{item.status}}" class="form-select  my-2"
-                    (change)="changeStatus($event.target.value , item)">
-                    <option value="placed">placed</option>
-                    <option value="preparing">preparing</option>
-                    <option value="completed">Completed</option>
-                  </select>
+                  {{item.status}}
                 </td>
                 <td>
-
                   <i class="fa fa-eye" (click)="vieworder(item)" id="view" aria-hidden="true"></i>
-
                 </td>
                 <td>{{item.total}} ₹</td>
-
-                <td><i class="fa fa-trash" id="delete" (click)="deleteorder(item)" aria-hidden="true"></i></td>
-
               </tr>
             </tbody>
           </table>

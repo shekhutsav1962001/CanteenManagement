@@ -15,5 +15,6 @@ router.post('/deletefromcart', verifyTokenmiddleware.verifyToken,useController.d
 router.post('/placeorder', verifyTokenmiddleware.verifyToken,useController.placeOrder)
 router.get('/getalluserorders', verifyTokenmiddleware.verifyToken,useController.getAllUserOrders)
 router.get('/getalluserorders2', verifyTokenmiddleware.verifyToken,useController.getAllUserOrders2)
+router.get('/getoneorder/:id',verifyTokenmiddleware.verifyToken,useController.getoneOrder)
 // aa
 module.exports = router

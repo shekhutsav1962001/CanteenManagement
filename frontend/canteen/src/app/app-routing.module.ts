@@ -21,9 +21,11 @@ import { MainComponent } from './index/main/main.component';
 import { CartComponent } from './user/cart/cart.component';
 import { EditprofileComponent } from './user/editprofile/editprofile.component';
 import { EmptycartComponent } from './user/emptycart/emptycart.component';
+import { MyordersComponent } from './user/myorders/myorders.component';
 import { MyprofileComponent } from './user/myprofile/myprofile.component';
 import { UserGuard } from './user/user.guard';
 import { UserhomeComponent } from './user/userhome/userhome.component';
+import { VieworderComponent } from './user/vieworder/vieworder.component';
 
 const routes: Routes = [
   // landing page
@@ -53,8 +55,10 @@ const routes: Routes = [
   { path: 'userhome', component: UserhomeComponent, canActivate: [UserGuard] },
   { path: 'myprofile', component: MyprofileComponent, canActivate: [UserGuard] },
   { path: 'editprofile', component: EditprofileComponent, canActivate: [UserGuard] },
-  { path: 'empty-cart', component:  EmptycartComponent, canActivate: [AuthGuard] },
-  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'empty-cart', component:  EmptycartComponent, canActivate: [UserGuard] },
+  { path: 'cart', component: CartComponent, canActivate: [UserGuard] },
+  { path: 'myorders', component: MyordersComponent, canActivate: [UserGuard] },
+  { path: 'vieworder', component: VieworderComponent, canActivate: [UserGuard] },
 
 
   // error

@@ -5,7 +5,8 @@
   color: #f1f1f1;
 }
 .error {
-  width: min(400px, 70vw);
+  min-width: min(400px, 70vw);
+  max-width: 1000px;
   opacity: 0;
   transform: translateY(50px);
   animation: animate 400ms forwards var(--animation-function);
@@ -13,7 +14,7 @@
 .box .error {
   margin: 1rem;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
   overflow: hidden;
   border-radius: 5px;
   padding: 1rem 1rem;

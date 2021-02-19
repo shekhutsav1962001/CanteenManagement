@@ -41,7 +41,7 @@ exports.editProfile = (req, res) => {
 
 
 exports.getallFoodItem = (req, res) => {
-    Food.find({foodavail:true}, (err, items) => {
+    Food.find({ foodavail: true }, (err, items) => {
         if (err) {
             console.log("some error while fethcing food userhome")
             res.status(500).json({ errormsg: 'Somthing went wrong' })
@@ -358,29 +358,88 @@ exports.deleteFromCart = (req, res) => {
 
 
 
-function SaveinOrder(req, res, cart) {
+async function SaveinOrder(req, res, cart) {
     var today = new Date();
     var date = today.toJSON().slice(0, 10);
-    console.log(cart);
-    console.log(cart.items);
-    console.log(cart.total);
-    var order = new Order({
-        userid: cart.userid,
-        useremail: cart.useremail,
-        items: cart.items,
-        total: cart.total,
-        orderdate: date
-    })
-    order.save(async (error, a) => {
-        if (error) {
-            console.log("something went wrong!!")
-            res.json({ errormsg: "something went wrong!!" });
+    var errormessage = "";
+    const allitems = cart.items;
+
+    for (let i = 0; i < allitems.length; i++) {
+        const oneitem = allitems[i];
+        const oneitemid = oneitem._id;
+        const oneitemqty = oneitem.foodqty;
+        await Food.findById(oneitemid, (err, orignalitem) => {
+            if (err) {
+                console.log("something went wrong!!")
+                res.json({ errormsg: "something went wrong!!" });
+            }
+            else {
+                const orignalitemqty = orignalitem.foodqty;
+                if (orignalitemqty - oneitemqty < 0) {
+                    errormessage += " " + orignalitem.foodname
+                }
+            }
+        });
+    }
+    // console.log(errormessage);
+    if (errormessage != "") {
+        errormessage += " currently not available";
+        res.json({ errormsg: errormessage });
+    }
+    else {
+        for (let i = 0; i < allitems.length; i++) {
+            const oneitem = allitems[i];
+            const oneitemid = oneitem._id;
+            const oneitemqty = oneitem.foodqty;
+
+            await Food.findOne({ _id: oneitemid }, async (err, onefooditem) => {
+                if (err) {
+                    console.log("something went wrong!!")
+                    res.json({ errormsg: "something went wrong!!" });
+                }
+                if (!onefooditem) {
+                    console.log("something went wrong!!")
+                    res.json({ errormsg: "something went wrong!!" });
+                }
+                else {
+                    let avail = true;
+                    if (onefooditem.foodqty - oneitemqty <= 0) {
+                        avail = false;
+                    }
+                    await Food.updateOne({ _id: oneitemid }, {
+                        foodqty: onefooditem.foodqty - oneitemqty,
+                        foodavail: avail
+                    }, function (err, done) {
+                        if (err) {
+                            console.log("something went wrong!!")
+                            res.json({ errormsg: "something went wrong!!" });
+                        }
+                        else {
+                            console.log("order placed step1");
+                            var order = new Order({
+                                userid: cart.userid,
+                                useremail: cart.useremail,
+                                items: cart.items,
+                                total: cart.total,
+                                orderdate: date
+                            })
+                            order.save(async (error, a) => {
+                                if (error) {
+                                    console.log("something went wrong!!")
+                                    res.json({ errormsg: "something went wrong!!" });
+                                }
+                                else {
+                                    console.log("order saved in order table");
+                                    // var y = await Place(req, res)
+                                }
+                            })
+                        }
+                    })
+                }
+            })
         }
-        else {
-            console.log("order saved in order table");
-            var y = await Place(req, res)
-        }
-    })
+        var y = await Place(req, res)
+    }
 }
 
 function Place(req, res) {
@@ -391,6 +450,9 @@ function Place(req, res) {
         }
     })
     console.log("order placed so deleted from cart");
+    const io = req.app.get('io');
+    io.emit("neworderplaced", "New order placed by some user!");
+    res.json({ msg: "successfully order placed" });
 }
 
 
@@ -402,25 +464,30 @@ exports.placeOrder = (req, res) => {
             res.json({ errormsg: "something went wrong!!" });
         }
         var x = await SaveinOrder(req, res, cart)
-        const io = req.app.get('io');
-        io.emit("neworderplaced", "New order placed by some user!");
-        res.json({ msg: "successfully order placed" });
     })
 }
 
 
 exports.getAllUserOrders = (req, res) => {
-    Order.find({ userid: req.userId }, async (err, orders) => {
+    var today = new Date();
+    var date = today.toJSON().slice(0, 10);
+    // status: { $ne: "completed" },
+    Order.find({ orderdate: date, userid: req.userId }, (err, orders) => {
         if (err) {
-            console.log("something went wrong!!")
-            res.json({ errormsg: "something went wrong!!" });
+            console.log("error in get all order userside");
+            return res.json({ errormsg: 'Somthing went wrong' });
         }
-        res.json({ msg: orders });
+        else {
+            res.json({ msg: orders });
+        }
     })
 }
 
 exports.getAllUserOrders2 = (req, res) => {
-    Order.find({ userid: req.userId }, async (err, orders) => {
+    var today = new Date();
+    var date = today.toJSON().slice(0, 10);
+    // status: { $ne: "completed" },
+    Order.find({ orderdate: date, userid: req.userId }, async (err, orders) => {
         if (err) {
             console.log("something went wrong!!")
             res.json({ errormsg: "something went wrong!!" });
@@ -429,4 +496,13 @@ exports.getAllUserOrders2 = (req, res) => {
     })
 }
 
-
+exports.getoneOrder = (req, res) => {
+    var id = req.params.id
+    Order.find({ _id: id }, (err, order) => {
+        if (err) {
+            console.log("error in get one order by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        return res.send(order);
+    })
+}
