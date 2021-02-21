@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { WebsocketService } from 'src/app/services/websocket.service';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'app-adminhome',
   templateUrl: './adminhome.component.html',
@@ -33,112 +33,152 @@ export class AdminhomeComponent implements OnInit {
     )
   }
 
-
-getOrder() {
-  this.adminService.getAllOrder().subscribe(
-    data => {
-      if (data['msg']) {
-        this.orders = data['msg'];
-        if (this.orders.length == 0) {
-          this.empty = true;
+  doDisableing() {
+    $(document).ready(function () {
+      let all = $('.payment').children();
+      for (let index = 0; index < all.length; index++) {
+        let element = all[index].value
+        if (element == "paid") {
+          all[index].disabled = true;
         }
-        // console.log(this.orders);
       }
-      if (data['errormsg']) {
-        this.setMessage(data['errormsg'], "#f04747");
-      }
-    },
-    (error) => {
-
-      if (error instanceof HttpErrorResponse) {
-        this.authService.logoutUser();
-        this.router.navigate(['/error'])
-      }
-      console.log(error);
-    }
-  )
-}
-
-check() {
-  this.authService.check().subscribe(
-    data => {
-      console.log(data);
-    },
-    (error) => {
-      if (error instanceof HttpErrorResponse) {
-        this.authService.logoutUser();
-        this.router.navigate(['/error'])
-      }
-      console.log(error);
-    }
-  )
-}
-setMessage(msg: any, color: any) {
-  this.errorMessage = msg;
-  this.styl = {
-    backgroundColor: color,
+    });
   }
-  setTimeout(() => {
-    this.errorMessage = null;
-  }, 4000);
-}
 
-changeStatus(newstatus, item) {
-  console.log(item.useremail);
-  this.adminService.updateOrderstatus({ id: item._id, status: newstatus,email:item.useremail }).subscribe(
-    data => {
-      if (data['msg']) {
-        this.setMessage(data['msg'], "#43b581");
-        this.getOrder();
-      }
-      if (data['errormsg']) {
-        this.setMessage(data['errormsg'], "#f04747");
-      }
-    },
-    (error) => {
 
-      if (error instanceof HttpErrorResponse) {
-        this.authService.logoutUser();
-        this.router.navigate(['/error'])
+
+  getOrder() {
+    this.adminService.getAllOrder().subscribe(
+      data => {
+        if (data['msg']) {
+          this.orders = data['msg'];
+          if (this.orders.length == 0) {
+            this.empty = true;
+          }
+          // console.log(this.orders);
+          this.doDisableing()
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+      },
+      (error) => {
+
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
       }
-      console.log(error);
+    )
+  }
+
+  check() {
+    this.authService.check().subscribe(
+      data => {
+        console.log(data);
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
+      }
+    )
+  }
+  setMessage(msg: any, color: any) {
+    this.errorMessage = msg;
+    this.styl = {
+      backgroundColor: color,
     }
-  )
-}
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4000);
+  }
 
-deleteorder(item){
-  this.adminService.deleteOrder(item._id).subscribe(
-    data => {
-      if (data['msg']) {
-        this.setMessage(data['msg'], "#f04747");
-        this.getOrder();
+  changeStatus(newstatus, item) {
+    console.log(item.useremail);
+    this.adminService.updateOrderstatus({ id: item._id, status: newstatus, email: item.useremail }).subscribe(
+      data => {
+        if (data['msg']) {
+          this.setMessage(data['msg'], "#43b581");
+          this.getOrder();
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+      },
+      (error) => {
+
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
       }
-      if (data['errormsg']) {
-        this.setMessage(data['errormsg'], "#f04747");
+    )
+  }
+
+  deleteorder(item) {
+    this.adminService.deleteOrder(item._id).subscribe(
+      data => {
+        if (data['msg']) {
+          this.setMessage(data['msg'], "#f04747");
+          this.getOrder();
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+      },
+      (error) => {
+
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
       }
-    },
-    (error) => {
+    )
+  }
 
-      if (error instanceof HttpErrorResponse) {
-        this.authService.logoutUser();
-        this.router.navigate(['/error'])
+  vieworder(item) {
+
+    this.adminService.setOrderid(item._id);
+    this.router.navigate(['/admin/vieworder'])
+
+  }
+
+  viewuser(item) {
+    this.adminService.setUserid(item.userid);
+    this.router.navigate(['/admin/viewuser'])
+  }
+
+  changePaymentStatus(newstatus, item) {
+    this.adminService.updatePaymentstatus({ id: item._id, paymentstatus: newstatus }).subscribe(
+      data => {
+        if (data['msg']) {
+          this.setMessage(data['msg'], "#43b581");
+          this.getOrder();
+        }
+        if (data['errormsg']) {
+          this.setMessage(data['errormsg'], "#f04747");
+        }
+      },
+      (error) => {
+
+        if (error instanceof HttpErrorResponse) {
+          this.authService.logoutUser();
+          this.router.navigate(['/error'])
+        }
+        console.log(error);
       }
-      console.log(error);
-    }
-  )
-}
+    )
+  }
 
-vieworder(item)
-{
-
-  this.adminService.setOrderid(item._id);
-  this.router.navigate(['/admin/vieworder'])
-
-}
-
-viewuser(item)
-{
-  this.adminService.setUserid(item.userid);
-  this.router.navigate(['/admin/viewuser'])
-}
+  generateQr(item)
+  {
+    this.adminService.setQrcode(item._id);
+    this.router.navigate(['/admin/qrcode'])
+  }
 }

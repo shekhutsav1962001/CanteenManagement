@@ -2,6 +2,7 @@ require('dotenv').config()
 var Food = require('../models/food')
 var User = require('../models/user')
 var Order = require('../models/order')
+var QRCode = require('qrcode')
 const fileUploadmiddleware = require('../middleware/fileUpload')
 
 exports.addFood = async (req, res) => {
@@ -291,7 +292,9 @@ exports.unblock = (req, res) => {
 exports.getallOrders = (req, res) => {
     var today = new Date();
     var date = today.toJSON().slice(0, 10);
-    Order.find({ status: { $ne: "completed" }, orderdate: date }, (err, orders) => {
+    // unpaid
+    // pick up
+    Order.find( { $or: [{status:{$ne:"pick up"}} , {paymentstatus:"unpaid"}], orderdate: date }, (err, orders) => {
         if (err) {
             console.log("error in get all order by admin");
             return res.json({ errormsg: 'Somthing went wrong' });
@@ -391,5 +394,32 @@ exports.getorderHistory = (req, res) => {
             }
         }
         res.json({ msg: emptyarray, total: total })
+    })
+}
+
+
+exports.updatePaymentstatus = (req, res) => {
+    Order.updateOne({ _id: req.body.id }, { paymentstatus: req.body.paymentstatus }, (err, done) => {
+        if (err) {
+            console.log("error in update payment status of order by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        else {
+            console.log("order  payment status updated");
+            const io = req.app.get('io');
+            io.emit(req.body.email, "order status updated");
+            res.json({ msg: "successfully updated order payment status!" });
+        }
+    })
+}
+
+
+exports.getQrcode = (req, res) => {
+    var id = req.params.id
+    QRCode.toDataURL(id).then(url => {
+        res.json({ msg: url });
+    }).catch(err => {
+        console.log("error while generating qr code of order by admin");
+        return res.json({ errormsg: 'error while generating qr code' });
     })
 }

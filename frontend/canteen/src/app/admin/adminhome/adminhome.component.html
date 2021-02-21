@@ -45,7 +45,9 @@
                 <!-- <th scope="col">Qr Code</th> -->
                 <th scope="col">User Email</th>
                 <th scope="col">Order Status</th>
+                <th scope="col">Payment Status</th>
                 <th scope="col">View Order</th>
+                <th scope="col">view Qrcode</th>
                 <th scope="col">Total</th>
                 <th scope="col">Delete Order</th>
               </tr>
@@ -63,12 +65,21 @@
                     <option value="placed">placed</option>
                     <option value="preparing">preparing</option>
                     <option value="completed">Completed</option>
+                    <option value="pick up">Pick up</option>
+                  </select>
+                </td>
+                <td class="payment">
+                  <select value="{{item.paymentstatus}}" class="form-select my-2"
+                    (change)="changePaymentStatus($event.target.value , item)" >
+                    <option value="paid">paid</option>
+                    <option value="unpaid">unpaid</option>
                   </select>
                 </td>
                 <td>
-
                   <i class="fa fa-eye" (click)="vieworder(item)" id="view" aria-hidden="true"></i>
-
+                </td>
+                <td class="qr">
+                  <i id="qr"  (click)="generateQr(item)" class="fa fa-qrcode" aria-hidden="true"></i>
                 </td>
                 <td>{{item.total}} ₹</td>
 

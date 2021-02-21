@@ -12,6 +12,7 @@ export class AdminService {
   public orderid:any;
   public userid:any;
   private food: any;
+  public qrcode:any;
   private baseUri: string = environment.heroku ? "https://appcanteen.herokuapp.com/admin/" : "http://localhost:3000/admin/";
   // private baseUri: string = "http://localhost:3000/admin/";
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -103,5 +104,25 @@ export class AdminService {
   getOrderHistory(date)
   {
     return this.http.get(this.baseUri + "getorderhistory/" + date, { headers: this.headers });
+  }
+
+  updatePaymentstatus(body:any)
+  {
+    return this.http.post(this.baseUri + "updatepaymentstatus", body);
+  }
+
+  setQrcode(id)
+  {
+    this.qrcode = id;
+  }
+
+  getQrcode()
+  {
+    return this.qrcode;
+  }
+
+  generateQrcode(id)
+  {
+    return this.http.get(this.baseUri + "getqrcode/" + id, { headers: this.headers });
   }
 }

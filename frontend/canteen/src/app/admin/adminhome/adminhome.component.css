@@ -61,3 +61,11 @@ img{
   color: #285aa5;
   transform: scale(1.3);
 } */
+#qr{
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+#qr:hover{
+  color: #285aa5;
+  transform: scale(1.3);
+}
