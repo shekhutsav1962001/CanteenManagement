@@ -28,5 +28,5 @@ router.post('/updateorderstatus',verifyTokenmiddleware.verifyToken,adminControll
 router.delete('/deleteorder/:id',verifyTokenmiddleware.verifyToken,adminController.deleteOrder)
 router.get('/getoneorder/:id',verifyTokenmiddleware.verifyToken,adminController.getoneOrder)
 router.get('/getoneuser/:id',verifyTokenmiddleware.verifyToken,adminController.getOneuser)
-
+router.get('/getorderhistory/:date',verifyTokenmiddleware.verifyToken,adminController.getorderHistory)
 module.exports = router

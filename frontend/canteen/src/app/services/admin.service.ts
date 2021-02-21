@@ -99,4 +99,9 @@ export class AdminService {
   {
     return this.http.get(this.baseUri + "getoneuser/" + id, { headers: this.headers });
   }
+
+  getOrderHistory(date)
+  {
+    return this.http.get(this.baseUri + "getorderhistory/" + date, { headers: this.headers });
+  }
 }

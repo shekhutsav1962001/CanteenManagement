@@ -42,6 +42,10 @@ import { OneorderviewComponent } from './admin/oneorderview/oneorderview.compone
 import { OneuserviewComponent } from './admin/oneuserview/oneuserview.component';
 import { MyordersComponent } from './user/myorders/myorders.component';
 import { VieworderComponent } from './user/vieworder/vieworder.component';
+import { ViewfeedbackComponent } from './admin/viewfeedback/viewfeedback.component';
+import { VieworderhistoryComponent } from './admin/vieworderhistory/vieworderhistory.component';
+import { FeedbackComponent } from './user/feedback/feedback.component';
+// ***
 
 @NgModule({
   declarations: [
@@ -76,6 +80,9 @@ import { VieworderComponent } from './user/vieworder/vieworder.component';
     OneuserviewComponent,
     MyordersComponent,
     VieworderComponent,
+    ViewfeedbackComponent,
+    VieworderhistoryComponent,
+    FeedbackComponent,
   ],
   imports: [
     CommonModule,

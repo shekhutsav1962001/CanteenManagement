@@ -360,3 +360,36 @@ exports.getOneuser = (req, res) => {
         res.status(200).json({ msg: user })
     }).select("-password").select("-role").select("-blocked").select("-_id")
 }
+
+
+exports.getorderHistory = (req, res) => {
+    var date = req.params.date
+    var emptyarray = []
+    let total = 0;
+    Order.find({ orderdate: date }, (err, orders) => {
+        if (err) {
+            console.log("error in get order history  by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        for (let i = 0; i < orders.length; i++) {
+            let element = orders[i];
+            element = element.items
+            for (let j = 0; j < element.length; j++) {
+                let temp = { _id: element[j]._id, foodqty: element[j].foodqty, foodprice: element[j].foodprice, foodname: element[j].foodname, foodimage: element[j].foodimage }
+                let k = 0
+                for (k = 0; k < emptyarray.length; k++) {
+                    if (emptyarray[k]._id == element[j]._id) {
+                        emptyarray[k].foodqty += element[j].foodqty
+                        total += element[j].foodqty * element[j].foodprice
+                        break;
+                    }
+                }
+                if (k == emptyarray.length) {
+                    total += element[j].foodqty * element[j].foodprice
+                    emptyarray.push(temp)
+                }
+            }
+        }
+        res.json({ msg: emptyarray, total: total })
+    })
+}

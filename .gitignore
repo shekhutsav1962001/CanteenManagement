@@ -1,5 +1,7 @@
 frontend/canteen/node_modules
 frontend/canteen/src/assets/food
+frontend/canteen-web/node_modules
+frontend/canteen-web/src/assets
 backend/node_modules
 backend/.env
 backend/.gitignore

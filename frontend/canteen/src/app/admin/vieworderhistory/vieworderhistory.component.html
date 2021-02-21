@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <app-admin-nav></app-admin-nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group row py-5">
+          <label for="mydate" style="color: #0a192f;font-weight: bold;font-size: 20px;"
+            class="col-2 col-form-label">Date</label>
+          <div class="col-10">
+
+            <!-- value="{{date}}" -->
+            <input [(ngModel)]="date" (change)="changeDate()" class="form-control" type="date" id="mydate"
+              max="{{maxDate}}">
+          </div>
+        </div>
+
+        <div *ngIf="empty; else elseBlock">
+          <div style="margin-top: 20px;" class="d-flex justify-content-center">
+            <div class="row">
+              <div class="col-6">
+                <h5 class="text-capitalize m-lg-5">Seems Like Empty Orderlist!!!!</h5>
+                <h5 class="text-capitalize m-lg-5">Not found any order of given date!!</h5>
+              </div>
+              <div class="col-6">
+                <img src="../../../assets/img/empty.svg" alt="" class="img-fluid" style="max-height: 500px;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #elseBlock>
+
+          <table class="table table-image">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Item Image</th>
+              <th scope="col">Item Name</th>
+              <th scope="col">Item Quantity</th>
+              <th scope="col">Item Price</th>
+              <th scope="col">Item Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of fooditems;index as i">
+              <th scope="row">{{i+1}}</th>
+              <td class="w-25">
+                <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
+              </td>
+              <td>{{item.foodname}}</td>
+              <td>
+                {{item.foodqty}}
+              </td>
+              <td>
+                {{item.foodprice}} ₹
+              </td>
+              <td>{{item.foodqty*item.foodprice}} ₹</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="container">
+          <div class="row">
+
+            <!------------------------------------------------total section------------------------------------------------------------------  -->
+
+            <div class="parent" style="background-color:rgb(235, 243, 251);margin-top: 15px;margin-bottom: 150px;"
+              id="lastcol">
+
+              <div class="info">
+
+                <p style="margin-top: 5px;margin-bottom: 5px;">total = <b><span>{{total}}</span> ₹</b></p>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
+</body>
+
+</html>

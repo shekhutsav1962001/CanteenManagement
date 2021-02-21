@@ -9,6 +9,8 @@ import { OneorderviewComponent } from './admin/oneorderview/oneorderview.compone
 import { OneuserviewComponent } from './admin/oneuserview/oneuserview.component';
 import { SeefoodComponent } from './admin/seefood/seefood.component';
 import { ViewCustomersComponent } from './admin/view-customers/view-customers.component';
+import { ViewfeedbackComponent } from './admin/viewfeedback/viewfeedback.component';
+import { VieworderhistoryComponent } from './admin/vieworderhistory/vieworderhistory.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { LoginregisterComponent } from './auth/loginregister/loginregister.component';
@@ -21,6 +23,7 @@ import { MainComponent } from './index/main/main.component';
 import { CartComponent } from './user/cart/cart.component';
 import { EditprofileComponent } from './user/editprofile/editprofile.component';
 import { EmptycartComponent } from './user/emptycart/emptycart.component';
+import { FeedbackComponent } from './user/feedback/feedback.component';
 import { MyordersComponent } from './user/myorders/myorders.component';
 import { MyprofileComponent } from './user/myprofile/myprofile.component';
 import { UserGuard } from './user/user.guard';
@@ -49,6 +52,8 @@ const routes: Routes = [
   { path: 'admin/viewusers', component: ViewCustomersComponent, canActivate: [AdminGuard] },
   { path: 'admin/vieworder', component: OneorderviewComponent, canActivate: [AdminGuard] },
   { path: 'admin/viewuser', component: OneuserviewComponent, canActivate: [AdminGuard] },
+  { path: 'admin/viewfeeback', component: ViewfeedbackComponent, canActivate: [AdminGuard] },
+  { path: 'admin/orderhistory', component: VieworderhistoryComponent, canActivate: [AdminGuard] },
 
 
   // user
@@ -59,7 +64,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent, canActivate: [UserGuard] },
   { path: 'myorders', component: MyordersComponent, canActivate: [UserGuard] },
   { path: 'vieworder', component: VieworderComponent, canActivate: [UserGuard] },
-
+  { path: 'feedback', component: FeedbackComponent, canActivate: [UserGuard] },
 
   // error
   { path: 'error', component: ServererrorComponent },
