@@ -18,6 +18,10 @@ var orderSchema = mongoose.Schema({
         type: String,
         default: "placed"
     },
+    paymentstatus: {
+        type: String,
+        default: "unpaid"
+    },
     orderdate: { type: String }
 })
 module.exports = mongoose.model('order', orderSchema)

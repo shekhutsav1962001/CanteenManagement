@@ -29,4 +29,6 @@ router.delete('/deleteorder/:id',verifyTokenmiddleware.verifyToken,adminControll
 router.get('/getoneorder/:id',verifyTokenmiddleware.verifyToken,adminController.getoneOrder)
 router.get('/getoneuser/:id',verifyTokenmiddleware.verifyToken,adminController.getOneuser)
 router.get('/getorderhistory/:date',verifyTokenmiddleware.verifyToken,adminController.getorderHistory)
+router.post('/updatepaymentstatus',verifyTokenmiddleware.verifyToken,adminController.updatePaymentstatus)
+router.get('/getqrcode/:id',verifyTokenmiddleware.verifyToken,adminController.getQrcode)
 module.exports = router

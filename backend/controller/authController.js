@@ -9,7 +9,7 @@ exports.getCheck = (req, res, next) => {
     res.json({ msg: "All ok" })
 }
 
-  
+
 exports.register = async (req, res) => {
     var user = new User({
         contact: req.body.phone,
@@ -36,7 +36,7 @@ exports.register = async (req, res) => {
                 }
                 else {
                     console.log("successfully user registered!");
-                    res.status(200).json({message: "successfully user registered!" })
+                    res.status(200).json({ message: "successfully user registered!" })
                 }
             })
         }
@@ -59,9 +59,9 @@ exports.logIn = (req, res) => {
                     if (match) {
                         console.log("login sucesssss");
                         let payload = { subject: user._id, email: user.email }
-                        let token = jwt.sign(payload, process.env.SECRETKEY,{
+                        let token = jwt.sign(payload, process.env.SECRETKEY, {
                             expiresIn: "24h"
-                          })
+                        })
                         res.status(200).json({ token: token, role: user.role, blocked: user.blocked })
                     }
                     else {
@@ -105,26 +105,44 @@ exports.Reset = (req, res) => {
             res.json({ msg: "user does not exist with this email" });
         }
         else {
-            var email = req.body.email
-            var x = await getEmail(req.body.email)
-            setTimeout(async function () {
-                console.log("timeout (2min)");
-                var y = await getEmail(email)
-            }, 2 * 60000);
-            var a = Math.floor(1000 + Math.random() * 9000);
-            var otp = new Otp({
-                otp: a,
-                email: req.body.email
-            });
-            // console.log("otp =", otp);
-            try {
-                doc = otp.save();
-                sendMail(otp.email, otp.otp);
-                res.status(201).json({ message: "all ok otp has been send" });
-            }
-            catch (err) {
-                res.json({ msg: "some error!" });
-            }
+            Otp.findOne({ email: req.body.email }, async (err, otp) => {
+                if (err) {
+                    console.log("err in finding email ");
+                    res.json({ msg: "some error!" });
+                }
+                if (otp) {
+                    console.log(otp.otp);
+                    sendMail(req.body.email, otp.otp);
+                    setTimeout(async function () {
+                        console.log("timeout (2min)");
+                        var y = await getEmail(req.body.email)
+                    }, 2 * 60000);
+                    res.status(201).json({ message: "all ok otp has been send" });
+                }
+                else {
+                    var email = req.body.email
+                    var x = await getEmail(req.body.email)
+                    setTimeout(async function () {
+                        console.log("timeout (2min)");
+                        var y = await getEmail(email)
+                    }, 2 * 60000);
+                    var a = Math.floor(1000 + Math.random() * 9000);
+                    var otp = new Otp({
+                        otp: a,
+                        email: req.body.email
+                    });
+                    // console.log("otp =", otp);
+                    try {
+                        doc = otp.save();
+                        sendMail(otp.email, otp.otp);
+                        res.status(201).json({ message: "all ok otp has been send" });
+                    }
+                    catch (err) {
+                        res.json({ msg: "some error!" });
+                    }
+                }
+            })
+
         }
     })
 }

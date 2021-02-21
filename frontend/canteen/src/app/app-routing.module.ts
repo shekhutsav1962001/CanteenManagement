@@ -7,6 +7,7 @@ import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { EditfoodComponent } from './admin/editfood/editfood.component';
 import { OneorderviewComponent } from './admin/oneorderview/oneorderview.component';
 import { OneuserviewComponent } from './admin/oneuserview/oneuserview.component';
+import { QrcodeComponent } from './admin/qrcode/qrcode.component';
 import { SeefoodComponent } from './admin/seefood/seefood.component';
 import { ViewCustomersComponent } from './admin/view-customers/view-customers.component';
 import { ViewfeedbackComponent } from './admin/viewfeedback/viewfeedback.component';
@@ -54,7 +55,7 @@ const routes: Routes = [
   { path: 'admin/viewuser', component: OneuserviewComponent, canActivate: [AdminGuard] },
   { path: 'admin/viewfeeback', component: ViewfeedbackComponent, canActivate: [AdminGuard] },
   { path: 'admin/orderhistory', component: VieworderhistoryComponent, canActivate: [AdminGuard] },
-
+  { path: 'admin/qrcode', component: QrcodeComponent, canActivate: [AdminGuard] },
 
   // user
   { path: 'userhome', component: UserhomeComponent, canActivate: [UserGuard] },
