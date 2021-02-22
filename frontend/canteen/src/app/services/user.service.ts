@@ -90,4 +90,11 @@ export class UserService {
   {
     return this.http.get(this.baseUri + "getoneorder/" + id, { headers: this.headers });
   }
+
+  feedback(body: any) {
+    return this.http.post(this.baseUri + "sendfeedback", body, {
+      observe: 'body',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
 }

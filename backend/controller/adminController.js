@@ -2,6 +2,7 @@ require('dotenv').config()
 var Food = require('../models/food')
 var User = require('../models/user')
 var Order = require('../models/order')
+var Feedback = require('../models/feedback')
 var QRCode = require('qrcode')
 const fileUploadmiddleware = require('../middleware/fileUpload')
 
@@ -294,7 +295,7 @@ exports.getallOrders = (req, res) => {
     var date = today.toJSON().slice(0, 10);
     // unpaid
     // pick up
-    Order.find( { $or: [{status:{$ne:"pick up"}} , {paymentstatus:"unpaid"}], orderdate: date }, (err, orders) => {
+    Order.find({ $or: [{ status: { $ne: "pick up" } }, { paymentstatus: "unpaid" }], orderdate: date }, (err, orders) => {
         if (err) {
             console.log("error in get all order by admin");
             return res.json({ errormsg: 'Somthing went wrong' });
@@ -416,10 +417,48 @@ exports.updatePaymentstatus = (req, res) => {
 
 exports.getQrcode = (req, res) => {
     var id = req.params.id
-    QRCode.toDataURL(id).then(url => {
-        res.json({ msg: url });
-    }).catch(err => {
-        console.log("error while generating qr code of order by admin");
-        return res.json({ errormsg: 'error while generating qr code' });
+    Order.findOne({ _id: id }, (err, order) => {
+        if (err) {
+            console.log("error while generating qr code of order by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        if (order.status == "completed" || order.status == "pick up") {
+            QRCode.toDataURL(id).then(url => {
+                res.json({ msg: url });
+            }).catch(err => {
+                console.log("error while generating qr code of order by admin");
+                return res.json({ errormsg: 'error while generating qr code' });
+            })
+        }
+        else {
+            console.log("order status must be completed or pickup for getting QR code");
+            return res.json({ errormsg: 'error while generating qr code' });
+        }
     })
+}
+
+
+
+exports.getallFeedback = (req, res) => {
+    Feedback.find({}, (err, feedbacks) => {
+        if (err) {
+            console.log("error in get all feedback by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        else {
+            feedbacks = feedbacks.reverse() 
+            res.json({ msg: feedbacks });
+        }
+    })
+}
+
+
+exports.deleteFeedback = (req, res) => {
+    Feedback.deleteOne({ _id: req.params.id }, (error) => {
+        if (error) {
+            console.log("error in delete feedback by admin");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+    })
+    return res.json({ msg: 'successfully feedback deleted' });
 }

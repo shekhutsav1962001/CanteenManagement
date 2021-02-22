@@ -16,5 +16,7 @@ router.post('/placeorder', verifyTokenmiddleware.verifyToken,useController.place
 router.get('/getalluserorders', verifyTokenmiddleware.verifyToken,useController.getAllUserOrders)
 router.get('/getalluserorders2', verifyTokenmiddleware.verifyToken,useController.getAllUserOrders2)
 router.get('/getoneorder/:id',verifyTokenmiddleware.verifyToken,useController.getoneOrder)
+router.post('/sendfeedback', verifyTokenmiddleware.verifyToken,useController.sendFeedback)
+router.post('/qrcode', verifyTokenmiddleware.verifyToken,useController.qrCode)
 // aa
 module.exports = router

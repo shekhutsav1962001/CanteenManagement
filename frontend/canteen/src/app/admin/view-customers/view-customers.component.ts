@@ -103,7 +103,7 @@ export class ViewCustomersComponent implements OnInit {
     )
   }
 
-
+  
   setMessage(msg: any, color: any) {
     this.errorMessage = msg;
     this.styl = {
