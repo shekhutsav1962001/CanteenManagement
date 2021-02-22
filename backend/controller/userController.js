@@ -2,6 +2,7 @@ var User = require('../models/user')
 var Food = require('../models/food')
 var Cart = require('../models/cart')
 var Order = require('../models/order')
+var Feedback = require('../models/feedback')
 exports.myProfile = (req, res) => {
     User.findOne({ _id: req.userId }, (error, user) => {
         if (error) {
@@ -479,6 +480,7 @@ exports.getAllUserOrders = (req, res) => {
             return res.json({ errormsg: 'Somthing went wrong' });
         }
         else {
+            orders = orders.reverse()
             res.json({ msg: orders });
         }
     })
@@ -493,6 +495,7 @@ exports.getAllUserOrders2 = (req, res) => {
             console.log("something went wrong!!")
             res.json({ errormsg: "something went wrong!!" });
         }
+        orders = orders.reverse()
         res.send(orders);
     })
 }
@@ -505,5 +508,63 @@ exports.getoneOrder = (req, res) => {
             return res.json({ errormsg: 'Somthing went wrong' });
         }
         return res.send(order);
+    })
+}
+
+exports.sendFeedback = (req, res) => {
+    var today = new Date();
+    var date = today.toJSON().slice(0, 10);
+    var fb = new Feedback({
+        userid: req.userId,
+        useremail: req.email,
+        name: req.body.name,
+        feedback: req.body.feedback,
+        date: date
+    })
+    fb.save(async (error, a) => {
+        if (error) {
+            console.log("something went wrong while sending feedback!!")
+            res.json({ errormsg: "something went wrong!!" });
+        }
+        else {
+            console.log("successfully send your feedback");
+            res.json({ msg: "successfully send your feedback" });
+        }
+    })
+}
+
+
+exports.qrCode = (req, res) => {
+    var id = req.body.id
+    Order.findOne({ _id: id }, (err, order) => {
+        if (err) {
+            console.log("error while scanning qr code of by user");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        if (order.paymentstatus == "paid") {
+            if (order.status == "completed") {
+                Order.updateOne({ _id: req.body.id }, { status: "pick up" }, (err, done) => {
+                    if (err) {
+                        console.log("error while scanning qr code and updating status of by user");
+                        return res.json({ errormsg: 'Somthing went wrong' });
+                    }
+                    else {
+                        console.log("order status is updated with qr code");
+                        const io = req.app.get('io');
+                        io.emit(req.body.email, "order status updated");
+                        io.emit("orderdelete", "order status updated");
+                        res.json({ msg: "successfully order confirmation done" });
+                    }
+                })
+            }
+            else {
+                console.log("your order is preparing");
+                return res.json({ errormsg: 'your order is preparing' });
+            }
+        }
+        else {
+            console.log("your payment status must be paid");
+            return res.json({ errormsg: 'you need to pay first' });
+        }
     })
 }

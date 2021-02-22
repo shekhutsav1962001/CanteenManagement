@@ -178,7 +178,14 @@ export class AdminhomeComponent implements OnInit {
 
   generateQr(item)
   {
-    this.adminService.setQrcode(item._id);
-    this.router.navigate(['/admin/qrcode'])
+    if(item.status=="completed" || item.status=="pick up")
+    {
+      this.adminService.setQrcode(item._id);
+      this.router.navigate(['/admin/qrcode'])
+    }
+    else
+    {
+      this.setMessage("order status must be completed", "#f04747");
+    }
   }
 }

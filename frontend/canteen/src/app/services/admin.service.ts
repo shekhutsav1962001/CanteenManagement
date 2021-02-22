@@ -125,4 +125,15 @@ export class AdminService {
   {
     return this.http.get(this.baseUri + "getqrcode/" + id, { headers: this.headers });
   }
+
+
+  getAllfeedback()
+  {
+    return this.http.get(this.baseUri + "getallfeedback", { headers: this.headers });
+  }
+
+  deleteFeedback(id)
+  {
+    return this.http.delete(this.baseUri + "deletefeedback/" + id, { headers: this.headers });
+  }
 }

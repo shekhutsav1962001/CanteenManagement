@@ -1,1 +1,77 @@
-<p>viewfeedback works!</p>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <app-admin-nav></app-admin-nav>
+  <div *ngIf="empty; else elseBlock">
+    <div style="margin-top: 50px;" class="d-flex justify-content-center">
+      <div class="row">
+        <div class="col-6">
+          <h5 class="text-capitalize m-lg-5">Seems Like Empty Orderlist!!!!</h5>
+          <h5 class="text-capitalize m-lg-5">Not found any today's order!!</h5>
+        </div>
+        <div class="col-6">
+          <img src="../../../assets/img/empty.svg" alt="" class="img-fluid ">
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <ng-template #elseBlock>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-image">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Feedback</th>
+              <th scope="col">Date</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items;index as i">
+              <th scope="row">{{i+1}}</th>
+              <td class="name" (click)="viewuser(item)">{{item.name}}</td>
+              <td class="email" (click)="viewuser(item)">{{item.useremail}}</td>
+              <td>
+                {{item.feedback}}
+              </td>
+              <td>
+                {{item.date}}
+              </td>
+              <td >
+                <i id="delete"  (click)="deletefeedback(item)" class="fa fa-trash" aria-hidden="true"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-template>
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
+
+</body>
+
+</html>

@@ -130,7 +130,7 @@ export class CartComponent implements OnInit {
         }
         if (data['msg']) {
           // this.setMessage(data['msg'], "#43b581");
-          this.authService.setMessage("successfully order placed", "#43b581");
+          this.authService.setMessage("successfully order placed", "green");
           this.router.navigate(['/userhome'])
         }
       },
