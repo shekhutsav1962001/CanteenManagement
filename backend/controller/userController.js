@@ -423,24 +423,34 @@ async function SaveinOrder(req, res, cart) {
                 }
             })
         }
-        var order = new Order({
-            userid: cart.userid,
-            useremail: cart.useremail,
-            items: cart.items,
-            total: cart.total,
-            orderdate: date
-        })
-        order.save(async (error, a) => {
+        User.findOne({ _id: req.userId },async (error, user) => {
             if (error) {
                 console.log("something went wrong!!")
                 res.json({ errormsg: "something went wrong!!" });
             }
             else {
-                console.log("order saved in order table");
-                // var y = await Place(req, res)
+                var order = new Order({
+                    userid: cart.userid,
+                    useremail: cart.useremail,
+                    items: cart.items,
+                    total: cart.total,
+                    orderdate: date,
+                    contact: user.contact
+                })
+                order.save(async (err, a) => {
+                    if (err) {
+                        console.log("something went wrong!!")
+                        res.json({ errormsg: "something went wrong!!" });
+                    }
+                    else {
+                        console.log("order saved in order table");
+                        // var y = await Place(req, res)
+                    }
+                })
+                var y = await Place(req, res)
             }
         })
-        var y = await Place(req, res)
+
     }
 }
 
@@ -565,6 +575,24 @@ exports.qrCode = (req, res) => {
         else {
             console.log("your payment status must be paid");
             return res.json({ errormsg: 'you need to pay first' });
+        }
+    })
+}
+
+
+
+exports.paymentDone = (req, res) => {
+    Order.updateOne({ _id: req.body.id }, { paymentstatus: "paid" }, (err, done) => {
+        if (err) {
+            console.log("error in paytm gateway by user");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        else {
+            console.log("order payment status updated by paytm gateway");
+            const io = req.app.get('io');
+            io.emit(req.body.email, "payment status updated");
+            io.emit("orderdelete", "payment status updated");
+            res.json({ msg: "successfully updated payment status!" });
         }
     })
 }

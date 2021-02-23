@@ -22,6 +22,10 @@ var orderSchema = mongoose.Schema({
         type: String,
         default: "unpaid"
     },
+    contact: {
+        type: String,
+        required: true,
+    },
     orderdate: { type: String }
 })
 module.exports = mongoose.model('order', orderSchema)
