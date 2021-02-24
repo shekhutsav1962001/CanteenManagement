@@ -115,3 +115,9 @@ a,a:hover{
   text-decoration: none;
   color: #0a192f;
 }
+tr{
+  transition: all 300ms ease-in-out;
+}
+tr:hover{
+  background-color: #f1f1f1;
+}

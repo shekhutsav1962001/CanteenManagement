@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  heroku :false
+  heroku :true
 };
 
 /*
