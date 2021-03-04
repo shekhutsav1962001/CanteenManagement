@@ -294,8 +294,8 @@ exports.getallOrders = (req, res) => {
     var today = new Date();
     var date = today.toJSON().slice(0, 10);
     // unpaid
-    // pick up
-    Order.find({ $or: [{ status: { $ne: "pick up" } }, { paymentstatus: "unpaid" }], orderdate: date }, (err, orders) => {
+    // picked up
+    Order.find({ $or: [{ status: { $ne: "picked up" } }, { paymentstatus: "unpaid" }], orderdate: date }, (err, orders) => {
         if (err) {
             console.log("error in get all order by admin");
             return res.json({ errormsg: 'Somthing went wrong' });
@@ -422,7 +422,7 @@ exports.getQrcode = (req, res) => {
             console.log("error while generating qr code of order by admin");
             return res.json({ errormsg: 'Somthing went wrong' });
         }
-        if (order.status == "completed" || order.status == "pick up") {
+        if (order.status == "completed" || order.status == "picked up") {
             QRCode.toDataURL(id).then(url => {
                 res.json({ msg: url });
             }).catch(err => {

@@ -155,7 +155,7 @@ export class AdminhomeComponent implements OnInit {
   }
 
   changePaymentStatus(newstatus, item) {
-    this.adminService.updatePaymentstatus({ id: item._id, paymentstatus: newstatus }).subscribe(
+    this.adminService.updatePaymentstatus({ id: item._id, paymentstatus: newstatus,email: item.useremail }).subscribe(
       data => {
         if (data['msg']) {
           this.setMessage(data['msg'], "#43b581");
@@ -178,7 +178,7 @@ export class AdminhomeComponent implements OnInit {
 
   generateQr(item)
   {
-    if(item.status=="completed" || item.status=="pick up")
+    if(item.status=="completed" || item.status=="picked up")
     {
       this.adminService.setQrcode(item._id);
       this.router.navigate(['/admin/qrcode'])

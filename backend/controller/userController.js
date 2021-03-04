@@ -375,9 +375,11 @@ async function SaveinOrder(req, res, cart) {
                 res.json({ errormsg: "something went wrong!!" });
             }
             else {
-                const orignalitemqty = orignalitem.foodqty;
-                if (orignalitemqty - oneitemqty < 0) {
-                    errormessage += " " + orignalitem.foodname
+                if (!orignalitem.unlimited) {
+                    const orignalitemqty = orignalitem.foodqty;
+                    if (orignalitemqty - oneitemqty < 0) {
+                        errormessage += " " + orignalitem.foodname
+                    }
                 }
             }
         });
@@ -403,27 +405,29 @@ async function SaveinOrder(req, res, cart) {
                     res.json({ errormsg: "something went wrong!!" });
                 }
                 else {
-                    let avail = true;
-                    if (onefooditem.foodqty - oneitemqty <= 0) {
-                        avail = false;
-                    }
-                    await Food.updateOne({ _id: oneitemid }, {
-                        foodqty: onefooditem.foodqty - oneitemqty,
-                        foodavail: avail
-                    }, function (err, done) {
-                        if (err) {
-                            console.log("something went wrong!!")
-                            res.json({ errormsg: "something went wrong!!" });
+                    if (!onefooditem.unlimited) {
+                        let avail = true;
+                        if (onefooditem.foodqty - oneitemqty <= 0) {
+                            avail = false;
                         }
-                        else {
-                            console.log("order placed step1");
+                        await Food.updateOne({ _id: oneitemid }, {
+                            foodqty: onefooditem.foodqty - oneitemqty,
+                            foodavail: avail
+                        }, function (err, done) {
+                            if (err) {
+                                console.log("something went wrong!!")
+                                res.json({ errormsg: "something went wrong!!" });
+                            }
+                            else {
+                                console.log("order placed step1");
 
-                        }
-                    })
+                            }
+                        })
+                    }
                 }
             })
         }
-        User.findOne({ _id: req.userId },async (error, user) => {
+        User.findOne({ _id: req.userId }, async (error, user) => {
             if (error) {
                 console.log("something went wrong!!")
                 res.json({ errormsg: "something went wrong!!" });
@@ -553,7 +557,7 @@ exports.qrCode = (req, res) => {
         }
         if (order.paymentstatus == "paid") {
             if (order.status == "completed") {
-                Order.updateOne({ _id: req.body.id }, { status: "pick up" }, (err, done) => {
+                Order.updateOne({ _id: req.body.id }, { status: "picked up" }, (err, done) => {
                     if (err) {
                         console.log("error while scanning qr code and updating status of by user");
                         return res.json({ errormsg: 'Somthing went wrong' });
