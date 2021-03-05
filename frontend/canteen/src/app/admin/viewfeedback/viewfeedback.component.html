@@ -30,7 +30,7 @@
 
   <ng-template #elseBlock>
 
-    <div class="container">
+    <div class="container" id="container">
       <div class="row">
         <div class="col-12">
           <table class="table table-image">
@@ -48,8 +48,8 @@
               <tr *ngFor="let item of items;index as i">
                 <th scope="row">{{i+1}}</th>
                 <td class="name" (click)="viewuser(item)">{{item.name}}</td>
-                <td class="email" (click)="viewuser(item)">{{item.useremail}}</td>
-                <td>
+                <td  style="min-width: 200px;" class="email" (click)="viewuser(item)">{{item.useremail}}</td>
+                <td style="min-width: 200px;">
                   {{item.feedback}}
                 </td>
                 <td>

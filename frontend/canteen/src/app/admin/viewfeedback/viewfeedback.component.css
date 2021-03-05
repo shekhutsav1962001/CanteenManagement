@@ -55,4 +55,7 @@ tr:hover{
   h3{
     font-size: 14px;
   }
+  #container{
+    overflow-x: scroll;
+  }
 }
