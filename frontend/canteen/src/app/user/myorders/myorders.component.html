@@ -17,23 +17,23 @@
   <app-user-nav></app-user-nav>
 
   <div *ngIf="empty; else elseBlock">
+
+
     <div style="margin-top: 50px;" class="d-flex justify-content-center">
       <div class="row">
-        <div class="col-6">
-          <h5 class="text-capitalize m-lg-5">Seems Like Empty Orderlist!!!!</h5>
-          <h5 class="text-capitalize m-lg-5">Not found any today's your order!!</h5>
-        </div>
-        <div class="col-6">
-          <img src="../../../assets/img/empty.svg" alt="" class="img-fluid ">
+        <div class="col">
+          <h3 class="text-center mb-5 animated pulse infinite" style="color: #2f2e41;">Seems Like Empty Orderlist!!!!
+          </h3>
+          <img src="https://storage.googleapis.com/canteen-assets/index/empty.svg" alt="" class="img-fluid "
+            style="max-height: 500px;">
         </div>
       </div>
-
-
     </div>
+
   </div>
 
   <ng-template #elseBlock>
-    <div class="container">
+    <div class="container" id="container">
 
       <div class="row">
         <div class="col-12">

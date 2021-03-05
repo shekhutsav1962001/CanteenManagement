@@ -79,7 +79,7 @@ h2{
 .bg-dark {
 
   /* background: #1a1a1a; */
-  background-image: url('../../../assets/img/bgy.png');
+  background-image: url('https://storage.googleapis.com/canteen-assets/index/bgy.png');
     background-size: cover;
     /* min-height: 100vh; */
     background-position: center;
@@ -231,11 +231,7 @@ input {
   padding: 20px 400px;
 }
 
-@media (max-width: 767px) {
-  .card-6 .card-footer {
-    padding: 20px 30px;
-  }
-}
+
 
 .image-upload {
   width: 100%;
@@ -283,4 +279,16 @@ input[type=number]::-webkit-outer-spin-button {
 
 .input--style-6.ng-invalid.ng-touched {
   border-bottom: 2px solid red;
+}
+
+@media (max-width: 767px) {
+  .card-6 .card-footer {
+    padding: 20px 30px;
+  }
+  h5{
+    font-size: 12px;
+  }
+  #filename{
+    font-size: 12px;
+  }
 }

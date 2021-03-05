@@ -16,7 +16,7 @@ export class AddfoodComponent implements OnInit {
   foodprice:any;
   foodqty:any;
   public errorMessage: any;
-  public styl :any; 
+  public styl :any;
   constructor(private authService: AuthService, private router: Router,private adminService: AdminService) { }
 
 
@@ -32,15 +32,15 @@ export class AddfoodComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log("object");
-        console.log(error);
+        // console.log("object");
+        // console.log(error);
       }
     )
   }
@@ -74,21 +74,21 @@ export class AddfoodComponent implements OnInit {
         if (data['errormsg']) {
           this.setMessage(data['errormsg'], "#f04747");
         }
-        console.log(data);
+        // console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        // console.log(error);
       }
     )
 
   }
 
   selectImage(event) {
-    console.log("image selected");
+    // console.log("image selected");
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.image = file;

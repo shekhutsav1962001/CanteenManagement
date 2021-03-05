@@ -26,7 +26,7 @@ export class EditfoodComponent implements OnInit {
     this.check();
     if (this.adminService.getFood()) {
       this.food = this.adminService.getFood();
-      console.log(this.food);
+      // console.log(this.food);
       if(this.food.foodavail)
       {
         this.isitavail = "yes";
@@ -65,10 +65,10 @@ export class EditfoodComponent implements OnInit {
   }
 
   onSubmit(f) {
-    console.log("submit");
+    // console.log("submit");
 
     if (f.controls.foodpic.value) {
-      console.log("yes image");
+      // console.log("yes image");
       // console.log(this.food);
 
       const formData = new FormData();
@@ -101,18 +101,18 @@ export class EditfoodComponent implements OnInit {
             this.authService.logoutUser();
             this.router.navigate(['/error'])
           }
-          console.log(error);
+          // console.log(error);
         }
       )
 
 
     }
     else {
-      console.log("no image");
+      // console.log("no image");
       // console.log(this.food);
       this.adminService.editfood(this.food).subscribe(
         data => {
-          console.log(data);
+          // console.log(data);
           if (data['msg']) {
             // console.log(data['msg']);
             this.authService.setMessage("successfully item updated", "#43b581");
@@ -127,7 +127,7 @@ export class EditfoodComponent implements OnInit {
             this.authService.logoutUser();
             this.router.navigate(['/error'])
           }
-          console.log(error);
+          // console.log(error);
         }
       )
     }
@@ -136,9 +136,9 @@ export class EditfoodComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         if (data['msg']) {
-          console.log(data['msg']);
+          // console.log(data['msg']);
         }
         else {
           this.authService.logoutUser();
@@ -150,7 +150,7 @@ export class EditfoodComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        // console.log(error);
       }
     )
   }

@@ -29,13 +29,13 @@ export class UserhomeComponent implements OnInit {
     this.getData()
     this.webSocketService.listen('foodcrudbyadmin').subscribe(
       (data) => {
-        console.log(data);
+        //console.log(data);
         this.getData();
       }
     )
     this.webSocketService.listen('cart').subscribe(
       (data) => {
-        console.log(data);
+        //console.log(data);
         this.getData();
       }
     )
@@ -58,7 +58,7 @@ export class UserhomeComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -66,21 +66,21 @@ export class UserhomeComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
 
   addtocart(item) {
-    // console.log(environment.heroku);
-    // console.log(item);
+    // //console.log(environment.heroku);
+    // //console.log(item);
 
     this.myitem._id = item._id;
     this.myitem.unlimited = item.unlimited;
@@ -88,11 +88,11 @@ export class UserhomeComponent implements OnInit {
     this.myitem.foodimage = item.foodimage;
     this.myitem.foodname = item.foodname;
     this.myitem.foodqty = 1;
-    console.log(this.myitem);
+    //console.log(this.myitem);
     this.userService.addtocart(this.myitem).subscribe(
       data => {
 
-        console.log(data);
+        //console.log(data);
         if (data['msg']) {
           this.setMessage("successfully item added to cart", "green");
         }
@@ -105,7 +105,7 @@ export class UserhomeComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }

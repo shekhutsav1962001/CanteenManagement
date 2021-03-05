@@ -73,3 +73,12 @@ img{
     color: black;
     font-size: medium;
   }
+
+  @media (max-width: 767px) {
+    #container{
+      overflow-x: scroll;
+    }
+    h3{
+      font-size: 14px;
+    }
+  }

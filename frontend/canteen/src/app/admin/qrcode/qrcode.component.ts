@@ -29,7 +29,7 @@ export class QrcodeComponent implements OnInit {
     else {
       this.adminService.generateQrcode(this.id).subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
           if (data['msg']) {
             this.src =data['msg'];
           }
@@ -42,7 +42,7 @@ export class QrcodeComponent implements OnInit {
             this.authService.logoutUser();
             this.router.navigate(['/error'])
           }
-          console.log(error);
+          //console.log(error);
         }
       )
     }
@@ -50,14 +50,14 @@ export class QrcodeComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }

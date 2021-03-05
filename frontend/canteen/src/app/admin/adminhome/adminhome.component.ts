@@ -68,7 +68,7 @@ export class AdminhomeComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        // console.log(error);
       }
     )
   }
@@ -76,14 +76,14 @@ export class AdminhomeComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        // console.log(error);
       }
     )
   }
@@ -98,7 +98,7 @@ export class AdminhomeComponent implements OnInit {
   }
 
   changeStatus(newstatus, item) {
-    console.log(item.useremail);
+    // console.log(item.useremail);
     this.adminService.updateOrderstatus({ id: item._id, status: newstatus, email: item.useremail }).subscribe(
       data => {
         if (data['msg']) {
@@ -115,7 +115,7 @@ export class AdminhomeComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        // console.log(error);
       }
     )
   }
@@ -137,7 +137,7 @@ export class AdminhomeComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        // console.log(error);
       }
     )
   }
@@ -171,7 +171,7 @@ export class AdminhomeComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        // console.log(error);
       }
     )
   }

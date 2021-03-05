@@ -29,9 +29,9 @@ export class AddfoodqtyComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         if (data['msg']) {
-          console.log(data['msg']);
+          // console.log(data['msg']);
         }
         else {
           this.authService.logoutUser();
@@ -43,7 +43,7 @@ export class AddfoodqtyComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        // console.log(error);
       }
     )
   }
@@ -55,7 +55,7 @@ export class AddfoodqtyComponent implements OnInit {
     }
     this.adminService.editfood(this.food).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         if (data['msg']) {
           // console.log(data['msg']);
           this.authService.setMessage("successfully quantity updated", "#43b581");
@@ -70,7 +70,7 @@ export class AddfoodqtyComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        // console.log(error);
       }
     )
   }

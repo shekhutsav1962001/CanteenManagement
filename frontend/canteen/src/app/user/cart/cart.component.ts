@@ -25,7 +25,7 @@ export class CartComponent implements OnInit {
     }
     this.webSocketService.listen('cart').subscribe(
       (data) => {
-        console.log(data);
+        //console.log(data);
         this.getdata();
       }
     )
@@ -37,7 +37,7 @@ export class CartComponent implements OnInit {
   getdata() {
     this.userService.getcart().subscribe(
       data => {
-        // console.log(data);
+        // //console.log(data);
         if (data['errormsg']) {
           this.setMessage(data['errormsg'], "#f04747");
         }
@@ -46,9 +46,9 @@ export class CartComponent implements OnInit {
           this.router.navigate(['/empty-cart']);
         }
         else {
-          console.log(data);
+          //console.log(data);
           this.arr = data[0];
-          console.log(this.arr);
+          //console.log(this.arr);
           if (this.arr == undefined) {
             this.authService.setCount(0);
             this.router.navigate(['/empty-cart']);
@@ -59,51 +59,51 @@ export class CartComponent implements OnInit {
           }
         }
 
-        // console.log(this.items);
+        // //console.log(this.items);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
         if (data) {
           this.getdata();
         }
-        // console.log(data.total);
+        // //console.log(data.total);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
 
   delete(item) {
-    console.log("delte");
-    console.log(item);
+    //console.log("delte");
+    //console.log(item);
     this.userService.deleteFromCart(item).subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
         this.setMessage("successfully deleted item", "#f04747");
-        // console.log(data.total);
+        // //console.log(data.total);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -122,7 +122,7 @@ export class CartComponent implements OnInit {
   }
 
   placeorder() {
-    console.log("place order");
+    //console.log("place order");
     this.userService.placeOrder({}).subscribe(
       data => {
         if (data['errormsg']) {

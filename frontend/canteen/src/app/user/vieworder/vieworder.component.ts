@@ -47,7 +47,7 @@ export class VieworderComponent implements OnInit {
       this.userService.getOneOrder(this.id).subscribe(
         data => {
 
-            console.log(data);
+            //console.log(data);
             this.arr = data[0];
             if (this.arr == undefined) {
               this.router.navigate(['/admin/adminhome']);
@@ -67,7 +67,7 @@ export class VieworderComponent implements OnInit {
             this.authService.logoutUser();
             this.router.navigate(['/error'])
           }
-          console.log(error);
+          //console.log(error);
         }
       )
     }
@@ -78,14 +78,14 @@ export class VieworderComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }

@@ -40,14 +40,14 @@ export class OneuserviewComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -76,7 +76,7 @@ export class OneuserviewComponent implements OnInit {
             this.authService.logoutUser();
             this.router.navigate(['/error'])
           }
-          console.log(error);
+          //console.log(error);
         }
       )
     }

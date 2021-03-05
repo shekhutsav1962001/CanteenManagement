@@ -64,3 +64,19 @@ img{
 .picked {
   background-color: #f1f1f1;
 }
+
+
+@media (max-width: 767px) {
+  #container{
+    overflow-x: scroll;
+  }
+  h3{
+    font-size: 14px;
+  }
+  thead{
+    font-size: 14px;
+  }
+  td{
+    font-size: 13px;
+  }
+}

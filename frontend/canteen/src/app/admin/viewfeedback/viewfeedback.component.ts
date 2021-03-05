@@ -35,7 +35,7 @@ export class ViewfeedbackComponent implements OnInit {
           {
             this.empty = false;
           }
-          console.log(data);
+          //console.log(data);
         }
         if (data['errormsg']) {
           this.setMessage(data['errormsg'], "#f04747");
@@ -47,7 +47,7 @@ export class ViewfeedbackComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -55,14 +55,14 @@ export class ViewfeedbackComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -83,8 +83,8 @@ export class ViewfeedbackComponent implements OnInit {
   }
 
   deletefeedback(item) {
-    // console.log("delete");
-    console.log(item);
+    // //console.log("delete");
+    //console.log(item);
 
     this.adminService.deleteFeedback(item._id).subscribe(
       data => {
@@ -101,7 +101,7 @@ export class ViewfeedbackComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }

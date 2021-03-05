@@ -26,7 +26,7 @@ export class ViewCustomersComponent implements OnInit {
       data => {
         if (data['user']) {
           this.users = data['user'];
-          console.log(data);
+          //console.log(data);
         }
         if (data['errormsg']) {
           this.setMessage(data['errormsg'], "#f04747");
@@ -38,7 +38,7 @@ export class ViewCustomersComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -46,14 +46,14 @@ export class ViewCustomersComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -76,7 +76,7 @@ export class ViewCustomersComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -98,12 +98,12 @@ export class ViewCustomersComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
 
-  
+
   setMessage(msg: any, color: any) {
     this.errorMessage = msg;
     this.styl = {

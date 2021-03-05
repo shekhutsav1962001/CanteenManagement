@@ -381,6 +381,12 @@ async function SaveinOrder(req, res, cart) {
                         errormessage += " " + orignalitem.foodname
                     }
                 }
+                else {
+                    if (!orignalitem.foodavail) {
+
+                        errormessage += " " + orignalitem.foodname
+                    }
+                }
             }
         });
     }

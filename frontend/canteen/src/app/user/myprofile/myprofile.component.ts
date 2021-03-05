@@ -18,7 +18,7 @@ export class MyprofileComponent implements OnInit {
   public errorMessage: any;
   public styl: any;
   constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
- 
+
   ngOnInit(): void {
     this.check();
     this.getData();
@@ -30,7 +30,7 @@ export class MyprofileComponent implements OnInit {
   getData() {
     this.userService.myprofile().subscribe(
       data => {
-        // console.log(data);
+        // //console.log(data);
         if (data['user']) {
           this.user = data['user'];
           this.name = this.user.name;
@@ -47,21 +47,21 @@ export class MyprofileComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }

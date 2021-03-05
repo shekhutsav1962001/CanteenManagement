@@ -78,7 +78,7 @@ h2{
 .bg-dark {
 
   /* background: #1a1a1a; */
-  background-image: url('../../../assets/img/bgy.png');
+  background-image: url('https://storage.googleapis.com/canteen-assets/index/bgy.png');
     background-size: cover;
     /* min-height: 100vh; */
     background-position: center;
@@ -144,7 +144,20 @@ h2{
   background: #185ac1;
 }
 
+@media (max-width: 767px) {
+  .btn--radius-2 {
+    width: 100px;
+  }
+  .btn--radius-3 {
+    width: 135px;
 
+  }
+  .btn {
+    font-size: 13px;
+    line-height: 20px;
+    padding:5px;
+  }
+}
 /* ==========================================================================
    #FORM
    ========================================================================== */

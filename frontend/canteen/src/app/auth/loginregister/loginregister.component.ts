@@ -88,14 +88,14 @@ export class LoginregisterComponent implements OnInit {
     this.authService.login(JSON.stringify(f.value))
       .subscribe(
         data => {
-          // console.log(data);
+          // //console.log(data);
           if (data['msg']) {
             this.msg = data['msg'];
             this.avail = true;
             return;
           }
           if (data['role'] == "admin") {
-            // console.log("admin");
+            // //console.log("admin");
             localStorage.setItem('token', data['token']);
 
             localStorage.setItem('userid', f.controls.email.value);
@@ -105,7 +105,7 @@ export class LoginregisterComponent implements OnInit {
 
           }
           else {
-            // console.log("user");
+            // //console.log("user");
             if (data['blocked'] == true) {
               this.msg = "You are blocked by Admin wait until admin unblock you!!!";
               this.avail = true;

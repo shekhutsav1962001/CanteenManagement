@@ -18,56 +18,53 @@
   <div *ngIf="empty; else elseBlock">
     <div style="margin-top: 50px;" class="d-flex justify-content-center">
       <div class="row">
-        <div class="col-6">
-          <h5 class="text-capitalize m-lg-5">Seems Like Empty Orderlist!!!!</h5>
-          <h5 class="text-capitalize m-lg-5">Not found any today's order!!</h5>
-        </div>
-        <div class="col-6">
-          <img src="../../../assets/img/empty.svg" alt="" class="img-fluid ">
+        <div class="col">
+          <h3 class="text-center mb-5 animated pulse infinite" style="color: #2f2e41;">Seems Like Empty Feedback List!!!!
+          </h3>
+          <img src="https://storage.googleapis.com/canteen-assets/index/empty.svg" alt="" class="img-fluid "
+            style="max-height: 500px;">
         </div>
       </div>
-
-
     </div>
   </div>
 
   <ng-template #elseBlock>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <table class="table table-image">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Feedback</th>
-              <th scope="col">Date</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of items;index as i">
-              <th scope="row">{{i+1}}</th>
-              <td class="name" (click)="viewuser(item)">{{item.name}}</td>
-              <td class="email" (click)="viewuser(item)">{{item.useremail}}</td>
-              <td>
-                {{item.feedback}}
-              </td>
-              <td>
-                {{item.date}}
-              </td>
-              <td >
-                <i id="delete"  (click)="deletefeedback(item)" class="fa fa-trash" aria-hidden="true"></i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-image">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Feedback</th>
+                <th scope="col">Date</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items;index as i">
+                <th scope="row">{{i+1}}</th>
+                <td class="name" (click)="viewuser(item)">{{item.name}}</td>
+                <td class="email" (click)="viewuser(item)">{{item.useremail}}</td>
+                <td>
+                  {{item.feedback}}
+                </td>
+                <td>
+                  {{item.date}}
+                </td>
+                <td>
+                  <i id="delete" (click)="deletefeedback(item)" class="fa fa-trash" aria-hidden="true"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-</ng-template>
+  </ng-template>
   <div class="errors" *ngIf="errorMessage">
     <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
   </div>

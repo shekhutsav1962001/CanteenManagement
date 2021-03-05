@@ -41,7 +41,7 @@ export class SeefoodComponent implements OnInit {
     {
       var x = this.authService.getMessage();
       this.setMessage(x.msg,x.color)
-      // console.log(this.authService.getMessage());
+      // //console.log(this.authService.getMessage());
     }
   }
 
@@ -51,7 +51,7 @@ export class SeefoodComponent implements OnInit {
         if (data['msg']) {
           this.fooditems = data['msg'];
           this.len = this.fooditems.length;
-          // console.log(data['msg']);
+          // //console.log(data['msg']);
         }
         if (data['errormsg']) {
           this.setMessage(data['errormsg'], "#f04747");
@@ -63,10 +63,10 @@ export class SeefoodComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
-    // console.log();
+    // //console.log();
   }
 
   setMessage(msg: any, color: any) {
@@ -82,30 +82,30 @@ export class SeefoodComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
 
   addfooditem(item) {
-    // console.log("add");
-    // console.log(item);
+    // //console.log("add");
+    // //console.log(item);
     this.adminService.setFood(item);
     this.router.navigate(['/admin/addfoodqty'])
   }
 
 
   deletefood(item) {
-    // console.log("delete");
+    // //console.log("delete");
 
-    // console.log(item);
+    // //console.log(item);
     this.adminService.deleteFood(item._id).subscribe(
       data => {
         if (data['msg']) {
@@ -121,13 +121,13 @@ export class SeefoodComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
 
   editfood(item) {
-    // console.log("edit");
+    // //console.log("edit");
     this.adminService.setFood(item);
     this.router.navigate(['/admin/editfood'])
   }

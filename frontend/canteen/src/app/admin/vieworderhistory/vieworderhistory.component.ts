@@ -35,8 +35,8 @@ export class VieworderhistoryComponent implements OnInit {
         if (data['msg']) {
           this.fooditems = data['msg'];
           this.total = data['total']
-          console.log(this.fooditems);
-          console.log(this.total);
+          //console.log(this.fooditems);
+          //console.log(this.total);
           if(this.total==0)
           {
             this.empty=true;
@@ -56,7 +56,7 @@ export class VieworderhistoryComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -74,14 +74,14 @@ export class VieworderhistoryComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }

@@ -17,23 +17,22 @@
   <app-admin-nav></app-admin-nav>
 
   <div *ngIf="empty; else elseBlock">
+
     <div style="margin-top: 50px;" class="d-flex justify-content-center">
       <div class="row">
-        <div class="col-6">
-          <h5 class="text-capitalize m-lg-5">Seems Like Empty Orderlist!!!!</h5>
-          <h5 class="text-capitalize m-lg-5">Not found any today's order!!</h5>
-        </div>
-        <div class="col-6">
-          <img src="../../../assets/img/empty.svg" alt="" class="img-fluid ">
+        <div class="col">
+          <h3 class="text-center mb-5 animated pulse infinite" style="color: #2f2e41;">Seems Like Empty Orderlist!!!!
+          </h3>
+          <img src="https://storage.googleapis.com/canteen-assets/index/empty.svg" alt="" class="img-fluid "
+            style="max-height: 500px;">
         </div>
       </div>
-
-
     </div>
+
   </div>
 
   <ng-template #elseBlock>
-    <div class="container">
+    <div class="container" id="container">
 
       <div class="row">
         <div class="col-12">
@@ -70,7 +69,7 @@
                 </td>
                 <td class="payment">
                   <select value="{{item.paymentstatus}}" class="form-select my-2"
-                    (change)="changePaymentStatus($event.target.value , item)" >
+                    (change)="changePaymentStatus($event.target.value , item)">
                     <option value="paid">paid</option>
                     <option value="unpaid">unpaid</option>
                   </select>
@@ -79,7 +78,7 @@
                   <i class="fa fa-eye" (click)="vieworder(item)" id="view" aria-hidden="true"></i>
                 </td>
                 <td class="qr">
-                  <i id="qr"  (click)="generateQr(item)" class="fa fa-qrcode" aria-hidden="true"></i>
+                  <i id="qr" (click)="generateQr(item)" class="fa fa-qrcode" aria-hidden="true"></i>
                 </td>
                 <td>{{item.total}} ₹</td>
 

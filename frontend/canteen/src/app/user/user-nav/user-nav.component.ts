@@ -21,7 +21,7 @@ export class UserNavComponent implements OnInit {
 
     this.webSocketService.listen('cart').subscribe(
       (data) => {
-        console.log(data);
+        //console.log(data);
         this.getData();
       }
     )
@@ -51,7 +51,7 @@ export class UserNavComponent implements OnInit {
   getData() {
     this.userService.getCount().subscribe(
       data => {
-        // console.log(data);
+        // //console.log(data);
         if(data['count'])
         {
           this.count = data['count'];
@@ -62,7 +62,7 @@ export class UserNavComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }

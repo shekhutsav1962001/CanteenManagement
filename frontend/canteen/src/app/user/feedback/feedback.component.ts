@@ -23,14 +23,14 @@ export class FeedbackComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -45,7 +45,7 @@ export class FeedbackComponent implements OnInit {
     }, 4000);
   }
   onSubmit(f: NgForm) {
-    console.log(f.value);
+    //console.log(f.value);
     this.userService.feedback(JSON.stringify(f.value)).subscribe(
       data => {
         if (data['msg']) {
@@ -61,7 +61,7 @@ export class FeedbackComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }

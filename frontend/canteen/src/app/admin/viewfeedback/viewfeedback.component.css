@@ -51,3 +51,8 @@ tr{
 tr:hover{
   background-color: #f1f1f1;
 }
+@media (max-width: 767px) {
+  h3{
+    font-size: 14px;
+  }
+}

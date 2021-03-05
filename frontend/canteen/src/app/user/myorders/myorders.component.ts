@@ -38,7 +38,7 @@ export class MyordersComponent implements OnInit {
     )
   }
   vieworder(item) {
-    console.log("view order");
+    //console.log("view order");
     this.userService.setOrderid(item._id);
     this.router.navigate(['/vieworder'])
   }
@@ -52,14 +52,14 @@ export class MyordersComponent implements OnInit {
   check() {
     this.authService.check().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }
@@ -83,7 +83,7 @@ export class MyordersComponent implements OnInit {
           if (this.orders.length == 0) {
             this.empty = true;
           }
-          // console.log(this.orders);
+          // //console.log(this.orders);
         }
         if (data['errormsg']) {
           this.setMessage(data['errormsg'], "#f04747");
@@ -95,7 +95,7 @@ export class MyordersComponent implements OnInit {
           this.authService.logoutUser();
           this.router.navigate(['/error'])
         }
-        console.log(error);
+        //console.log(error);
       }
     )
   }

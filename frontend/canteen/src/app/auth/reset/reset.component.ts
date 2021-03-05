@@ -17,11 +17,11 @@ export class ResetComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmitForgot(f: NgForm) {
-    console.log("f submit");
+    //console.log("f submit");
     this.authService.reset(JSON.stringify(f.value))
       .subscribe(
         data => {
-          // console.log(data);
+          // //console.log(data);
           if (data['msg']) {
             this.msg = data['msg'];
             this.avail = true;
