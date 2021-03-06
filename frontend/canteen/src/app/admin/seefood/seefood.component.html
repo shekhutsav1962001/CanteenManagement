@@ -1,75 +1,56 @@
-<!DOCTYPE html>
-<html>
+<app-admin-nav></app-admin-nav>
+<div class="container" [@listAnimation]="len" id="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-image">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item Image</th>
+            <th scope="col">Item Name</th>
+            <th scope="col">Item Status</th>
+            <th scope="col">Add Quantity</th>
+            <th scope="col">Edit Item</th>
+            <th scope="col">Delete Item</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of fooditems;index as i">
+            <th scope="row">{{i+1}}</th>
+            <td class="w-25">
+              <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
+            </td>
+            <td>{{item.foodname}}</td>
+            <td>
+              <div *ngIf="item.foodavail; else myelseBlock" style="color: green;">
+                Available
+              </div>
 
-<head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-
-</head>
-
-<body>
-  <app-admin-nav></app-admin-nav>
-  <div class="container" [@listAnimation]="len" id="container"  >
-    <div class="row">
-      <div class="col-12">
-        <table class="table table-image">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Item Image</th>
-              <th scope="col">Item Name</th>
-              <th scope="col">Item Status</th>
-              <th scope="col">Add Quantity</th>
-              <th scope="col">Edit Item</th>
-              <th scope="col">Delete Item</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of fooditems;index as i">
-              <th scope="row">{{i+1}}</th>
-              <td class="w-25">
-                <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
-              </td>
-              <td>{{item.foodname}}</td>
-              <td>
-                <div *ngIf="item.foodavail; else myelseBlock" style="color: green;">
-                  Available
+              <ng-template #myelseBlock>
+                <div style="color: tomato;">
+                  Not Available
                 </div>
+              </ng-template>
+              <!-- </div> -->
+            </td>
+            <td>
 
-                  <ng-template #myelseBlock>
-                    <div style="color: tomato;">
-                    Not Available
-                    </div>
-                  </ng-template>
-                <!-- </div> -->
-              </td>
-              <td>
-
-                <i class="fa fa-plus" id="plus" *ngIf="!item.unlimited; else elseBlock" (click)="addfooditem(item)"
-                  aria-hidden="true"></i>
-                <ng-template #elseBlock>
-                  unlimited
-                </ng-template>
-              </td>
-              <td><i class="fa fa-edit" id="edit" (click)="editfood(item)" aria-hidden="true"></i></td>
-              <td><i class="fa fa-trash" id="delete" (click)="deletefood(item)" aria-hidden="true"></i></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              <i class="fa fa-plus" id="plus" *ngIf="!item.unlimited; else elseBlock" (click)="addfooditem(item)"
+                aria-hidden="true"></i>
+              <ng-template #elseBlock>
+                unlimited
+              </ng-template>
+            </td>
+            <td><i class="fa fa-edit" id="edit" (click)="editfood(item)" aria-hidden="true"></i></td>
+            <td><i class="fa fa-trash" id="delete" (click)="deletefood(item)" aria-hidden="true"></i></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 
 
-  <div class="errors" *ngIf="errorMessage">
-    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
-  </div>
-</body>
-
-</html>
+<div class="errors" *ngIf="errorMessage">
+  <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+</div>

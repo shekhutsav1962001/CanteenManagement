@@ -1,20 +1,21 @@
-  <nav class="navbar  navbar-expand-lg">
-    <a [routerLink]="['/']" class="navbar-brand">
-      <img src="https://storage.googleapis.com/canteen-assets/index/logo.png" height="30" alt="CoolBrand" style="margin-left: 10px;">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      style="color: white;" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon "><i class="fa fa-bars" style="color:#F8C44C; font-size:28px;"></i></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a [routerLink]="['/']" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="/#/#food"   class="nav-link">Food</a></li>
-        <li class="nav-item"><a [routerLink]="['/login-register']" class="nav-link">Register/Login</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="errors" *ngIf="errorMessage">
-    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+<nav class="navbar  navbar-expand-lg">
+  <a [routerLink]="['/']" class="navbar-brand">
+    <img src="https://storage.googleapis.com/canteen-assets/index/logo.png" height="30" alt="CoolBrand"
+      style="margin-left: 10px;">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    style="color: white;outline: none;" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon "><i class="fa fa-bars" style="color:#F8C44C; font-size:28px;"></i></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a [routerLink]="['/']" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="/#/#food" class="nav-link">Food</a></li>
+      <li class="nav-item"><a [routerLink]="['/login-register']" class="nav-link">Register/Login</a></li>
+    </ul>
   </div>
+</nav>
+
+<div class="errors" *ngIf="errorMessage">
+  <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+</div>

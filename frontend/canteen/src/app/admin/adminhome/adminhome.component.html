@@ -1,101 +1,82 @@
-<!DOCTYPE html>
-<html>
+<app-admin-nav></app-admin-nav>
 
-<head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<div *ngIf="empty; else elseBlock">
 
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-
-</head>
-
-<body>
-  <app-admin-nav></app-admin-nav>
-
-  <div *ngIf="empty; else elseBlock">
-
-    <div style="margin-top: 50px;" class="d-flex justify-content-center">
-      <div class="row">
-        <div class="col">
-          <h3 class="text-center mb-5 animated pulse infinite" style="color: #2f2e41;">Seems Like Empty Orderlist!!!!
-          </h3>
-          <img src="https://storage.googleapis.com/canteen-assets/index/empty.svg" alt="" class="img-fluid "
-            style="max-height: 500px;">
-        </div>
+  <div style="margin-top: 50px;" class="d-flex justify-content-center">
+    <div class="row">
+      <div class="col">
+        <h3 class="text-center mb-5 animated pulse infinite" style="color: #2f2e41;">Seems Like Empty Orderlist!!!!
+        </h3>
+        <img src="https://storage.googleapis.com/canteen-assets/index/empty.svg" alt="" class="img-fluid "
+          style="max-height: 500px;">
       </div>
     </div>
-
   </div>
 
-  <ng-template #elseBlock>
-    <div class="container" id="container">
+</div>
 
-      <div class="row">
-        <div class="col-12">
+<ng-template #elseBlock>
+  <div class="container" id="container">
 
-          <table class="table table-image">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <!-- <th scope="col">Qr Code</th> -->
-                <th scope="col">User Email</th>
-                <th scope="col">Order Status</th>
-                <th scope="col">Payment Status</th>
-                <th scope="col">View Order</th>
-                <th scope="col">View Qrcode</th>
-                <th scope="col">Total</th>
-                <th scope="col">Delete Order</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of orders;index as i">
-                <th scope="row">{{i+1}}</th>
-                <!-- <td class="w-25">
+    <div class="row">
+      <div class="col-12">
+
+        <table class="table table-image">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <!-- <th scope="col">Qr Code</th> -->
+              <th scope="col">User Email</th>
+              <th scope="col">Order Status</th>
+              <th scope="col">Payment Status</th>
+              <th scope="col">View Order</th>
+              <th scope="col">View Qrcode</th>
+              <th scope="col">Total</th>
+              <th scope="col">Delete Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orders;index as i">
+              <th scope="row">{{i+1}}</th>
+              <!-- <td class="w-25">
                 <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
               </td> -->
-                <td style="cursor: pointer;" (click)="viewuser(item)">{{item.useremail}}</td>
-                <td>
-                  <select value="{{item.status}}" class="form-select  my-2"
-                    (change)="changeStatus($event.target.value , item)">
-                    <option value="placed">placed</option>
-                    <option value="preparing">preparing</option>
-                    <option value="completed">Completed</option>
-                    <option value="picked up">Picked up</option>
-                  </select>
-                </td>
-                <td class="payment">
-                  <select value="{{item.paymentstatus}}" class="form-select my-2"
-                    (change)="changePaymentStatus($event.target.value , item)">
-                    <option value="paid">paid</option>
-                    <option value="unpaid">unpaid</option>
-                  </select>
-                </td>
-                <td>
-                  <i class="fa fa-eye" (click)="vieworder(item)" id="view" aria-hidden="true"></i>
-                </td>
-                <td class="qr">
-                  <i id="qr" (click)="generateQr(item)" class="fa fa-qrcode" aria-hidden="true"></i>
-                </td>
-                <td>{{item.total}} ₹</td>
+              <td style="cursor: pointer;" (click)="viewuser(item)">{{item.useremail}}</td>
+              <td>
+                <select value="{{item.status}}" class="form-select  my-2"
+                  (change)="changeStatus($event.target.value , item)">
+                  <option value="placed">placed</option>
+                  <option value="preparing">preparing</option>
+                  <option value="completed">Completed</option>
+                  <option value="picked up">Picked up</option>
+                </select>
+              </td>
+              <td class="payment">
+                <select value="{{item.paymentstatus}}" class="form-select my-2"
+                  (change)="changePaymentStatus($event.target.value , item)">
+                  <option value="paid">paid</option>
+                  <option value="unpaid">unpaid</option>
+                </select>
+              </td>
+              <td>
+                <i class="fa fa-eye" (click)="vieworder(item)" id="view" aria-hidden="true"></i>
+              </td>
+              <td class="qr">
+                <i id="qr" (click)="generateQr(item)" class="fa fa-qrcode" aria-hidden="true"></i>
+              </td>
+              <td>{{item.total}} ₹</td>
 
-                <td><i class="fa fa-trash" id="delete" (click)="deleteorder(item)" aria-hidden="true"></i></td>
+              <td><i class="fa fa-trash" id="delete" (click)="deleteorder(item)" aria-hidden="true"></i></td>
 
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-  </ng-template>
-
-
-  <div class="errors" *ngIf="errorMessage">
-    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
   </div>
-</body>
+</ng-template>
 
-</html>
+
+<div class="errors" *ngIf="errorMessage">
+  <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+</div>

@@ -1,78 +1,55 @@
-<!DOCTYPE html>
-<html>
+<app-admin-nav></app-admin-nav>
+<div class="container" id="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-image">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item Image</th>
+            <th scope="col">Item Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Item Price</th>
 
-<head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items;index as i">
+            <th scope="row">{{i+1}}</th>
+            <td class="w-25">
+              <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
+            </td>
+            <td>{{item.foodname}}</td>
+            <td>
+              <!-- <i class="fa fa-minus" aria-hidden="true"></i> -->
+              <span>{{item.foodqty}}</span>
+              <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
+            </td>
+            <td>{{item.foodprice}} ₹</td>
 
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-
-</head>
-
-<body>
-  <app-admin-nav></app-admin-nav>
-  <div class="container" id="container">
-    <div class="row">
-      <div class="col-12">
-        <table class="table table-image">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Item Image</th>
-              <th scope="col">Item Name</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Item Price</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of items;index as i">
-              <th scope="row">{{i+1}}</th>
-              <td class="w-25">
-                <img src="{{item.foodimage}}" class="img-fluid img-thumbnail"
-                  alt="No image found">
-              </td>
-              <td>{{item.foodname}}</td>
-              <td>
-                <!-- <i class="fa fa-minus" aria-hidden="true"></i> -->
-                <span>{{item.foodqty}}</span>
-                <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-              </td>
-              <td>{{item.foodprice}} ₹</td>
-
-            </tr>
-          </tbody>
-        </table>
-      </div>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="container" style="overflow-x: hidden;">
-    <div class="row">
+</div>
+<div class="container" style="overflow-x: hidden;">
+  <div class="row">
 
-      <!------------------------------------------------total section------------------------------------------------------------------  -->
+    <!------------------------------------------------total section------------------------------------------------------------------  -->
 
-      <div class="parent" style="background-color:rgb(235, 243, 251);margin-top: 15px;margin-bottom: 150px;"
-        id="lastcol">
+    <div class="parent" style="background-color:rgb(235, 243, 251);margin-top: 15px;margin-bottom: 150px;" id="lastcol">
 
-        <div class="info">
+      <div class="info">
 
-          <p style="margin-top: 5px;margin-bottom: 5px;">total = <b><span>{{total}}</span> ₹</b></p>
+        <p style="margin-top: 5px;margin-bottom: 5px;">total = <b><span>{{total}}</span> ₹</b></p>
 
-        </div>
       </div>
-
     </div>
 
   </div>
-  <div class="errors" *ngIf="errorMessage">
-    <app-message-box
-      [message]="errorMessage"  [styl]="styl"
-    ></app-message-box>
-  </div>
-</body>
 
-</html>
+</div>
+<div class="errors" *ngIf="errorMessage">
+  <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+</div>
