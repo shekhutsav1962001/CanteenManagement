@@ -17,9 +17,11 @@ export class UserhomeComponent implements OnInit {
   public myitem: any = {};
   public errorMessage: any;
   public styl: any;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private userService: UserService, private webSocketService: WebsocketService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     if(this.authService.getMessage())
     {
       var x = this.authService.getMessage();
@@ -45,6 +47,7 @@ export class UserhomeComponent implements OnInit {
     this.userService.getAllFood().subscribe(
       data => {
         if (data['msg']) {
+          this.loading = false
           this.fooditems = data['msg'];
         }
         if (data['errormsg']) {

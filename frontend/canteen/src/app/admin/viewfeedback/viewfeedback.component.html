@@ -1,54 +1,62 @@
 <app-admin-nav></app-admin-nav>
-<div *ngIf="empty; else elseBlock" style="overflow-x: hidden;">
-  <div style="margin-top: 50px;" class="d-flex justify-content-center">
-    <div class="row">
-      <div class="col">
-        <h3 class="text-center mb-5 animated pulse infinite" style="color: #2f2e41;">Seems Like Empty Feedback List!!!!
-        </h3>
-        <img src="https://storage.googleapis.com/canteen-assets/index/empty.svg" alt="" class="img-fluid "
-          style="max-height: 500px;">
-      </div>
-    </div>
-  </div>
-</div>
-
-<ng-template #elseBlock>
-
-  <div class="container" id="container">
-    <div class="row">
-      <div class="col-12">
-        <table class="table table-image">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Feedback</th>
-              <th scope="col">Date</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of items;index as i">
-              <th scope="row">{{i+1}}</th>
-              <td class="name" (click)="viewuser(item)">{{item.name}}</td>
-              <td style="min-width: 200px;" class="email" (click)="viewuser(item)">{{item.useremail}}</td>
-              <td style="min-width: 200px;">
-                {{item.feedback}}
-              </td>
-              <td>
-                {{item.date}}
-              </td>
-              <td>
-                <i id="delete" (click)="deletefeedback(item)" class="fa fa-trash" aria-hidden="true"></i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+<div *ngIf="loading; then thenBlock else myelseBlock"></div>
+<ng-template #thenBlock>
+  <app-loading></app-loading>
 </ng-template>
-<div class="errors" *ngIf="errorMessage">
-  <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
-</div>
+<ng-template #myelseBlock>
+  <div *ngIf="empty; else elseBlock" style="overflow-x: hidden;">
+    <div style="margin-top: 50px;" class="d-flex justify-content-center">
+      <div class="row">
+        <div class="col">
+          <h3 class="text-center mb-5 animated pulse infinite" style="color: #2f2e41;">Seems Like Empty Feedback
+            List!!!!
+          </h3>
+          <img src="https://storage.googleapis.com/canteen-assets/index/empty.svg" alt="" class="img-fluid "
+            style="max-height: 500px;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #elseBlock>
+
+    <div class="container" id="container">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-image">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Feedback</th>
+                <th scope="col">Date</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items;index as i">
+                <th scope="row">{{i+1}}</th>
+                <td class="name" (click)="viewuser(item)">{{item.name}}</td>
+                <td style="min-width: 200px;" class="email" (click)="viewuser(item)">{{item.useremail}}</td>
+                <td style="min-width: 200px;">
+                  {{item.feedback}}
+                </td>
+                <td>
+                  {{item.date}}
+                </td>
+                <td>
+                  <i id="delete" (click)="deletefeedback(item)" class="fa fa-trash" aria-hidden="true"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
+
+</ng-template>

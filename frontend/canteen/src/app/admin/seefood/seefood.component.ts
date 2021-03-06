@@ -32,11 +32,13 @@ export class SeefoodComponent implements OnInit {
   public len: any;
   public errorMessage: any;
   public styl: any;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.check();
     this.getFood();
+    this.loading = true;
     if(this.authService.getMessage())
     {
       var x = this.authService.getMessage();
@@ -49,6 +51,7 @@ export class SeefoodComponent implements OnInit {
     this.adminService.getAllFood().subscribe(
       data => {
         if (data['msg']) {
+          this.loading = false;
           this.fooditems = data['msg'];
           this.len = this.fooditems.length;
           // //console.log(data['msg']);
@@ -106,9 +109,11 @@ export class SeefoodComponent implements OnInit {
     // //console.log("delete");
 
     // //console.log(item);
+    this.loading = true
     this.adminService.deleteFood(item._id).subscribe(
       data => {
         if (data['msg']) {
+          this.loading = false
           this.setMessage("successfully item deleted", "#f04747");
           this.getFood();
         }

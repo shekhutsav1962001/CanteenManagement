@@ -1,55 +1,62 @@
 <app-admin-nav></app-admin-nav>
-<div class="container" id="container">
-  <div class="row">
-    <div class="col-12">
-      <table class="table table-image">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Item Image</th>
-            <th scope="col">Item Name</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Item Price</th>
+<div *ngIf="loading; then thenBlock else myelseBlock"></div>
+<ng-template #thenBlock>
+  <app-loading></app-loading>
+</ng-template>
+<ng-template #myelseBlock>
+  <div class="container" id="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-image">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Item Image</th>
+              <th scope="col">Item Name</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Item Price</th>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of items;index as i">
-            <th scope="row">{{i+1}}</th>
-            <td class="w-25">
-              <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
-            </td>
-            <td>{{item.foodname}}</td>
-            <td>
-              <!-- <i class="fa fa-minus" aria-hidden="true"></i> -->
-              <span>{{item.foodqty}}</span>
-              <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-            </td>
-            <td>{{item.foodprice}} ₹</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items;index as i">
+              <th scope="row">{{i+1}}</th>
+              <td class="w-25">
+                <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
+              </td>
+              <td>{{item.foodname}}</td>
+              <td>
+                <!-- <i class="fa fa-minus" aria-hidden="true"></i> -->
+                <span>{{item.foodqty}}</span>
+                <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
+              </td>
+              <td>{{item.foodprice}} ₹</td>
 
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<div class="container" style="overflow-x: hidden;">
-  <div class="row">
-
-    <!------------------------------------------------total section------------------------------------------------------------------  -->
-
-    <div class="parent" style="background-color:rgb(235, 243, 251);margin-top: 15px;margin-bottom: 150px;" id="lastcol">
-
-      <div class="info">
-
-        <p style="margin-top: 5px;margin-bottom: 5px;">total = <b><span>{{total}}</span> ₹</b></p>
-
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
+  <div class="container" style="overflow-x: hidden;">
+    <div class="row">
+
+      <!------------------------------------------------total section------------------------------------------------------------------  -->
+
+      <div class="parent" style="background-color:rgb(235, 243, 251);margin-top: 15px;margin-bottom: 150px;"
+        id="lastcol">
+
+        <div class="info">
+
+          <p style="margin-top: 5px;margin-bottom: 5px;">total = <b><span>{{total}}</span> ₹</b></p>
+
+        </div>
+      </div>
+
+    </div>
 
   </div>
-
-</div>
-<div class="errors" *ngIf="errorMessage">
-  <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
-</div>
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
+</ng-template>

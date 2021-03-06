@@ -1,78 +1,85 @@
 <app-admin-nav></app-admin-nav>
-<div class="page-wrapper bg-dark p-t-10 p-b-50">
-  <div class="wrapper wrapper--w900">
-    <div class="card card-6">
-      <div class="card-heading">
-        <h2 class="title">Edit Food</h2>
-      </div>
-      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-        <div class="card-body">
+<div *ngIf="loading; then thenBlock else myelseBlock"></div>
+<ng-template #thenBlock>
+  <app-loading></app-loading>
+</ng-template>
+<ng-template #myelseBlock>
+  <div class="page-wrapper bg-dark p-t-10 p-b-50">
+    <div class="wrapper wrapper--w900">
+      <div class="card card-6">
+        <div class="card-heading">
+          <h2 class="title">Edit Food</h2>
+        </div>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <div class="card-body">
 
-          <div class="form-row">
-            <div class="name">Food name</div>
-            <div class="value">
-              <input class="input--style-6" autocomplete="off" spellcheck="false" type="text" name="foodname"
-                [(ngModel)]="food.foodname" required>
+            <div class="form-row">
+              <div class="name">Food name</div>
+              <div class="value">
+                <input class="input--style-6" autocomplete="off" spellcheck="false" type="text" name="foodname"
+                  [(ngModel)]="food.foodname" required>
+              </div>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="name">Food price</div>
-            <div class="value">
+            <div class="form-row">
+              <div class="name">Food price</div>
+              <div class="value">
 
-              <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="1" name="foodprice"
-                [(ngModel)]="food.foodprice" pattern="^[-+]?\d*$" (keyup)="pricechnage($event)" required>
+                <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="1"
+                  name="foodprice" [(ngModel)]="food.foodprice" pattern="^[-+]?\d*$" (keyup)="pricechnage($event)"
+                  required>
+              </div>
             </div>
-          </div>
 
-          <div class="form-row" *ngIf="!food.unlimited">
-            <div class="name">Food Quantity </div>
-            <div class="value">
+            <div class="form-row" *ngIf="!food.unlimited">
+              <div class="name">Food Quantity </div>
+              <div class="value">
 
-              <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="0"
-                (keyup)="qtychnage($event)" name="foodqty" [(ngModel)]="food.foodqty" pattern="^[-+]?\d*$" required>
+                <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="0"
+                  (keyup)="qtychnage($event)" name="foodqty" [(ngModel)]="food.foodqty" pattern="^[-+]?\d*$" required>
+              </div>
             </div>
-          </div>
-          <div class="form-row" *ngIf="food.unlimited">
-            <div class="name">Is it available?</div>
-            <div class="value">
-              <select class="form-control" [(value)]="isitavail" (change)="changeisitAvail()">
-                <option value="yes" class="input--style-6">yes</option>
-                <option value="no" class="input--style-6">no</option>
-              </select>
+            <div class="form-row" *ngIf="food.unlimited">
+              <div class="name">Is it available?</div>
+              <div class="value">
+                <select class="form-control" [(value)]="isitavail" (change)="changeisitAvail()">
+                  <option value="yes" class="input--style-6">yes</option>
+                  <option value="no" class="input--style-6">no</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="form-row">
-            <div class="name">Food image</div>
-            <div class="value">
-              <div class="image-upload">
-
+            <div class="form-row">
+              <div class="name">Food image</div>
+              <div class="value">
+                <div class="image-upload">
 
 
-                <i class="fa fa-upload" aria-hidden="true"></i>
 
-                <h5><b>Choose Your Image to Upload</b></h5>
-                <h5><b>Or Drop Your Image Here</b></h5>
-                <!--upload-content-->
-                <input type="file" name="foodpic" class="image-input" (change)="selectImage($event)" ngModel
-                  #foodpic="ngModel">
+                  <i class="fa fa-upload" aria-hidden="true"></i>
 
-                <h5 id="filename"></h5>
+                  <h5><b>Choose Your Image to Upload</b></h5>
+                  <h5><b>Or Drop Your Image Here</b></h5>
+                  <!--upload-content-->
+                  <input type="file" name="foodpic" class="image-input" (change)="selectImage($event)" ngModel
+                    #foodpic="ngModel">
 
+                  <h5 id="filename"></h5>
+
+
+                </div>
 
               </div>
-
             </div>
+
+
           </div>
 
 
-        </div>
-
-
-        <div class="card-footer">
-          <button class="btn btn--radius-2 btn--blue-2" [disabled]="f.invalid" type="submit">Edit</button>
-        </div>
-      </form>
+          <div class="card-footer">
+            <button class="btn btn--radius-2 btn--blue-2" [disabled]="f.invalid" type="submit">Edit</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+</ng-template>

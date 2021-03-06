@@ -18,11 +18,13 @@ export class VieworderComponent implements OnInit {
   items: any[];
   total: any;
   arr: any[];
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.check()
     this.getData()
+    this.loading = true
   }
 
   setMessage(msg: any, color: any) {
@@ -53,6 +55,7 @@ export class VieworderComponent implements OnInit {
               this.router.navigate(['/admin/adminhome']);
             }
             else {
+              this.loading = false
               this.items = this.arr['items'];
               this.total = this.arr['total'];
             }

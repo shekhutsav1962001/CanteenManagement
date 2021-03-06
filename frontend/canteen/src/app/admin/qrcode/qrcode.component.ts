@@ -14,9 +14,11 @@ export class QrcodeComponent implements OnInit {
   public styl: any;
   public id: any;
   public src:any;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.check()
     this.getQr();
   }
@@ -31,6 +33,7 @@ export class QrcodeComponent implements OnInit {
         data => {
           //console.log(data);
           if (data['msg']) {
+            this.loading = false;
             this.src =data['msg'];
           }
           if (data['errormsg']) {

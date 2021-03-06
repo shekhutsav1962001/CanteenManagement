@@ -15,10 +15,12 @@ export class ViewfeedbackComponent implements OnInit {
   public errorMessage: any;
   public styl: any;
   public empty: any = false;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
 
   ngOnInit(): void {
+    this.loading = true;
     this.check();
     this.getData();
   }
@@ -27,6 +29,7 @@ export class ViewfeedbackComponent implements OnInit {
     this.adminService.getAllfeedback().subscribe(
       data => {
         if (data['msg']) {
+          this.loading =  false;
           this.items = data['msg'];
           if (this.items.length == 0) {
             this.empty = true;
@@ -85,10 +88,11 @@ export class ViewfeedbackComponent implements OnInit {
   deletefeedback(item) {
     // //console.log("delete");
     //console.log(item);
-
+    this.loading = true
     this.adminService.deleteFeedback(item._id).subscribe(
       data => {
         if (data['msg']) {
+          this.loading = false;
           this.setMessage("successfully feedback deleted", "#f04747");
           this.getData();
         }

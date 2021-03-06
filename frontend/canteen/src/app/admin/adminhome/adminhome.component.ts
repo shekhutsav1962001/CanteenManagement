@@ -15,9 +15,11 @@ export class AdminhomeComponent implements OnInit {
   public errorMessage: any;
   public styl: any;
   public empty: any = false;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private webSocketService: WebsocketService, private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.check()
     this.getOrder();
 
@@ -51,6 +53,7 @@ export class AdminhomeComponent implements OnInit {
     this.adminService.getAllOrder().subscribe(
       data => {
         if (data['msg']) {
+          this.loading = false;
           this.orders = data['msg'];
           if (this.orders.length == 0) {
             this.empty = true;
@@ -121,9 +124,11 @@ export class AdminhomeComponent implements OnInit {
   }
 
   deleteorder(item) {
+    this.loading = true
     this.adminService.deleteOrder(item._id).subscribe(
       data => {
         if (data['msg']) {
+          this.loading = false
           this.setMessage(data['msg'], "#f04747");
           this.getOrder();
         }

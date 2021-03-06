@@ -17,16 +17,18 @@ export class MyordersComponent implements OnInit {
   public styl: any;
   public empty: any = false;
   public userid: any;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private webSocketService: WebsocketService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.userid = localStorage.getItem('userid');
     this.check()
     this.getOrder();
+    this.loading = true
     this.webSocketService.listen(this.userid).subscribe(
       (data) => {
         this.getOrder();
-        this.playAudio();
+
         this.setMessage("Order status updated!!", "green");
       }
     )
@@ -43,12 +45,7 @@ export class MyordersComponent implements OnInit {
     this.router.navigate(['/vieworder'])
   }
 
-  playAudio(){
-    let audio = new Audio();
-    audio.src = "../../../assets/audio/notification.mp3";
-    audio.load();
-    audio.play();
-  }
+
   check() {
     this.authService.check().subscribe(
       data => {
@@ -79,6 +76,7 @@ export class MyordersComponent implements OnInit {
     this.userService.getAllOrder().subscribe(
       data => {
         if (data['msg']) {
+          this.loading = false
           this.orders = data['msg'];
           if (this.orders.length == 0) {
             this.empty = true;

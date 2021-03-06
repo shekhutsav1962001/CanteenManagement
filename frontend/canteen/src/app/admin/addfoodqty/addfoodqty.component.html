@@ -1,51 +1,58 @@
 <app-admin-nav></app-admin-nav>
-<div class="page-wrapper bg-dark p-t-10 p-b-50">
-  <div class="wrapper wrapper--w900">
-    <div class="card card-6">
-      <div class="card-heading">
-        <h2 class="title">Update Quantity</h2>
+<div *ngIf="loading; then thenBlock else myelseBlock"></div>
+<ng-template #thenBlock>
+  <app-loading></app-loading>
+</ng-template>
+<ng-template #myelseBlock>
+  <div class="page-wrapper bg-dark p-t-10 p-b-50">
+    <div class="wrapper wrapper--w900">
+      <div class="card card-6">
+        <div class="card-heading">
+          <h2 class="title">Update Quantity</h2>
+        </div>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <div class="card-body">
+
+            <div class="form-row">
+              <div class="name">Food name</div>
+              <div class="value">
+                <input class="input--style-6" autocomplete="off" spellcheck="false" type="text" name="foodname"
+                  [(ngModel)]="food.foodname" disabled>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="name">Food price</div>
+              <div class="value">
+
+                <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="1"
+                  name="foodprice" [(ngModel)]="food.foodprice" disabled>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="name">Food Quantity</div>
+              <div class="value">
+
+                <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="0" name="foodqty"
+                  [(ngModel)]="food.foodqty" (keyup)="qtychnage($event)" pattern="^[-+]?\d*$" required>
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+          <div class="card-footer">
+            <button class="btn btn--radius-2 btn--blue-2" [disabled]="f.invalid" type="submit">Update Quantity</button>
+          </div>
+        </form>
       </div>
-      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-        <div class="card-body">
-
-          <div class="form-row">
-            <div class="name">Food name</div>
-            <div class="value">
-              <input class="input--style-6" autocomplete="off" spellcheck="false" type="text" name="foodname"
-                [(ngModel)]="food.foodname" disabled>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="name">Food price</div>
-            <div class="value">
-
-              <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="1" name="foodprice"
-                [(ngModel)]="food.foodprice" disabled>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="name">Food Quantity</div>
-            <div class="value">
-
-              <input class="input--style-6" type="number" autocomplete="off" spellcheck="false" min="0" name="foodqty"
-                [(ngModel)]="food.foodqty" (keyup)="qtychnage($event)" pattern="^[-+]?\d*$" required>
-            </div>
-          </div>
-
-
-
-        </div>
-
-
-        <div class="card-footer">
-          <button class="btn btn--radius-2 btn--blue-2" [disabled]="f.invalid" type="submit">Update Quantity</button>
-        </div>
-      </form>
     </div>
   </div>
-</div>
 
-<div class="errors" *ngIf="errorMessage">
-  <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
-</div>
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
+
+</ng-template>

@@ -14,9 +14,11 @@ export class ViewCustomersComponent implements OnInit {
   public users: any[];
   public errorMessage: any;
   public styl: any;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.check();
     this.getData();
   }
@@ -25,6 +27,7 @@ export class ViewCustomersComponent implements OnInit {
     this.adminService.getAlluser().subscribe(
       data => {
         if (data['user']) {
+          this.loading = false;
           this.users = data['user'];
           //console.log(data);
         }

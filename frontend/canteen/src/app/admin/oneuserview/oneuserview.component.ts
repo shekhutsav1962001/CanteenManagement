@@ -19,10 +19,11 @@ export class OneuserviewComponent implements OnInit {
   public name: any;
   public email: any;
   public contact: any;
-
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.check()
     this.getData()
   }
@@ -61,6 +62,7 @@ export class OneuserviewComponent implements OnInit {
       this.adminService.getOneUser(this.id).subscribe(
         data => {
           if (data['msg']) {
+            this.loading = false;
             this.user = data['msg']
             this.name = this.user['name']
             this.email = this.user['email']

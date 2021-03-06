@@ -18,9 +18,11 @@ export class OneorderviewComponent implements OnInit {
   items: any[];
   total: any;
   arr: any[];
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.check()
     this.getData()
   }
@@ -43,6 +45,7 @@ export class OneorderviewComponent implements OnInit {
               this.router.navigate(['/admin/adminhome']);
             }
             else {
+              this.loading = false;
               this.items = this.arr['items'];
               this.total = this.arr['total'];
             }

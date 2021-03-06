@@ -18,9 +18,11 @@ export class VieworderhistoryComponent implements OnInit {
   public maxDate: any;
   public total: any = 0;
   public empty: any = false;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     var today = new Date();
     this.date = today.toJSON().slice(0, 10);
     this.maxDate = today.toJSON().slice(0, 10);
@@ -34,6 +36,7 @@ export class VieworderhistoryComponent implements OnInit {
       this.adminService.getOrderHistory(this.date).subscribe(
         data => {
           if (data['msg']) {
+            this.loading = false;
             this.fooditems = data['msg'];
             this.total = data['total']
             //console.log(this.fooditems);
@@ -91,6 +94,7 @@ export class VieworderhistoryComponent implements OnInit {
   }
 
   changeDate() {
+    this.loading = true;
     this.getOrder()
   }
 }

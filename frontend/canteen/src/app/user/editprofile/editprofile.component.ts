@@ -18,10 +18,12 @@ export class EditprofileComponent implements OnInit {
   public user: any;
   public errorMessage: any;
   public styl: any;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.check();
+    this.loading = true
     this.getData();
   }
 
@@ -30,6 +32,7 @@ export class EditprofileComponent implements OnInit {
       data => {
         // //console.log(data);
         if (data['user']) {
+          this.loading = false
           this.user = data['user'];
           this.name = this.user.name;
           this.email = this.user.email;

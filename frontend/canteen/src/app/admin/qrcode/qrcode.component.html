@@ -1,15 +1,21 @@
 <app-admin-nav></app-admin-nav>
-
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
-      <img src="{{src}}" alt="" class="img-fluid" style="width: 500px;">
+<div *ngIf="loading; then thenBlock else myelseBlock"></div>
+<ng-template #thenBlock>
+  <app-loading></app-loading>
+</ng-template>
+<ng-template #myelseBlock>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <img src="{{src}}" alt="" class="img-fluid" style="width: 500px;">
+      </div>
+      <div class="col-4"></div>
     </div>
-    <div class="col-4"></div>
   </div>
-</div>
 
-<div class="errors" *ngIf="errorMessage">
-  <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
-</div>
+  <div class="errors" *ngIf="errorMessage">
+    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+  </div>
+
+</ng-template>

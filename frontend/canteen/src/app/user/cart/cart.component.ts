@@ -16,6 +16,7 @@ export class CartComponent implements OnInit {
   arr: any[];
   public errorMessage: any;
   public styl: any;
+  public loading:any= true;
   constructor(private router: Router, private authService: AuthService, private userService: UserService, private webSocketService: WebsocketService) { }
 
   ngOnInit(): void {
@@ -29,6 +30,7 @@ export class CartComponent implements OnInit {
         this.getdata();
       }
     )
+    this.loading = true
     this.check();
     this.getdata();
   }
@@ -46,6 +48,7 @@ export class CartComponent implements OnInit {
           this.router.navigate(['/empty-cart']);
         }
         else {
+          this.loading = false
           //console.log(data);
           this.arr = data[0];
           //console.log(this.arr);
@@ -54,6 +57,7 @@ export class CartComponent implements OnInit {
             this.router.navigate(['/empty-cart']);
           }
           else {
+
             this.items = this.arr['items'];
             this.total = this.arr['total'];
           }
@@ -92,9 +96,11 @@ export class CartComponent implements OnInit {
   delete(item) {
     //console.log("delte");
     //console.log(item);
+    this.loading = true
     this.userService.deleteFromCart(item).subscribe(
       data => {
         //console.log(data);
+        this.loading = false
         this.setMessage("successfully deleted item", "#f04747");
         // //console.log(data.total);
       },

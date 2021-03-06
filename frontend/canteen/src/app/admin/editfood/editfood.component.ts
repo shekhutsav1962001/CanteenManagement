@@ -15,6 +15,7 @@ export class EditfoodComponent implements OnInit {
   public isitavail:any;
   public errorMessage: any;
   public styl :any;
+  public loading:any= true;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
@@ -24,7 +25,9 @@ export class EditfoodComponent implements OnInit {
       });
     });
     this.check();
+    this.loading = true;
     if (this.adminService.getFood()) {
+      this.loading = false;
       this.food = this.adminService.getFood();
       // console.log(this.food);
       if(this.food.foodavail)
