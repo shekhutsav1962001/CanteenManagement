@@ -30,35 +30,39 @@ export class VieworderhistoryComponent implements OnInit {
 
 
   getOrder() {
-    this.adminService.getOrderHistory(this.date).subscribe(
-      data => {
-        if (data['msg']) {
-          this.fooditems = data['msg'];
-          this.total = data['total']
-          //console.log(this.fooditems);
-          //console.log(this.total);
-          if(this.total==0)
-          {
-            this.empty=true;
+    if (this.date) {
+      this.adminService.getOrderHistory(this.date).subscribe(
+        data => {
+          if (data['msg']) {
+            this.fooditems = data['msg'];
+            this.total = data['total']
+            //console.log(this.fooditems);
+            //console.log(this.total);
+            if (this.total == 0) {
+              this.empty = true;
+            }
+            else {
+              this.empty = false;
+            }
           }
-          else
-          {
-            this.empty=false;
+          if (data['errormsg']) {
+            this.setMessage(data['errormsg'], "#f04747");
           }
-        }
-        if (data['errormsg']) {
-          this.setMessage(data['errormsg'], "#f04747");
-        }
-      },
-      (error) => {
+        },
+        (error) => {
 
-        if (error instanceof HttpErrorResponse) {
-          this.authService.logoutUser();
-          this.router.navigate(['/error'])
+          if (error instanceof HttpErrorResponse) {
+            this.authService.logoutUser();
+            this.router.navigate(['/error'])
+          }
+          //console.log(error);
         }
-        //console.log(error);
-      }
-    )
+      )
+    }
+    else {
+      this.setMessage("Please choose a date", "#f04747");
+    }
+
   }
 
   setMessage(msg: any, color: any) {
@@ -86,7 +90,7 @@ export class VieworderhistoryComponent implements OnInit {
     )
   }
 
-  changeDate(){
+  changeDate() {
     this.getOrder()
   }
 }
