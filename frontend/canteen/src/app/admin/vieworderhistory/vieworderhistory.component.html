@@ -1,6 +1,6 @@
 <app-admin-nav></app-admin-nav>
 
-<div class="container" id="container">
+<div class="container" style="overflow-x: hidden;">
   <div class="row">
     <div class="col-12">
       <div class="form-group row py-5">
@@ -29,36 +29,37 @@
         </div>
       </div>
       <ng-template #elseBlock>
-
-        <table class="table table-image">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Item Image</th>
-              <th scope="col">Item Name</th>
-              <th scope="col">Item Quantity</th>
-              <th scope="col">Item Price</th>
-              <th scope="col">Item Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of fooditems;index as i">
-              <th scope="row">{{i+1}}</th>
-              <td class="w-25">
-                <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
-              </td>
-              <td>{{item.foodname}}</td>
-              <td>
-                {{item.foodqty}}
-              </td>
-              <td>
-                {{item.foodprice}} ₹
-              </td>
-              <td>{{item.foodqty*item.foodprice}} ₹</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="container">
+        <div id="container">
+          <table class="table table-image">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item Image</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Item Quantity</th>
+                <th scope="col">Item Price</th>
+                <th scope="col">Item Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of fooditems;index as i">
+                <th scope="row">{{i+1}}</th>
+                <td class="w-25">
+                  <img src="{{item.foodimage}}" class="img-fluid img-thumbnail" alt="No image found">
+                </td>
+                <td>{{item.foodname}}</td>
+                <td>
+                  {{item.foodqty}}
+                </td>
+                <td>
+                  {{item.foodprice}} ₹
+                </td>
+                <td>{{item.foodqty*item.foodprice}} ₹</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="container" style="overflow-x: hidden;">
           <div class="row">
 
             <!------------------------------------------------total section------------------------------------------------------------------  -->
