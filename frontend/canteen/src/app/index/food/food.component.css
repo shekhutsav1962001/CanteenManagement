@@ -36,3 +36,13 @@ h2{
   text-shadow:#F8C44C 2px 2px 2px; */
 }
 
+@media (max-width: 700px) {
+  h2{
+    font-size: 50px;
+  }
+}
+@media (max-width: 400px) {
+  h2{
+    font-size: 40px;
+  }
+}

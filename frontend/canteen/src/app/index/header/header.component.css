@@ -2,7 +2,23 @@ body {
   background-color: #fff;
 
 }
+.masthead {
+  height: 92vh;
+  color: #2f2e41;
+  overflow-y: hidden;
+  min-height: 500px;
+  background-image: url('https://storage.googleapis.com/canteen-assets/index/bgy.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Space Mono', monospace;
 
+}
+
+.masthead h1 {
+  -webkit-animation: focus-in-contract-bck 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: focus-in-contract-bck 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
 .lead{
     color: #2f2e41;
     font-weight: bold;
@@ -62,4 +78,23 @@ body {
       color: tomato;
       background-color: #f1f1f1;
       /* color :#F8C44C */
+}
+
+
+@media (max-width: 700px) {
+  h1{
+    font-size: 24px;
+  }
+  h3{
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 500px) {
+  h1{
+    font-size: 18px;
+  }
+  h3{
+    font-size: 14px;
+  }
 }
