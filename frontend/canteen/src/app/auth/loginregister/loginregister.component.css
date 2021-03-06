@@ -479,6 +479,6 @@ form.sign-in-form {
 
 .input-field .ng-invalid.ng-touched {
   border-bottom: 2px solid red;
-  width: 300px;
+  max-width: 300px;
 }
 

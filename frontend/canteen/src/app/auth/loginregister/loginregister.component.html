@@ -1,121 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
+<app-indexnavbar></app-indexnavbar>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- fas -->
-  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-  <!-- font -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap" rel="stylesheet">
-</head>
-
-<body>
-  <!-- navbar -->
-  <app-indexnavbar></app-indexnavbar>
-  <!-- <div style="margin-top: 1px;"></div> -->
-  <div class="containerr">
-    <div class="forms-container">
-      <div class="signin-signup">
+<div class="containerr">
+  <div class="forms-container">
+    <div class="signin-signup">
 
 
-        <!-- signin -->
-        <form #a="ngForm" (ngSubmit)="onSubmitLogin(a)" class="sign-in-form">
-          <h2 class="title">Sign in</h2>
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="text" placeholder="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              autocomplete="off" spellcheck="false" ngModel required email #email="ngModel" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" name="p1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-              autocomplete="off" spellcheck="false" ngModel required #p1="ngModel" />
-          </div>
-          <input type="submit" [disabled]="a.invalid" value="Login" class="btn solid" />
-          <p class="social-text" style="font-weight: bold;"><a [routerLink]="['/reset']">Forgot password?</a></p>
-          <p class="social-text" style="color: red;font-weight: bold;font-size: 20px;" *ngIf="avail">{{msg}}</p>
-
-        </form>
-
-        <!-- signup -->
-        <form #f="ngForm" (ngSubmit)="onSubmitRegister(f)" class="sign-up-form">
-          <h2 class="title">Sign up</h2>
-
-          <div class="input-field">
-            <i class="fa fa-user"></i>
-            <input type="text" placeholder="Name" name="name" autocomplete="off" spellcheck="false" ngModel required
-              #name="ngModel" />
-
-          </div>
-
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              autocomplete="off" email spellcheck="false" ngModel required #email="ngModel" />
-
-          </div>
-          <div class="input-field">
-            <i class="fas fa-phone"></i>
-            <input type="text" placeholder="Mobile no" name="phone" pattern="^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$"
-              autocomplete="off" spellcheck="false" maxlength="10" ngModel required #phone="ngModel" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Enter Password" name="p1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-              autocomplete="off" spellcheck="false" ngModel required #p1="ngModel" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Re-enter Password" name="p2"
-              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off" spellcheck="false" ngModel required
-              #p2="ngModel" />
-          </div>
-
-          <input type="submit" [disabled]="f.invalid" class="btn" value="Sign up" />
-          <p class="social-text" style="color: red;font-weight: bold;font-size: 20px;" *ngIf="avail">{{msg}}</p>
-
-        </form>
-      </div>
-    </div>
-
-    <div class="panels-container">
-
-      <div class="panel left-panel">
-        <div class="content">
-          <h3>New User ?</h3>
-          <p>
-            There’s absolutely no need for me to go to the gym. The name of the cashier at the FoodZone’s I frequent is
-            Jim, so same thing!
-          </p>
-          <button class="btn transparent" id="sign-up-btn" (click)="signinup()">
-            Sign up
-          </button>
+      <!-- signin -->
+      <form #a="ngForm" (ngSubmit)="onSubmitLogin(a)" class="sign-in-form">
+        <h2 class="title">Sign in</h2>
+        <div class="input-field">
+          <i class="fas fa-envelope"></i>
+          <input type="text" placeholder="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            autocomplete="off" spellcheck="false" ngModel required email #email="ngModel" />
         </div>
-        <img src="https://storage.googleapis.com/canteen-assets/index/l.svg" class="image" alt="" />
-      </div>
-
-      <div class="panel right-panel">
-        <div class="content">
-          <h3>One of us ?</h3>
-          <p>
-            There’s absolutely no need for me to go to the gym. The name of the cashier at the FoodZone’s I frequent is
-            Jim, so same thing!
-          </p>
-          <button class="btn transparent" id="sign-in-btn" (click)="signinup()">
-            Sign in
-          </button>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" name="p1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            autocomplete="off" spellcheck="false" ngModel required #p1="ngModel" />
         </div>
-        <img src="https://storage.googleapis.com/canteen-assets/index/r.svg" class="image" alt="" />
-      </div>
+        <input type="submit" [disabled]="a.invalid" value="Login" class="btn solid" />
+        <p class="social-text" style="font-weight: bold;"><a [routerLink]="['/reset']">Forgot password?</a></p>
+        <p class="social-text" style="color: red;font-weight: bold;font-size: 20px;" *ngIf="avail">{{msg}}</p>
+
+      </form>
+
+      <!-- signup -->
+      <form #f="ngForm" (ngSubmit)="onSubmitRegister(f)" class="sign-up-form">
+        <h2 class="title">Sign up</h2>
+
+        <div class="input-field">
+          <i class="fa fa-user"></i>
+          <input type="text" placeholder="Name" name="name" autocomplete="off" spellcheck="false" ngModel required
+            #name="ngModel" />
+
+        </div>
+
+        <div class="input-field">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            autocomplete="off" email spellcheck="false" ngModel required #email="ngModel" />
+
+        </div>
+        <div class="input-field">
+          <i class="fas fa-phone"></i>
+          <input type="text" placeholder="Mobile no" name="phone" pattern="^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$"
+            autocomplete="off" spellcheck="false" maxlength="10" ngModel required #phone="ngModel" />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Enter Password" name="p1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            autocomplete="off" spellcheck="false" ngModel required #p1="ngModel" />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Re-enter Password" name="p2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            autocomplete="off" spellcheck="false" ngModel required #p2="ngModel" />
+        </div>
+
+        <input type="submit" [disabled]="f.invalid" class="btn" value="Sign up" />
+        <p class="social-text" style="color: red;font-weight: bold;font-size: 20px;" *ngIf="avail">{{msg}}</p>
+
+      </form>
     </div>
   </div>
 
+  <div class="panels-container">
 
-  <div class="errors" *ngIf="errorMessage">
-    <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+    <div class="panel left-panel">
+      <div class="content">
+        <h3>New User ?</h3>
+        <p>
+          There’s absolutely no need for me to go to the gym. The name of the cashier at the FoodZone’s I frequent is
+          Jim, so same thing!
+        </p>
+        <button class="btn transparent" id="sign-up-btn" (click)="signinup()">
+          Sign up
+        </button>
+      </div>
+      <img src="https://storage.googleapis.com/canteen-assets/index/l.svg" class="image" alt="" />
+    </div>
+
+    <div class="panel right-panel">
+      <div class="content">
+        <h3>One of us ?</h3>
+        <p>
+          There’s absolutely no need for me to go to the gym. The name of the cashier at the FoodZone’s I frequent is
+          Jim, so same thing!
+        </p>
+        <button class="btn transparent" id="sign-in-btn" (click)="signinup()">
+          Sign in
+        </button>
+      </div>
+      <img src="https://storage.googleapis.com/canteen-assets/index/r.svg" class="image" alt="" />
+    </div>
   </div>
-</body>
+</div>
 
-</html>
+
+<div class="errors" *ngIf="errorMessage">
+  <app-message-box [message]="errorMessage" [styl]="styl"></app-message-box>
+</div>
