@@ -18,7 +18,7 @@ export class VieworderhistoryComponent implements OnInit {
   public maxDate: any;
   public total: any = 0;
   public empty: any = false;
-  public loading:any= true;
+  public loading: any = true;
   constructor(private authService: AuthService, private router: Router, private adminService: AdminService) { }
 
   ngOnInit(): void {
@@ -94,7 +94,12 @@ export class VieworderhistoryComponent implements OnInit {
   }
 
   changeDate() {
-    this.loading = true;
-    this.getOrder()
+    if (this.date) {
+      this.loading = true;
+      this.getOrder()
+    }
+    else {
+      this.setMessage("Please choose a date", "#f04747");
+    }
   }
 }
