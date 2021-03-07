@@ -305,3 +305,26 @@ input[type=number]::-webkit-outer-spin-button {
 .input--style-6.ng-invalid.ng-touched {
   border-bottom: 2px solid red;
 }
+
+.modal .modal-content {
+  padding: 20px 20px 20px 20px;
+}
+
+.modal .modal-footer{
+  padding: 20px 0px 0px 0px;
+}
+@media (min-width: 1000px) {
+  .modal {
+    padding: 0% 30%;
+  }
+}
+@media (max-width: 1000px) {
+  .modal {
+    padding: 0% 25%;
+  }
+}
+@media (max-width: 430px) {
+  .modal {
+    padding: 0% 10%;
+  }
+}
