@@ -15,13 +15,15 @@
         </div>
         <div class="input-field">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" name="p1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-            autocomplete="off" spellcheck="false" ngModel required #p1="ngModel" />
+          <input type="password" placeholder="Password" name="p" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            autocomplete="off" spellcheck="false" ngModel required #p="ngModel" />
+
         </div>
         <input type="submit" [disabled]="a.invalid" value="Login" class="btn solid" />
         <p class="social-text" style="font-weight: bold;"><a [routerLink]="['/reset']">Forgot password?</a></p>
         <p class="social-text" style="color: red;font-weight: bold;font-size: 20px;" *ngIf="avail">{{msg}}</p>
-
+        <p class="passerror" *ngIf="!p.valid && p.dirty">Password should
+          have at least 1 number, one capital letter and minimum length 8</p>
       </form>
 
       <!-- signup -->
@@ -59,7 +61,8 @@
 
         <input type="submit" [disabled]="f.invalid" class="btn" value="Sign up" />
         <p class="social-text" style="color: red;font-weight: bold;font-size: 20px;" *ngIf="avail">{{msg}}</p>
-
+        <p class="passerror" *ngIf="!p1.valid && p1.dirty">Password should
+          have at least 1 number, one capital letter and minimum length 8</p>
       </form>
     </div>
   </div>

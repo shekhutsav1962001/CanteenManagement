@@ -55,7 +55,7 @@ exports.logIn = (req, res) => {
                 res.json({ msg: 'Invalid Email!!' })
             }
             else {
-                bcrypt.compare(req.body.p1, user.password).then(match => {
+                bcrypt.compare(req.body.p, user.password).then(match => {
                     if (match) {
                         console.log("login sucesssss");
                         let payload = { subject: user._id, email: user.email }
