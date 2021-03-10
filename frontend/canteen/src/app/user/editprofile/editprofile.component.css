@@ -328,3 +328,9 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 0% 10%;
   }
 }
+
+.modal-body{
+  padding: 3px;
+  border: tomato 2px solid;
+  border-radius: 5px;
+}
