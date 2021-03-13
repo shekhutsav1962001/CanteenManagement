@@ -7,6 +7,9 @@
   min-height: 75px;
 }
 
+.navbar ul li{
+  display: inline-flex;
+}
 
 ul li a{
   position: relative;
