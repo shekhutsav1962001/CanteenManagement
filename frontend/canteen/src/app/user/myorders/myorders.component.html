@@ -35,7 +35,7 @@
                 <th scope="col">Payment Status</th>
                 <th scope="col">View Order</th>
                 <th scope="col">Total</th>
-
+                <th scope="col">Make Payment</th>
               </tr>
             </thead>
             <tbody>
@@ -52,6 +52,11 @@
                   <i class="fa fa-eye" (click)="vieworder(item)" id="view" aria-hidden="true"></i>
                 </td>
                 <td>{{item.total}} ₹</td>
+                <td>
+                  <button class="btn btn-link" (click)="makepayment(item)" [disabled]="paymentAry[i]"><i class="fa fa-credit-card"
+                      id="view" aria-hidden="true"></i></button>
+                </td>
+
               </tr>
             </tbody>
           </table>

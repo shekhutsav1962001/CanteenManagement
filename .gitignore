@@ -1,5 +1,6 @@
 frontend/canteen/node_modules
 frontend/canteen/dist
+frontend/canteen/src/app/secret.ts
 frontend/canteen/src/assets/food
 backend/node_modules
 backend/.env

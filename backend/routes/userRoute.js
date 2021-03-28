@@ -19,5 +19,6 @@ router.get('/getoneorder/:id',verifyTokenmiddleware.verifyToken,useController.ge
 router.post('/sendfeedback', verifyTokenmiddleware.verifyToken,useController.sendFeedback)
 router.post('/qrcode', verifyTokenmiddleware.verifyToken,useController.qrCode)
 router.post('/paymentdone', verifyTokenmiddleware.verifyToken,useController.paymentDone)
+router.post('/paymentdoneweb',useController.paymentDoneWeb)
 // aa
 module.exports = router

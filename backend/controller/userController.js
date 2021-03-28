@@ -606,3 +606,19 @@ exports.paymentDone = (req, res) => {
         }
     })
 }
+
+exports.paymentDoneWeb = (req, res) => {
+    Order.updateOne({ _id: req.body.id }, { paymentstatus: "paid" }, (err, done) => {
+        if (err) {
+            console.log("error in paytm gateway by user");
+            return res.json({ errormsg: 'Somthing went wrong' });
+        }
+        else {
+            console.log("order payment status updated by paytm gateway");
+            const io = req.app.get('io');
+            io.emit(req.body.email, "payment status updated");
+            io.emit("orderdelete", "payment status updated");
+            res.json({ msg: "successfully updated payment status!" });
+        }
+    })
+}
