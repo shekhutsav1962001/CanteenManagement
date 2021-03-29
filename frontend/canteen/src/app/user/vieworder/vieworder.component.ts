@@ -42,7 +42,7 @@ export class VieworderComponent implements OnInit {
     this.id=this.userService.getOrderid()
     if(this.id==undefined)
     {
-      this.router.navigate(['/admin/adminhome'])
+      this.router.navigate(['/myorders'])
     }
     else
     {
@@ -52,7 +52,7 @@ export class VieworderComponent implements OnInit {
             //console.log(data);
             this.arr = data[0];
             if (this.arr == undefined) {
-              this.router.navigate(['/admin/adminhome']);
+              this.router.navigate(['/myorders']);
             }
             else {
               this.loading = false
