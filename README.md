@@ -1,7 +1,7 @@
 # CanteenManagement
 ![alt text](/logo.png)
 
-<h2> Flutter App Github Link : https://github.com/shekhutsav1962001/canteenApp </h2> 
+<h2> Flutter App source code :<a href="https://github.com/shekhutsav1962001/canteenApp">view</a></h2> 
 
 
 
