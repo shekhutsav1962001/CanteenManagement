@@ -10,7 +10,8 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item"><a [routerLink]="['/']" class="nav-link">Home</a></li>
-      <li class="nav-item"><a href="/#/#food" class="nav-link">Food</a></li>
+      <li class="nav-item"><a href="/#/#food" (click)="gotoFood()" class="nav-link">Food</a></li>
+
       <li class="nav-item"><a [routerLink]="['/login-register']" class="nav-link">Register/Login</a></li>
     </ul>
   </div>
