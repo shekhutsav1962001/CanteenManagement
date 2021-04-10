@@ -42,11 +42,9 @@ export class IndexnavbarComponent implements OnInit {
     }
   }
   gotoFood() {
-    if (this.myurl == "/#food") {
       setTimeout(() => {
         document.body.scrollTop = document.getElementById('food').offsetTop;
         document.documentElement.scrollTop = document.getElementById('food').offsetTop;
       }, 100);
-    }
   }
 }
