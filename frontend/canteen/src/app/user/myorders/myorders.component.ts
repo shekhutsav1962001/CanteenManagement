@@ -121,6 +121,7 @@ export class MyordersComponent implements OnInit {
 
 
   makepayment(item) {
+    this.loading = true
     this.paytm['CUST_ID'] = item.userid
     this.paytm['MOBILE_NO'] = item.contact
     this.paytm['EMAIL'] = item.useremail
