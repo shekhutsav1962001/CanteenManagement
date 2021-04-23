@@ -17,15 +17,14 @@ export class UserhomeComponent implements OnInit {
   public myitem: any = {};
   public errorMessage: any;
   public styl: any;
-  public loading:any= true;
+  public loading: any = true;
   constructor(private authService: AuthService, private router: Router, private userService: UserService, private webSocketService: WebsocketService) { }
 
   ngOnInit(): void {
     this.loading = true;
-    if(this.authService.getMessage())
-    {
+    if (this.authService.getMessage()) {
       var x = this.authService.getMessage();
-      this.setMessage(x.msg,x.color)
+      this.setMessage(x.msg, x.color)
     }
     this.check()
     this.getData()
@@ -39,6 +38,11 @@ export class UserhomeComponent implements OnInit {
       (data) => {
         //console.log(data);
         this.getData();
+      }
+    )
+    this.webSocketService.listen('neworderplaced').subscribe(
+      (data) => {
+        this.getData()
       }
     )
   }
